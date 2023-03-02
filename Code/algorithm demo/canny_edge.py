@@ -105,6 +105,16 @@ def non_max_surpression(Mag, theta):
     return Surp_M
 
 def threshold(img, lowThresholdRatio=0.05, highThresholdRatio=0.09):
+    """filter out information outside of the threshold boundaries
+
+    Args:
+        img (np.array): intensity values of the image
+        lowThresholdRatio (float, optional): lower boundary. Defaults to 0.05.
+        highThresholdRatio (float, optional): upper boundary. Defaults to 0.09.
+
+    Returns:
+        _type_: _description_
+    """
     
     highThreshold = img.max() * highThresholdRatio;
     lowThreshold = highThreshold * lowThresholdRatio;
@@ -126,9 +136,10 @@ def threshold(img, lowThresholdRatio=0.05, highThresholdRatio=0.09):
     return (res, weak, strong)
 
 if __name__ == "__main__":
-    img = cv2.imread("Code/data_set/MMU-Iris-Database/8/right/eugenehor3.bmp")
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    img = cv2.imread("Code/data_set/MMU-Iris-Database/28/left/ongbll3.bmp")
     img_0 = img.copy()
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
     print(type(img))
     
     cv2.imshow("img",img)
@@ -141,7 +152,7 @@ if __name__ == "__main__":
 
 
     #opencv Gaussian blur
-    img_blured = cv2.GaussianBlur(img, (5,5),0)
+    img_blured = cv2.GaussianBlur(img, (9,9),5)
     
     cv2.imshow("img_blured",img_blured)
     
@@ -157,6 +168,7 @@ if __name__ == "__main__":
     img_canny = cv2.Canny(img_blured, 5, 70, 3)
     cv2.imshow("canny", img_canny)
     #circles = cv2.HoughCircles(img_canny, cv2.HOUGH_GRADIENT, 16, 70, param1=200, param2=250, minRadius= 0, maxRadius= 100)
+    #circles = cv2.HoughCircles(img_canny, cv2.HOUGH_GRADIENT, 2, 80, param1=20, param2=40, minRadius= 45, maxRadius= 100)
     circles = cv2.HoughCircles(img_canny, cv2.HOUGH_GRADIENT, 2, 80, param1=30, param2=50, minRadius= 0, maxRadius= 30)
 
     if circles is not None:

@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2022.2.28)  23 FEB 2023 23:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2022.2.28)  1 MAR 2023 16:43
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"c:/Users/Anton Jakob/Dropbox/My PC (AJP)/Documents/OST/FS2023/SA/Latex/CADMO/thesis/thesis.tex"
-(c:/Users/Anton Jakob/Dropbox/My PC (AJP)/Documents/OST/FS2023/SA/Latex/CADMO/thesis/thesis.tex
+**"c:/Users/Anton Jakob/Dropbox/My PC (AJP)/Documents/OST/FS2023/SA/Algorithms_Eye_Detection/Latex/thesis/thesis.tex"
+(c:/Users/Anton Jakob/Dropbox/My PC (AJP)/Documents/OST/FS2023/SA/Algorithms_Eye_Detection/Latex/thesis/thesis.tex
 LaTeX2e <2021-11-15> patch level 1
 L3 programming layer <2021-11-22> (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/memoir\memoir.cls
 Document Class: memoir 2022/11/17 v3.7.19 configurable book, report, article document class
@@ -960,7 +960,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 
 {C:/Users/Anton Jakob/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./ost_logo.pdf>] [2
 
-] (abstract.tex)
+] (chapters/abstract.tex)
 pdfTeX warning (ext4): destination with the same identifier (name{page.i}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -1022,7 +1022,7 @@ File: uesvect.fd
 Package microtype Info: Character `013' is missing
 (microtype)             in font `OT1/pplx/m/sc/10.95'.
 (microtype)             Ignoring protrusion settings for this character.
- [4] (introduction.tex
+ [4] (chapters/introduction.tex
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmtt' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
@@ -1034,11 +1034,11 @@ Package microtype Info: Loading generic protrusion settings for font family
 Package hyperref Info: bookmark level for unknown theorem defaults to 0 on input line 73.
 Package hyperref Info: bookmark level for unknown proof defaults to 0 on input line 77.
 Package hyperref Info: bookmark level for unknown proposition defaults to 0 on input line 97.
-) (Algorithms.tex [2] [3
+) (chapters/Algorithms.tex [2] [3
 
 ]
 LaTeX Font Info:    Font shape `OT1/cmss/m/it' in size <10.95> not available
-(Font)              Font shape `OT1/cmss/m/sl' tried instead on input line 50.
+(Font)              Font shape `OT1/cmss/m/sl' tried instead on input line 59.
 ) (rules.tex [4]
 \c@currRulectr=\count407
 \c@endRulectr=\count408
@@ -1066,23 +1066,34 @@ LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10.95> not available
 (Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 218.
  [14]) (sections.tex [15] [16
 
-]) (appendix.tex [17] [18
+]) (chapters/appendix.tex [17] [18
 
 ]) [19] [20
 
 ] (thesis.bbl
 bibitemlist
 )
-<declaration-originality.pdf, id=359, 597.55246pt x 845.07718pt>
+
+pdfTeX warning: pdflatex (file ./declaration-originality.pdf): PDF inclusion: found PDF version <1.6>, but at most version <1.5> allowed
+<declaration-originality.pdf, id=360, 597.55246pt x 845.07718pt>
 File: declaration-originality.pdf Graphic file (type pdf)
 <use declaration-originality.pdf>
 Package pdftex.def Info: declaration-originality.pdf  used on input line 123.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
+
+
+pdfTeX warning: pdflatex (file ./declaration-originality.pdf): PDF inclusion: found PDF version <1.6>, but at most version <1.5> allowed
 File: declaration-originality.pdf Graphic file (type pdf)
 <use declaration-originality.pdf>
 Package pdftex.def Info: declaration-originality.pdf  used on input line 123.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
-<declaration-originality.pdf, id=362, page=1, 597.55246pt x 845.07718pt>
+
+
+pdfTeX warning: pdflatex (file ./declaration-originality.pdf): PDF inclusion: found PDF version <1.6>, but at most version <1.5> allowed
+
+
+pdfTeX warning: pdflatex (file ./declaration-originality.pdf): PDF inclusion: found PDF version <1.6>, but at most version <1.5> allowed
+<declaration-originality.pdf, id=363, page=1, 597.55246pt x 845.07718pt>
 File: declaration-originality.pdf Graphic file (type pdf)
 <use declaration-originality.pdf, page 1>
 Package pdftex.def Info: declaration-originality.pdf , page1 used on input line 123.
@@ -1091,7 +1102,7 @@ File: declaration-originality.pdf Graphic file (type pdf)
 <use declaration-originality.pdf, page 1>
 Package pdftex.def Info: declaration-originality.pdf , page1 used on input line 123.
 (pdftex.def)             Requested size: 597.57834pt x 845.1138pt.
- [21
+[21
 
 ]
 File: declaration-originality.pdf Graphic file (type pdf)
@@ -1115,20 +1126,20 @@ Package pdftex.def Info: declaration-originality.pdf , page1 used on input line 
 
  (thesis.aux)
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 14C9209D9DCF415D5FD1C7F8320E4613;4631.
+(rerunfilecheck)             Checksum: 5FFBC931AE401A25F9916E651F222EF1;4492.
  ) 
 Here is how much of TeX's memory you used:
- 23062 strings out of 478659
- 362169 string characters out of 2843040
+ 23065 strings out of 478659
+ 362919 string characters out of 2843040
  759471 words of memory out of 3000000
  40244 multiletter control sequences out of 15000+600000
  452451 words of font info for 369 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,17n,125p,1096b,1896s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 75i,17n,125p,1115b,1896s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmitt10.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss10.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss12.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss9.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssi10.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/public/mathpazo/fplmri.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/public/fpl/fplrc8a.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplb8a.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplr8a.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on thesis.pdf (28 pages, 491131 bytes).
+Output written on thesis.pdf (28 pages, 1090353 bytes).
 PDF statistics:
- 508 PDF objects out of 1000 (max. 8388607)
- 115 named destinations out of 1000 (max. 500000)
+ 492 PDF objects out of 1000 (max. 8388607)
+ 116 named destinations out of 1000 (max. 500000)
  99098 words of extra memory for PDF output out of 106986 (max. 10000000)
 

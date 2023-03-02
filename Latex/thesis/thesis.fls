@@ -1,6 +1,6 @@
-PWD c:\Users\Anton Jakob\Dropbox\My PC (AJP)\Documents\OST\FS2023\SA\Latex\CADMO\thesis
+PWD c:\Users\Anton Jakob\Dropbox\My PC (AJP)\Documents\OST\FS2023\SA\Algorithms_Eye_Detection\Latex\thesis
 INPUT C:\Users\Anton Jakob\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
-INPUT c:\Users\Anton Jakob\Dropbox\My PC (AJP)\Documents\OST\FS2023\SA\Latex\CADMO\thesis\thesis.tex
+INPUT c:\Users\Anton Jakob\Dropbox\My PC (AJP)\Documents\OST\FS2023\SA\Algorithms_Eye_Detection\Latex\thesis\thesis.tex
 OUTPUT thesis.log
 INPUT C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex\latex\memoir\memoir.cls
 INPUT C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex\latex\memoir\memoir.cls
@@ -1062,13 +1062,13 @@ INPUT C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatin
 INPUT C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmss12.tfm
 INPUT C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmss10.tfm
 INPUT C:\Users\Anton Jakob\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
-INPUT .\abstract.tex
-INPUT .\abstract.tex
-INPUT .\abstract.tex
-INPUT abstract.tex
-INPUT .\abstract.tex
-INPUT .\abstract.tex
-INPUT abstract.tex
+INPUT .\chapters\abstract.tex
+INPUT .\chapters\abstract.tex
+INPUT .\chapters\abstract.tex
+INPUT chapters\abstract.tex
+INPUT .\chapters\abstract.tex
+INPUT .\chapters\abstract.tex
+INPUT chapters\abstract.tex
 INPUT C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplr9t.tfm
 INPUT C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplb9t.tfm
 INPUT C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\palatino\pplb9t.vf
@@ -1151,13 +1151,13 @@ INPUT C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\fonts\tfm\public\mathpa
 INPUT C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplrc9t.tfm
 INPUT C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\palatino\pplrc9t.vf
 INPUT C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplrc8r.tfm
-INPUT .\introduction.tex
-INPUT .\introduction.tex
-INPUT .\introduction.tex
-INPUT introduction.tex
-INPUT .\introduction.tex
-INPUT .\introduction.tex
-INPUT introduction.tex
+INPUT .\chapters\introduction.tex
+INPUT .\chapters\introduction.tex
+INPUT .\chapters\introduction.tex
+INPUT chapters\introduction.tex
+INPUT .\chapters\introduction.tex
+INPUT .\chapters\introduction.tex
+INPUT chapters\introduction.tex
 INPUT C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmtt10.tfm
 INPUT C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplb9t.tfm
 INPUT C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmssbx10.tfm
@@ -1168,13 +1168,13 @@ INPUT C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\palatino
 INPUT C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\fonts\tfm\public\mathpazo\fplmr.tfm
 INPUT C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplr8r.tfm
 INPUT C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplri9t.tfm
-INPUT .\Algorithms.tex
-INPUT .\Algorithms.tex
-INPUT .\Algorithms.tex
-INPUT Algorithms.tex
-INPUT .\Algorithms.tex
-INPUT .\Algorithms.tex
-INPUT Algorithms.tex
+INPUT .\chapters\Algorithms.tex
+INPUT .\chapters\Algorithms.tex
+INPUT .\chapters\Algorithms.tex
+INPUT chapters\Algorithms.tex
+INPUT .\chapters\Algorithms.tex
+INPUT .\chapters\Algorithms.tex
+INPUT chapters\Algorithms.tex
 INPUT C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\palatino\pplri9t.vf
 INPUT C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\fonts\tfm\public\mathpazo\fplmri.tfm
 INPUT C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplri8r.tfm
@@ -1242,13 +1242,13 @@ INPUT sections.tex
 INPUT .\sections.tex
 INPUT .\sections.tex
 INPUT sections.tex
-INPUT .\appendix.tex
-INPUT .\appendix.tex
-INPUT .\appendix.tex
-INPUT appendix.tex
-INPUT .\appendix.tex
-INPUT .\appendix.tex
-INPUT appendix.tex
+INPUT .\chapters\appendix.tex
+INPUT .\chapters\appendix.tex
+INPUT .\chapters\appendix.tex
+INPUT chapters\appendix.tex
+INPUT .\chapters\appendix.tex
+INPUT .\chapters\appendix.tex
+INPUT chapters\appendix.tex
 INPUT .\thesis.bbl
 INPUT thesis.bbl
 INPUT .\thesis.bbl

@@ -2,6 +2,7 @@ import glob
 
 import os
 
+#YAML file evtl c
 
 data_set = glob.glob('Code/data_set/eyes_color//**//*.jpg', recursive=True)
 CSV_FILE_NAME = 'path_files_EYE_COLOR.csv'

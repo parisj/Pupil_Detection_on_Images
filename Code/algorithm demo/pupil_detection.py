@@ -50,7 +50,7 @@ class pupil:
         print("maybe")
         print(circles)
         if circles is not None:
-            
+             
             circles = np.round(circles[0, :]).astype("int")
             for (x,y,r) in circles:
                 self._center = np.array([x,y])
@@ -66,13 +66,13 @@ if __name__ == '__main__':
     subset = []
     for i, row in list.iterrows():
         subset.append(row[0])
-    for i in range(0,200):
+    for i in range(100,200):
         pupil_test = pupil(subset[i])
         pupil_test.load_image()
-        pupil_test.preprocess_image((9,9), 5)
+        pupil_test.preprocess_image((11,11), 5)
         pupil_test.canny()
-        pupil_test.hough_circle(visual=True, r_max= 30, r_min=10)
+        pupil_test.hough_circle(visual=True, dp=2, r_max= 30, r_min=10)
         radius=pupil_test._radius
-        pupil_test.hough_circle(visual=True, r_max=int(radius*3 ),r_min=radius)
+        pupil_test.hough_circle(visual=True, dp=2, r_max=int(radius*3),r_min=int(radius*2))
     
-           
+                                    

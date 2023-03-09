@@ -25,6 +25,11 @@ class pupil:
             self.visual_picture()
 
     def visual_picture(self, img=None):
+        """use opencv to show images
+
+        Args:
+            img (np.array, optional): shows this image instead of self._processing Defaults to None.
+        """
 
         cv2.imshow("original", self._img)
         if img is None:
@@ -38,6 +43,13 @@ class pupil:
         
     
     def preprocess_image(self, g_b_Kernel=(3, 3), sig_x=0, visual= False,):
+        """Uses Gaussian blur on class pupil_detection and saves it in _processing
+
+        Args:
+            g_b_Kernel (tuple, optional): kernel size of Gaussian Blur (must be uneven). Defaults to (3, 3).
+            sig_x (int, optional): sigmaX. Defaults to 0.
+            visual (bool, optional): show results. Defaults to False.
+        """
         img = cv2.GaussianBlur(self._gray, g_b_Kernel, sig_x)
         self._processing = img
         if visual:
@@ -52,13 +64,16 @@ class pupil:
     def hough_circle(self, dp=2, mindist=80, p1=30, p2=50, r_min=0, r_max=30, visual= False):
         circles = cv2.HoughCircles(self._processing, cv2.HOUGH_GRADIENT, dp, minDist=mindist,
                                    param1=p1, param2=p2, minRadius=r_min,maxRadius=r_max)
+        """uses hough_circles on the instance pupile_detection
+        extracts radius and center from the circles found and saves them in class properties
+        """
         
         if visual:
             img_0 = self._img.copy()
             
         if circles is not None:
-            
             circles = np.round(circles[0, :]).astype("int")
+            
             if self._radius: 
                 for (x,y,r) in circles:
                     
@@ -72,9 +87,11 @@ class pupil:
                             cv2.circle(img_0,(x,y),r,(0,0,255),2)
                          
             for (x,y,r) in circles:
-
+                #Save information 
                 self._center = np.array([x,y])
                 self._radius = r
+                
+                # visualize circles in relation to the original image
                 if visual:
                     cv2.circle  (img_0, (x, y), 0, (0, 255, 0), 6)
                     cv2.circle(img_0, (x, y), r, (0, 0, 255), 1)
@@ -82,6 +99,16 @@ class pupil:
             if visual: self.visual_picture(img_0)
     
     def extract_ROI(self, center, radius, visual=False):
+        """extracts a region of interest in the original image based on center and radius 
+
+        Args:
+            center (np.array): information x,y
+            radius (integer): radius of the pupil
+            visual (bool, optional): visualize results. Defaults to False.
+
+        Returns:
+            _type_: _description_
+        """
         print(center,radius)
         print('x1 of new area',center[0]-radius, 'y1 of new area',center[0]+radius,'x2 of new area',center[1]-radius,'y2 of new area',center[1]+radius)
         self._ROI= self._img[center[1]-3*radius:center[1]+3*radius,center[0]-3*radius:center[0]+3*radius] 
@@ -98,7 +125,7 @@ if __name__ == '__main__':
     for i, row in list.iterrows(): 
         subset.append(row[0])
         
-    for i in range(40,50):
+    for i in range(1,50):
         
         #create instance of pupil
         pupil_test = pupil(subset[i])

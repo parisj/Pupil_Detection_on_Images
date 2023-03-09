@@ -5,12 +5,13 @@ import pandas as pd
 class pupil: 
     """This class is used to process images of eyes to find the center and outline of the pupils aswell of the iris 
     """
-    def __init__(self, path):
-        self._path = path 
+    def __init__(self, path=None, gray=None, ):
+        self._path = path
         self._center = np.array([0,0])
         self._radius = 0
         self._img = None
-        self._processing = None
+        self._gray = None
+        self._processing = gray
         self._center_iris = np.array([0,0])
         self._radius_iris = 0
         self._ROI = None
@@ -40,7 +41,12 @@ class pupil:
         key = cv2.waitKey(0)
         if key == 27:
             cv2.destroyAllWindows()
+            
+    def set_img(self,img):
+        self._img = img
         
+    def set_gray(self, img):
+        self._gray = img
     
     def preprocess_image(self, g_b_Kernel=(3, 3), sig_x=0, visual= False,):
         """Uses Gaussian blur on class pupil_detection and saves it in _processing

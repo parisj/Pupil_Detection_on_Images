@@ -1,0 +1,54 @@
+import numpy as np 
+import cv2 
+from pupil_detection import pupil
+
+
+path = 'E:/data_set/LPW/1/1.avi,E:/data_set/LPW/1/1.txt'
+video_file, txt_file = path.split(',')
+print(video_file, txt_file)
+
+cap = cv2.VideoCapture(video_file)
+
+with open (txt_file) as f:
+    lines = f.readlines()
+
+
+count = 0
+pupil_test= pupil()
+
+while cap.isOpened():
+
+    center = lines[count].split(' ')
+    #print(center)
+    x = round(float(center[0].strip()))
+    y = round(float(center[1].strip('\n')))
+    
+    #print(center)
+    ret, frame = cap.read()
+    pupil_test.set_img(frame)
+    
+    # if frame is read correctly ret is True
+    if not ret:
+        print("Can't receive frame (stream end?). Exiting ...")
+        break
+    
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    
+    pupil_test.set_gray(gray)
+    pupil_test.preprocess_image((15,15), 5,visual=False)
+        
+     # use canny and hough circle to find center and radius of the pupil
+    pupil_test.canny(visual=False, th1=35,th2=40)
+    pupil_test.hough_circle(visual=True, dp=2, r_max= 120                , r_min=30)
+        
+    
+    cv2.circle(frame, (x,y),0,(0,0,0),2)
+  
+
+
+    cv2.imshow('frame', frame)
+    count += 1
+    if cv2.waitKey(1) == ord('q'):
+        break
+cap.release()
+cv2.destroyAllWindows()

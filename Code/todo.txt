@@ -1,0 +1,17 @@
+TO DO WEEK 4
+
+- Create cvs with paths for new data_sets
+| - with image source (Video)
+| - with center point extraction 
+
+- Find approach for ellipse detection 
+| - arc support line
+| - Genetic Algorithm 
+
+- Code
+| - Create observer class
+| - Create iris class
+| - Change pupil class
+| - Create Image_scaling /_\
+
+- Create function for extracting frame by frame for the videos 

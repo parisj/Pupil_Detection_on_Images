@@ -1,1 +1,28 @@
 Data Sets: http://www.jlucomputer.com/index/irislibrary/irislibrary.html
+  s_x = np.array([[-val_x[0], 0, val_x[0]],
+                   [-val_x[1], 0, val_x[1]],
+                   [-val_x[0], 0, val_x[0]]])
+    print(s_x)
+    # Define kernel for Sobel in y direction 
+    s_y = np.array([[val_y[0], val_y[1], val_y[0]],
+                   [0, 0, 0],
+                   [-val_y[0], -val_y[1], -val_y[0]]])
+    print(s_y)
+    # Convolve img with Sobel kernel in x and y direction 
+    S_x = cv2.filter2D(img,-1, s_x)
+    cv2.imshow("s_x",S_x)
+    cv2.waitKey(0)
+    
+    S_y = cv2.filter2D(img,-1, s_y)
+    cv2.imshow("s_y",S_y)
+    cv2.waitKey(0)
+    # Calculate Magnitude
+    Mag = np.sqrt(np.square(S_x) + np.square(S_y), dtype=np.float32)
+
+    # Bring into value space [0, 255]
+    Mag = Mag / Mag.max() * 255
+
+    # Edge direction matrix
+    theta = np.arctan2(S_y, S_x)
+    
+    return (Mag, theta)

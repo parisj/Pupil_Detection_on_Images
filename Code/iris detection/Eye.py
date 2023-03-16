@@ -11,14 +11,19 @@ class Eye:
         self._img = None
         self._gray = None
         self._processing = None
+        # hue, saturation, value
+        self._hsv = None
         
-        # Pupil information
-        self._center = np.array((2,))
-        self._radius = None
+        # Object Information
+        self._center = None
+        self._axis = None
+        self._angle = None
         self._circles = None
+        self._ellipse = None
         self._mask = None
+        self._outline_mask = None
         
-        
+        # Observers
         self._observers = []
     
 
@@ -57,11 +62,17 @@ class Eye:
     def get_center (self):
         return self._center
     
-    def set_radius (self, radius):
-        self._radius = radius
+    def set_axis (self, axis):
+        self._axis= axis
     
-    def get_radius (self):
-        return self._radius
+    def get_axis (self):
+        return self._axis
+    
+    def set_angle (self, angle):
+        self._angle = angle
+    
+    def get_angle (self):
+        return self._angle
     
     def set_circles (self, circles):
         self._circles = circles
@@ -70,6 +81,38 @@ class Eye:
     def get_circles (self):
         return self._circles
     
+    def set_ellipse (self, ellipse):
+        self._center = (round(ellipse[0][0]),round(ellipse[0][1]))
+        self._axis = (round(ellipse[1][0]/2),round(ellipse[1][1]/2))
+        self._angle = ellipse[2]
+        self._ellipse = (self._center, self._axis, self._angle)
+        self.notify_observers('_ellipse')
+    
+    def get_ellipse (self):
+        return self._ellipse
+    
+    def set_mask(self,mask):
+        self._mask = mask
+        self.notify_observers('_mask')
+        
+    def get_mask(self):
+        return self._mask
+    
+    def set_outline_mask(self, outline):
+        self._outline_mask = outline
+        self.notify_observers('_outline_mask')
+        
+    def get_outline_mask(self):
+        return self._outline_mask
+
+    def set_hsv (self, hsv):
+        self._hsv = hsv
+        self.notify_observers('_hsv')
+    
+    def get_hsv (self):
+        return self._hsv
+    
+    # observer methods
     def add_observer(self, observer):
         self._observers.append(observer)
         
@@ -77,7 +120,13 @@ class Eye:
         for observer in self._observers:
             observer.update(self, attr_name)
     
-    def distance_to_point(self, point):
+    # Image methods
+    def load_image(self, path, gray=False):
+        self._img = cv2.imread(path)
+        if gray: 
+            self._gray = cv2.cvtColor(cv2.COLOR_BGR2GRAY)
+    
+    def distance_to_center(self, point):
         """
         Calculates the Euclidean distance between the center of the pupil and a given point (x,y)
 
@@ -85,21 +134,3 @@ class Eye:
             point (np.array): form x,y
         """
         return math.sqrt((self._center[0] - point[0]) ** 2 + (self._center[1] - point[1]) ** 2)
-    
-    def load_image(self, path, gray=False):
-        self._img = cv2.imread(path)
-        if gray: 
-            self._gray = cv2.cvtColor(cv2.COLOR_BGR2GRAY)
-    
-    def set_mask(self,mask):
-        self._pupil_mask = mask 
-        
-    def get_mask(self):
-        return self._pupil_mask
-    
-    def create_mask(self, circle):
-        #Circle of the form [x,y,r]
-        mask = np.zeros_like(self._img)
-        
-
-    

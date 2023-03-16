@@ -7,6 +7,7 @@ TO DO WEEK 4
 - Find approach for ellipse detection [start]
 | - arc support line
 | - Genetic Algorithm 
+| - Different Approach [Done]
 
 - Code
 | - Create observer class [done]
@@ -14,4 +15,4 @@ TO DO WEEK 4
 | - Change pupil class [done]
 | - Create Image_scaling /_\ [progress]
 
-- Create function for extracting frame by frame for the videos [progress]
+- Create function for extracting frame by frame for the videos [done]

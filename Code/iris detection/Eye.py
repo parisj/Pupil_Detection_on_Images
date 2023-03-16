@@ -13,6 +13,7 @@ class Eye:
         self._processing = None
         # hue, saturation, value
         self._hsv = None
+        self._histogram = None 
         
         # Object Information
         self._center = None
@@ -111,6 +112,13 @@ class Eye:
     
     def get_hsv (self):
         return self._hsv
+    
+    def set_histogram (self, histogram):
+        self._histogram = histogram
+        self.notify_observers('_histogram')
+    
+    def get_histogram (self):
+        return self._histogram
     
     # observer methods
     def add_observer(self, observer):

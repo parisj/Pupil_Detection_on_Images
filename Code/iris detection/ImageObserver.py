@@ -1,5 +1,6 @@
 import numpy as np
 import cv2
+import matplotlib.pyplot as plt
 
 class ImageObserver:
     def __init__(self):
@@ -14,6 +15,7 @@ class ImageObserver:
         self._ellipses = {}
         self._masks = {}
         self._outline_masks = {}
+        self._histograms = {}
        
   
 
@@ -30,6 +32,7 @@ class ImageObserver:
         self._ellipses[id(img_obj)] = None
         self._masks[id(img_obj)] = None
         self._outline_masks[id(img_obj)] = None
+        self._histograms[id(img_obj)] = None
         
 
         # Add the observer to the new image object's list of observers
@@ -38,21 +41,23 @@ class ImageObserver:
     def update(self, img_obj, attr_name):
         # Update the corresponding dictionary entry with the new value when an attribute of an image object is updated
         if attr_name == '_img':
-            self._imgs[id(img_obj)] = img_obj._img
+            self._imgs[id(img_obj)] = img_obj.get_img()
         elif attr_name == '_processing':
-            self._processings[id(img_obj)] = img_obj._processing
+            self._processings[id(img_obj)] = img_obj.get_processing()
         elif attr_name == '_gray':
-            self._grays[id(img_obj)] = img_obj._gray
+            self._grays[id(img_obj)] = img_obj.get_gray()
         elif attr_name == '_circles':
-            self._circles[id(img_obj)] = img_obj._circles
+            self._circles[id(img_obj)] = img_obj.get_circles()
         elif attr_name == '_ellipse':
-            self._ellipses[id(img_obj)] = img_obj._ellipse
+            self._ellipses[id(img_obj)] = img_obj.get_ellipse()
         elif attr_name == '_mask': 
-            self._masks[id(img_obj)] = img_obj._mask
+            self._masks[id(img_obj)] = img_obj.get_mask()
         elif attr_name == '_outline_mask':
-            self._outline_masks[id(img_obj)] = img_obj._outline_mask
+            self._outline_masks[id(img_obj)] = img_obj.get_outline_mask()
         elif attr_name == '_hsv': 
-            self._hsvs[id(img_obj)] = img_obj._hsv
+            self._hsvs[id(img_obj)] = img_obj.get_hsv()
+        elif attr_name == '_historgram':
+            self._histograms[id(img_obj)] = img_obj.get_histogram()
    
 
 

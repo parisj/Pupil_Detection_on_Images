@@ -16,3 +16,14 @@ TO DO WEEK 4
 | - Create Image_scaling /_\ [progress]
 
 - Create function for extracting frame by frame for the videos [done]
+
+TO DO WEEK 5
+
+- Clean up Code
+- Figgure out a way to get higher accuracy
+- Implement Histogram inspection 
+- Cross reverence Histogram to find if approach works 
+
+- Write RANSAC function for ellipse finding
+- Write active countour Method 
+

@@ -81,7 +81,12 @@ class Eye:
     def get_circles (self):
         return self._circles
     
-    def set_ellipse (self, ellipse):
+    def set_ellipse (self, ellipse, coords):
+        # Coords = (x,y,w,h, border)
+        print('set_ellipse', ellipse)
+        print('with coords', coords)
+        y_off = coords[0]-coords[4]
+        x_off = coords[1]-coords[4]
         self._center = (round(ellipse[0][0]),round(ellipse[0][1]))
         self._axis = (round(ellipse[1][0]/2),round(ellipse[1][1]/2))
         self._angle = ellipse[2]

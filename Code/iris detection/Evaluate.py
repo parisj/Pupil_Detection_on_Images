@@ -56,10 +56,10 @@ class Evaluation:
         self._label_centers.append(label)
         if BOOL_FOUND:
             self._center.append(measured)
-            print('Measured')
+            #print('Measured')
         else: 
             self._center.append('None')
-            print('None')
+            #print('None')
             
     
 

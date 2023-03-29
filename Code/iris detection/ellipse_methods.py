@@ -125,13 +125,13 @@ def kmean(roi, clusters = 3):
     gray_bins = bins[kmeans.labels_ == gray_cluster]
     
     
-    #plt.figure(figsize=(10,5))
-    #plt.bar(bins,hist,color='gray', label='Original Histogram')
-    #plt.bar(light_bins,light_data,color='green', label='light')
-    #plt.bar(dark_bins,dark_data,color='yellow', label='dark')
-    #plt.bar(gray_bins,gray_data,color='red', label='grey')
-    #plt.legend()
-    #plt.show()
+    plt.figure(figsize=(10,5))
+    plt.bar(bins,hist,color='gray', label='Original Histogram')
+    plt.bar(light_bins,light_data,color='green', label='light')
+    plt.bar(dark_bins,dark_data,color='yellow', label='dark')
+    plt.bar(gray_bins,gray_data,color='red', label='grey')
+    plt.legend()
+    plt.show()
     #plot_histogram(roi, clustered_hist, cluster_labels, hist_reshaped, clusters )
     return 
 
@@ -178,6 +178,7 @@ def create_haar_kernel(radius, image, plot):
     
     Haar_kernel = HaarFeature(8, 3, image)
     coords, roi= Haar_kernel.find_pupil_ellipse(plot)
+    print('roi', roi)
     return  coords, roi
 
 def otsu(roi):
@@ -186,23 +187,26 @@ def otsu(roi):
 
 def extract_ellipse(roi, intensity):
     print('intensity',intensity)
+    print(roi.shape)
     thresholded = cv2.inRange(roi, int(intensity/5), int(intensity*2))
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (9,9))
     thresholded = cv2.morphologyEx(thresholded,cv2.MORPH_OPEN, kernel)
     thresholded = cv2.morphologyEx(thresholded,cv2.MORPH_CLOSE, kernel)
     cv2.imshow('thresholded', thresholded)
+    thresholded = cv2.GaussianBlur(thresholded, (9,9),0)
     thresholded = cv2.Canny(thresholded,10, 20)
     cv2.imshow('canny', thresholded )
 
     
     
 def main_Haar():
-    for frame in get_video_frame('E:/data_set/LPW/7/18.avi'):
+    for frame in get_video_frame('1.avi'):
         gray_eye_image = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         clahe = cv2.createCLAHE(clipLimit=1.0, tileGridSize=(11,11))
         gray_eye_image = clahe.apply(gray_eye_image)
         coords, roi = create_haar_kernel(10,gray_eye_image, plot= True)
         print(coords)
+        print(roi.shape)
         intensity = gray_eye_image[coords[1], coords[0]]
     
         extract_ellipse(roi, intensity)
@@ -221,8 +225,22 @@ def main_Haar():
             break
     cv2.waitKey(0)
     
-
-
+def main_Haar_image():
+    frame = cv2.imread('eye_img_22.png', cv2.IMREAD_GRAYSCALE)
+    print(frame.shape)
+    gray_eye_image=cv2.resize(frame,(int(frame.shape[1]*60/100),int(frame.shape[0]*60/100)), interpolation=cv2.INTER_LINEAR)
+    clahe = cv2.createCLAHE(clipLimit=1.0, tileGridSize=(11,11))
+    gray_eye_image = clahe.apply(gray_eye_image)
+    coords, roi = create_haar_kernel(10,gray_eye_image, plot= True)
+    print(coords)
+    intensity = gray_eye_image[coords[1], coords[0]]
+    
+    extract_ellipse(roi, intensity)
+    kmean(roi)
+    cv2.imshow('frame',gray_eye_image)
+    cv2.waitKey(0)
+    
 if __name__ == '__main__':
     main_Haar()
+    #main_Haar_image()
     cv2.waitKey(0)

@@ -7,9 +7,10 @@ class Evaluation:
         self._path_file = path_file
         self._eval_obj = eval_obj
         self._label_centers = []
+        self._coords_roi = []
         self._center = []
         self._error = []
-        self._header = ['frame', 'label', 'measured', 'error']
+        self._header = ['frame', 'label', 'measured','inside Roi', 'error']
 
      
     def create_log(self):
@@ -24,6 +25,7 @@ class Evaluation:
             # iterate over all center labels and append the measured center if it exists
             for i, label in enumerate(self._label_centers):
                 # if it measurement was possible
+                inside_roi = 
                 if self._center[i] is not 'None': 
 
                     error = self.calculate_error(self._center[i], label)
@@ -52,8 +54,10 @@ class Evaluation:
         return self._center.count('None')
         
     
-    def add_frame(self,BOOL_FOUND, label, measured):
+    def add_frame(self ,BOOL_FOUND, label, measured, coords):
         self._label_centers.append(label)
+        self._coords_roi.append(coords)
+        
         if BOOL_FOUND:
             self._center.append(measured)
             #print('Measured')
@@ -61,10 +65,28 @@ class Evaluation:
             self._center.append('None')
             #print('None')
             
+            
+    '''
+    coords = (x1,y1),(x2,y2)
+    top_1 = (x1,y1)
+    top_2 = (x1,y2)
+    bottom_1 = (x2,y1)
+    bottom_2 = (x2,y2)
+    '''
     
-
+    def pupil_in_roi(self, coords, label):
+        
+        x1 = coords[0][0]
+        x2 = coords[1][0]
+        y1 = coords[0][1]
+        y2 = coords[1][1]
+        x = label[0]
+        y = label[1]
+        
+        return (x1 < x < x2 and y1 < y < y2)
     
-     
+    
+        
         
             
     

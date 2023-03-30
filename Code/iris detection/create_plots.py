@@ -4,14 +4,33 @@ import matplotlib.pyplot as plt
 import numpy as np 
 import ellipse_detection_algo as ellip
 
-def plot_histogram(image, threshhold = None  ):
+
+def plot_ellipse(image, ellipse):
+
+    if image is None:
+        print('image none', image)
+        return False
+    image = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
+    pupil_center = (round(ellipse[0][0]),round(ellipse[0][1]))
+    pupil_axis = (round(ellipse[1][0]/2),round(ellipse[1][1]/2))
+    pupil_angle = int(ellipse[2])
+    
+    #print ('plot',ellipse)
+    
+    result = cv2.ellipse(image, pupil_center,pupil_axis, pupil_angle, 0,360,(0,255,0),1)
+
+    cv2.imshow('result ellipse', result)
+
+    return True
+    
+def plot_histogram(image, roi, threshhold = None  ):
     if len(image.shape) > 2:
         image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     #clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
     #image = clahe.apply(image)
-    masked_small, gray_small, coords,ellipse, peak_threshold =  ellip.calc_roi(image, 50, 30)
+    
     #cv2.imshow('masked_small',masked_small )
-    #cv2.imshow('gray_small',gray_small )
+    #cv2.imshow('roi',roi )
     #cv2.imshow('coords',coords )
     #cv2.waitKey(0)
     #print('peak_threshold', peak_threshold)
@@ -27,10 +46,10 @@ def plot_histogram(image, threshhold = None  ):
     colored_image[mask == 255] = (0, 255, 0)
 
   # Calculate histograms for both images
-    if image.size==0 or gray_small.size==0: 
+    if image.size==0 or roi.size==0: 
         #print('uups')
         return 0
-    max_intensity = max(image.max(), gray_small.max())
+    max_intensity = max(image.max(), roi.max())
     bin_edges = np.linspace(0, max_intensity, 257)
  
 
@@ -48,14 +67,14 @@ def plot_histogram(image, threshhold = None  ):
     ax1.axis('off')
 
     # Plot the ROI image
-    ax2.imshow(gray_small, cmap='gray')
+    ax2.imshow(roi, cmap='gray')
     ax2.set_title('ROI Image')
     ax2.axis('off')
 
  
     # Plot the histograms of both images
     sns.histplot(image.flatten(), ax=ax3, element='bars', bins=bin_edges, color='gray', alpha=0.5,edgecolor=None, label='Original Image' )
-    sns.histplot(gray_small.flatten(), ax=ax3, element='bars', bins=bin_edges, color='black', alpha=1,edgecolor=None, label='ROI')
+    sns.histplot(roi.flatten(), ax=ax3, element='bars', bins=bin_edges, color='black', alpha=1,edgecolor=None, label='ROI')
     ax3.spines['top'].set_visible(False)
     ax3.spines['right'].set_visible(False)
     ax3.set_title('Histogram')

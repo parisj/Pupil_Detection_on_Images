@@ -148,7 +148,7 @@ def process_radius(args):
                          - eye_integral[y_hat - r_outer, x_hat + r_outer + 1]
                          - eye_integral[y_hat + r_outer + 1, x_hat - r_outer]
                          - sum_inner)
-            response = r_inner * sum_inner + r_outer * sum_outer
+            response = -r_inner * sum_inner + r_outer * sum_outer
             #create image of response pixel by pixel
             response_img[y,x] = response
             

@@ -10,11 +10,11 @@ class Evaluation:
         self._center = []
         self._error = []
         self._header = ['frame', 'label', 'measured', 'error']
-        print('Init')
+
      
     def create_log(self):
 
-        with open (self._name_file, 'w', newline='') as file:
+        with open (self._path_file + self._name_file, 'w', newline='') as file:
 
             writer = csv.writer(file, delimiter= ',' )
             # Start with header

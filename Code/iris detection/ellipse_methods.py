@@ -26,27 +26,41 @@ def setup():
     pupil_obj = Pupil()
     iris_obj = Iris()
     observer = ImageObserver()
-    evaluation_obj = Evaluation(pupil_obj,'results.csv','results/')
+    evaluation_obj = Evaluation(pupil_obj,'results.csv','Code/iris detection/results/')
 
     observer.add_img_obj(pupil_obj)   
     return pupil_obj, iris_obj, observer, evaluation_obj
 
-def get_video_frame(video_path):
+def get_video_frame(path):
+    video_file, txt_file = path.split(',')
+    print(video_file, txt_file)
+
+
+    with open (txt_file) as f:
+        lines = f.readlines()
+   
     
-    cap = cv2.VideoCapture(video_path)
+    cap = cv2.VideoCapture(video_file)
     
     if not cap.isOpened():
         print("EOF or Video not opened correctly")
         return True
     
-    while True:
+    count = 0
+    while True and count <= len(lines)-1:
         ret, frame = cap.read()
+        
+        
+        center = lines[count].split(' ')
+        x_center_label = round(float(center[0].strip()))
+        y_center_label = round(float(center[1].strip('\n')))
+        center_label = (x_center_label, y_center_label)
         
         if not ret:
             break
-        
-        yield frame
-        
+        count += 1
+        yield frame, center_label
+
     cap.release()
     cv2.destroyAllWindows()                    
         
@@ -61,31 +75,30 @@ def haar_roi_extraction( image, plot):
     #print('roi', roi)
     return  coords, roi
 
-def otsu(roi):
-    _, otsu = cv2.threshold(roi,0,255,cv2.THRESH_OTSU)
-    return otsu
-
 def threshold_ellipse(roi, intensity):
-    #print('intensity',intensity)
-    #print(roi.shape)
+
     thresholded = cv2.inRange(roi, int(intensity/5), int(intensity*2.3))
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (9,9))
     thresholded = cv2.morphologyEx(thresholded,cv2.MORPH_OPEN, kernel)
-    #thresholded = cv2.morphologyEx(thresholded,cv2.MORPH_CLOSE, kernel)
-    #cv2.imshow('thresholded', thresholded)
 
     return thresholded
 
 def main_Haar():               
+    pupil_obj, iris_obj, observer, evaluation_obj = setup()
     
     #Load frame by frame to process
-    for frame in get_video_frame('D:/data_set/LPW/1/4.avi'):
-        
+    for frame, label_center in get_video_frame('D:/data_set/LPW/1/4.avi,D:/data_set/LPW/1/4.txt'):
+        setup()
+        pupil_obj.set_img(frame.copy())
+
         gray_eye_image = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        pupil_obj.set_gray(gray_eye_image.copy())
+        
         clahe = cv2.createCLAHE(clipLimit=1.0, tileGridSize=(11,11))
         gray_eye_image = clahe.apply(gray_eye_image)
+        pupil_obj.set_processing(gray_eye_image.copy())
         
-        coords, roi = haar_roi_extraction(gray_eye_image, plot= True)
+        coords, roi = haar_roi_extraction(pupil_obj.get_processing(), plot= True)
         #print('coords :', coords  )
         #print('roi', roi)
         intensity = gray_eye_image[coords[1], coords[0]]
@@ -93,26 +106,35 @@ def main_Haar():
         edges = threshold_ellipse(roi, intensity)
         cv2.imshow('edges', edges)
         pupil = eda.best_ellipse(edges)
+        
         #print(roi, pupil)
-        if pupil is None:
-
-            continue
-        cp.plot_ellipse(roi, pupil)
-
-        #kmean(roi)
-
+       
+   
         
-        
-        xy_1 = (int(coords[0]- 90), int(coords[1]-90))
-        xy_2 = (int(coords[0]+90), int(coords[1]+90))
+        xy_1 = (int(coords[0]- 110), int(coords[1]-110))
+        xy_2 = (int(coords[0]+110), int(coords[1]+110))
         
         cv2.rectangle(frame,xy_1, xy_2, (255,255,50), 1 )
         cv2.imshow('result', frame)
         cv2.imshow('roi', roi)
+        
+        BOOL_PUPIL = pupil is not None
+        if BOOL_PUPIL is not True:
+            continue
+        pupil_obj.set_ellipse(pupil, coords)
+        print(label_center, pupil_obj.get_center())
+        evaluation_obj.add_frame(BOOL_PUPIL,label_center ,pupil_obj.get_center() )
+        cp.plot_ellipse(roi, pupil)
+
+        #kmean(roi)
+        observer.plot_pupil(pupil_obj)
+        observer.plot_imgs('original')
+        
         key = cv2.waitKey(1)
         if key == ord('q'):  # Press 'q' to exit
             break
-    cv2.waitKey(0)
+        
+    evaluation_obj.create_log()
     
 def main_Haar_image():
     frame = cv2.imread('eye_img_22.png', cv2.IMREAD_GRAYSCALE)

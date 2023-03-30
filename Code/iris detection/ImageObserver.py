@@ -54,7 +54,22 @@ class ImageObserver:
         elif attr_name == '_hsv': 
             self._hsvs[id(img_obj)] = img_obj._hsv
    
+    def plot_pupil(self, img_obj):
+        image = self._imgs[id(img_obj)]
+        ellipse= self._ellipses[id(img_obj)]
+        
+        if image is None:
+            print('image none', image)
+            return False
+        
+        pupil_center = (round(ellipse[0][0]),round(ellipse[0][1]))
+        pupil_axis = (round(ellipse[1][0]),round(ellipse[1][1]))
+        pupil_angle = int(ellipse[2])
+        
+        result = cv2.ellipse(image, pupil_center,pupil_axis, pupil_angle, 0,360,(0,255,0),1)
 
+        cv2.imshow('result ellipse', result)
+        return True
 
     def plot_imgs(self, img_type):
         

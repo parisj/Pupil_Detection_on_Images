@@ -27,3 +27,11 @@ TO DO WEEK 5
 - Write RANSAC function for ellipse finding
 - Write active countour Method 
 
+TO DO WEEK 6
+
+-clean up Code
+-check functionality of ROI detection (find measurement for accuracy)
+- MSER implementation 
+- Active contour 
+| - Ballon 
+| - Diffusion 

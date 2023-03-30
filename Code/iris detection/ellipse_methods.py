@@ -9,8 +9,8 @@ import seaborn as sns
 from HaarFeature import HaarFeature
 import ellipse_detection_algo as eda
 import create_plots as cp
-
-
+import kmean
+import MSER
 ''' 
 --------------------------------------
 Setup: 
@@ -83,11 +83,11 @@ def threshold_ellipse(roi, intensity):
 
     return thresholded
 
-def main_Haar():               
+def main_Haar(path):               
     pupil_obj, iris_obj, observer, evaluation_obj = setup()
     
     #Load frame by frame to process
-    for frame, label_center in get_video_frame('D:/data_set/LPW/1/4.avi,D:/data_set/LPW/1/4.txt'):
+    for frame, label_center in get_video_frame(path):
         
         # Initialize Classes and set attributes
         setup()
@@ -106,10 +106,14 @@ def main_Haar():
     
         edges = threshold_ellipse(roi, intensity)
         cv2.imshow('edges', edges)
+        cv2.imshow('mser',MSER.mser(roi))
         pupil = eda.best_ellipse(edges)
         
         #print(roi, pupil)
-       
+        #TODO: find better way to handle empty pupil
+        if pupil is None:
+            pupil = ((0,0),(0,0), 0,0)
+            print('pupil not found')
    
         # Draw ROI into the frame to check functionality
         xy_1 = (int(coords[0]- 110), int(coords[1]-110))
@@ -120,9 +124,8 @@ def main_Haar():
         
         BOOL_PUPIL = pupil is not None
         
-        #TODO: find better way to handle empty pupil
-        if BOOL_PUPIL is False:
-            continue
+     
+            
         
         pupil_obj.set_ellipse(pupil, coords)
         print(label_center, pupil_obj.get_center())
@@ -159,6 +162,6 @@ def main_Haar_image():
     
     
 if __name__ == '__main__':
-    main_Haar()
+    main_Haar('E:/data_set/LPW/1/1.avi,E:/data_set/LPW/1/1.txt')
     #main_Haar_image()
     cv2.waitKey(0)

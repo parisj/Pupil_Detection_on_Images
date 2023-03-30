@@ -24,9 +24,9 @@ class Evaluation:
             total_lines = len(self._label_centers)
             # iterate over all center labels and append the measured center if it exists
             for i, label in enumerate(self._label_centers):
-                # if it measurement was possible
-                inside_roi = 
-                if self._center[i] is not 'None': 
+                inside_roi = self.pupil_in_roi(self._coords_roi[i], label)
+                # if  measurement was possible
+                if self._center[i] != 'None': 
 
                     error = self.calculate_error(self._center[i], label)
                     self._error.append((i,error))
@@ -34,7 +34,7 @@ class Evaluation:
                 else: 
                     error = self._center[i] 
                     
-                writer.writerow([i,label, self._center[i], error])
+                writer.writerow([i,label, self._center[i], inside_roi, error])
  
             failed = self.calculate_failed()
             total_measurements = total_lines - failed
@@ -66,16 +66,18 @@ class Evaluation:
             #print('None')
             
             
-    '''
-    coords = (x1,y1),(x2,y2)
-    top_1 = (x1,y1)
-    top_2 = (x1,y2)
-    bottom_1 = (x2,y1)
-    bottom_2 = (x2,y2)
-    '''
+
     
     def pupil_in_roi(self, coords, label):
         
+        '''
+        coords = (x1,y1),(x2,y2)
+        top_1 = (x1,y1)
+        top_2 = (x1,y2)
+        bottom_1 = (x2,y1)
+        bottom_2 = (x2,y2)
+        '''
+    
         x1 = coords[0][0]
         x2 = coords[1][0]
         y1 = coords[0][1]

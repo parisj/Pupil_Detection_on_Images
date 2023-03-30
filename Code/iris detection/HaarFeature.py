@@ -27,9 +27,14 @@ class HaarFeature:
         self.coords = coords
         x = coords[0]
         y = coords[1]
+        
+        if x - size < 0:
+            x = size
+        if y - size < 0:
+            y = size
         top_corner =  (x - size, y - size)
         bottom_corner = (x + size, y + size)
-        roi_coords = (top_corner,bottom_corner)
+        roi_coords = (top_corner, bottom_corner)
         # FORMAT (y,x)
         self.roi = self.image[top_corner[1]:bottom_corner[1], top_corner[0]:bottom_corner[0]]
         

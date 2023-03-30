@@ -71,14 +71,14 @@ def get_video_frame(path):
 def haar_roi_extraction( image, plot):
     
     Haar_kernel = HaarFeature(8, 3, image)
-    coords, roi= Haar_kernel.find_pupil_ellipse(plot)
+    coords, roi, roi_coords= Haar_kernel.find_pupil_ellipse(plot)
     #print('roi', roi)
-    return  coords, roi
+    return  coords, roi, roi_coords
 
 def threshold_ellipse(roi, intensity):
 
-    thresholded = cv2.inRange(roi, int(intensity/5), int(intensity*2.3))
-    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (9,9))
+    thresholded = cv2.inRange(roi, int(intensity/5), int(intensity*2.6))
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5,5))
     thresholded = cv2.morphologyEx(thresholded,cv2.MORPH_OPEN, kernel)
 
     return thresholded
@@ -88,19 +88,20 @@ def main_Haar():
     
     #Load frame by frame to process
     for frame, label_center in get_video_frame('D:/data_set/LPW/1/4.avi,D:/data_set/LPW/1/4.txt'):
+        
+        # Initialize Classes and set attributes
         setup()
         pupil_obj.set_img(frame.copy())
-
         gray_eye_image = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         pupil_obj.set_gray(gray_eye_image.copy())
-        
         clahe = cv2.createCLAHE(clipLimit=1.0, tileGridSize=(11,11))
         gray_eye_image = clahe.apply(gray_eye_image)
         pupil_obj.set_processing(gray_eye_image.copy())
         
-        coords, roi = haar_roi_extraction(pupil_obj.get_processing(), plot= True)
-        #print('coords :', coords  )
-        #print('roi', roi)
+        #Calculates the roi and returns the coords of the best response 
+        coords, roi, roi_coords = haar_roi_extraction(pupil_obj.get_processing(), plot= True)
+
+        #Extract intensity at coord
         intensity = gray_eye_image[coords[1], coords[0]]
     
         edges = threshold_ellipse(roi, intensity)
@@ -110,31 +111,35 @@ def main_Haar():
         #print(roi, pupil)
        
    
-        
+        # Draw ROI into the frame to check functionality
         xy_1 = (int(coords[0]- 110), int(coords[1]-110))
         xy_2 = (int(coords[0]+110), int(coords[1]+110))
-        
         cv2.rectangle(frame,xy_1, xy_2, (255,255,50), 1 )
         cv2.imshow('result', frame)
         cv2.imshow('roi', roi)
         
         BOOL_PUPIL = pupil is not None
-        if BOOL_PUPIL is not True:
+        
+        #TODO: find better way to handle empty pupil
+        if BOOL_PUPIL is False:
             continue
+        
         pupil_obj.set_ellipse(pupil, coords)
         print(label_center, pupil_obj.get_center())
-        evaluation_obj.add_frame(BOOL_PUPIL,label_center ,pupil_obj.get_center() )
+        evaluation_obj.add_frame(BOOL_PUPIL,label_center ,pupil_obj.get_center(), roi_coords )
+        
         cp.plot_ellipse(roi, pupil)
 
-        #kmean(roi)
         observer.plot_pupil(pupil_obj)
         observer.plot_imgs('original')
         
         key = cv2.waitKey(1)
         if key == ord('q'):  # Press 'q' to exit
             break
+     
         
     evaluation_obj.create_log()
+    return True
     
 def main_Haar_image():
     frame = cv2.imread('eye_img_22.png', cv2.IMREAD_GRAYSCALE)
@@ -150,6 +155,8 @@ def main_Haar_image():
     kmean(roi)
     cv2.imshow('frame',gray_eye_image)
     cv2.waitKey(0)
+    
+    
     
 if __name__ == '__main__':
     main_Haar()

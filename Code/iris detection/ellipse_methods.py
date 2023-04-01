@@ -9,7 +9,7 @@ import seaborn as sns
 from HaarFeature import HaarFeature
 import ellipse_detection_algo as eda
 import create_plots as cp
-
+import MSER
 
 ''' 
 --------------------------------------
@@ -105,30 +105,37 @@ def main_Haar():
     
         edges = threshold_ellipse(roi, intensity)
         cv2.imshow('edges', edges)
-        pupil = eda.best_ellipse(edges)
+        #pupil = eda.best_ellipse(edges)
+        merged_regions = MSER.mser(roi)
+        print("Number of contours found:", len(merged_regions))
+
+
+        regions = roi.copy()
+        for r in merged_regions:
+            regions = cv2.drawContours(regions, r, -1, (0, 255, 0), 2)
         
-        #print(roi, pupil)
+        cv2.imshow('regions', regions)
        
    
         
         xy_1 = (int(coords[0]- 110), int(coords[1]-110))
         xy_2 = (int(coords[0]+110), int(coords[1]+110))
         
-        cv2.rectangle(frame,xy_1, xy_2, (255,255,50), 1 )
-        cv2.imshow('result', frame)
-        cv2.imshow('roi', roi)
-        
-        BOOL_PUPIL = pupil is not None
-        if BOOL_PUPIL is not True:
-            continue
-        pupil_obj.set_ellipse(pupil, coords)
-        print(label_center, pupil_obj.get_center())
-        evaluation_obj.add_frame(BOOL_PUPIL,label_center ,pupil_obj.get_center() )
-        cp.plot_ellipse(roi, pupil)
-
-        #kmean(roi)
-        observer.plot_pupil(pupil_obj)
-        observer.plot_imgs('original')
+        #cv2.rectangle(frame,xy_1, xy_2, (255,255,50), 1 )
+        #cv2.imshow('result', frame)
+        #cv2.imshow('roi', roi)
+        #
+        #BOOL_PUPIL = pupil is not None
+        #if BOOL_PUPIL is not True:
+        #    continue
+        #pupil_obj.set_ellipse(pupil, coords)
+        #print(label_center, pupil_obj.get_center())
+        #evaluation_obj.add_frame(BOOL_PUPIL,label_center ,pupil_obj.get_center() )
+        #cp.plot_ellipse(roi, pupil)
+#
+        ##kmean(roi)
+        #observer.plot_pupil(pupil_obj)
+        #observer.plot_imgs('original')
         
         key = cv2.waitKey(1)
         if key == ord('q'):  # Press 'q' to exit
@@ -145,9 +152,8 @@ def main_Haar_image():
     coords, roi = haar_roi_extraction(gray_eye_image, plot= True)
     print(coords)
     intensity = gray_eye_image[coords[1], coords[0]]
-    
-    extract_ellipse(roi, intensity)
-    kmean(roi)
+
+
     cv2.imshow('frame',gray_eye_image)
     cv2.waitKey(0)
     

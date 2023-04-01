@@ -27,16 +27,21 @@ class HaarFeature:
         self.coords = coords
         x = coords[0]
         y = coords[1]
+        
+        if x - size < 0:
+            x = size
+        if y - size < 0:
+            y = size
         top_corner =  (x - size, y - size)
         bottom_corner = (x + size, y + size)
-        
+        roi_coords = (top_corner, bottom_corner)
         # FORMAT (y,x)
         self.roi = self.image[top_corner[1]:bottom_corner[1], top_corner[0]:bottom_corner[0]]
         
         if self.roi.size == 0:
             raise exceptions.EmptyImageError(f'ROI is empty, {coords} were coords')
 
-        return self.image[top_corner[1]:bottom_corner[1], top_corner[0]:bottom_corner[0]]
+        return self.image[top_corner[1]:bottom_corner[1], top_corner[0]:bottom_corner[0]], roi_coords
         
     def find_pupil_ellipse(self, plot=False):
  
@@ -80,9 +85,9 @@ class HaarFeature:
             cv2.imshow('Response Image', response_image_color)
             
         #extract ROI
-        roi = self.extract_roi(position_pupil, 110)
+        roi, roi_coords = self.extract_roi(position_pupil, 110)
         
-        return position_pupil, roi
+        return position_pupil, roi, roi_coords
     
     
 '''
@@ -124,6 +129,7 @@ Numba using JIT optimisation for process_radius
 boosting performance
 
 '''
+
 @njit
 def process_radius(args):
     r, eye_integral, padding, img_shape, response_img = args

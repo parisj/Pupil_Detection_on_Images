@@ -3,49 +3,6 @@ import numpy as np
 from numba import njit
 import matplotlib.pyplot as plt
 
-@njit
-def compute_component_tree(linear_image, num_ccs):
-    h, w = linear_image.shape[::-1]
-    components = np.zeros((256, h * w), dtype=np.int32)
-    sizes = np.zeros((256, h * w), dtype=np.int32)
-    links = np.zeros((256, h * w), dtype=np.int32)
-
-    for level in range(1, 256):
-        # Initialize the first component with the previous level
-        components[level] = components[level - 1]
-        sizes[level] = sizes[level - 1]
-        links[level] = np.arange(h * w)
-
-        # For each pixel in the level
-        for idx in np.argwhere(linear_image[level - 1]).flatten():
-            # Get the parent pixel
-            parent = links[level - 1][idx]
-
-            # If the parent has not been processed yet, continue
-            if components[level - 1][parent] == -1:
-                continue
-
-            # Merge the components
-            components[level][idx] = num_ccs
-            sizes[level][idx] = sizes[level - 1][parent] + 1
-
-            # Remove the parent from the previous level
-            components[level - 1][parent] = -1
-
-            # Increase the number of connected components
-            num_ccs += 1
-
-    return components, sizes, num_ccs
-
-@njit
-def linearise_image(gray_image, w, h):
-    linear_image = np.zeros((256, h * w), dtype=np.uint8)
-    for i in range(0, 256):
-        mask = (gray_image == i)
-        linear_image[i] = np.where(mask, 1, 0).flatten()
-    
-    return linear_image
-
 class MSER:
     def __init__(self, delta=2, min_area=0, max_area=1000000, max_variation=1, min_diversity=0):
         self.delta = delta
@@ -78,16 +35,57 @@ class MSER:
         self.sizes = np.zeros((256, h * w), dtype=np.int32)
         self.links = np.zeros((256, h * w), dtype=np.int32)
 
-        linear_image = linearise_image(gray_image, self.w, self.h)
+        # Step 1: Linearize the image data
+        linear_image = np.zeros((256, h * w), dtype=np.uint8)
+        for i in range(0, 256):
+            mask = (gray_image == i)
+            linear_image[i] = np.where(mask, 1, 0).flatten()
 
         # Step 2: Compute the component tree
-        self.components, self.sizes, self.num_ccs = compute_component_tree(linear_image, self.num_ccs)
-        print(f'self.components: {self.components}, self.size:{self.sizes}, self.num_css: {self.num_ccs}')
+        self._compute_component_tree(linear_image)
+
         # Step 3: Extract MSERs
-        self.visualize_component_tree(40)
         self._extract_mser()
 
         return self.regions
+
+    def _compute_component_tree(self, linear_image):
+        h, w = linear_image.shape[::-1]
+        print(f"h {h}, and w:{w}, len {len(self.regions)}")
+
+        self.components = np.zeros((256, h * w), dtype=np.int32)
+        self.sizes = np.zeros((256, h * w), dtype=np.int32)
+        self.links = np.zeros((256, h * w), dtype=np.int32)
+
+        for level in range(1, 256):
+            # Initialize the first component with the previous level
+            self.components[level] = self.components[level - 1]
+            self.sizes[level] = self.sizes[level - 1]
+            self.links[level] = np.arange(h * w)
+
+            # For each pixel in the level
+            for idx in np.argwhere(linear_image[level - 1]).flatten():
+                # Get the parent pixel
+                parent = self.links[level - 1][idx]
+
+                # If the parent has not been processed yet, continue
+                if self.components[level - 1][parent] == -1:
+                    continue
+
+                # Merge the components
+                self.components[level][idx] = self.num_ccs
+                self.sizes[level][idx] = self.sizes[level - 1][parent] + 1
+
+                # Remove the parent from the previous level
+                self.components[level - 1][parent] = -1
+
+                # Increase the number of connected components
+                self.num_ccs += 1
+                print(f'self num_ccs = {self.num_ccs}, idx {idx}, level {level}')
+                print(f'parent = {parent}, self.components {self.components}, self.links {self.links}')
+
+                if level > 190:
+                    self.visualize_component_tree(level-160)
 
     def _extract_mser(self):
         for q in range(self.num_ccs):
@@ -112,6 +110,7 @@ class MSER:
                 region = self.regions[i]
                 print(f"\tMSER {i+1}: size_ratio={region[1]:.2f}, area={self.sizes[region[0]][0]}, num_pixels={len(region[2])}")
 
+
     def visualize_component_tree(self, level):
         component_image = np.zeros((self.h, self.w, 3), dtype=np.uint8)
         for i in range(self.h):
@@ -123,8 +122,8 @@ class MSER:
                     component_image[i, j] = [color, color, color]
         plt.imshow(component_image)
         plt.show()
-
-
+    
+    
 if __name__ == '__main__':
     image = cv2.imread('test_roi.png')
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -143,4 +142,4 @@ if __name__ == '__main__':
 
     # Show image with detected regions
     plt.imshow(cv2.cvtColor(image_copy, cv2.COLOR_BGR2RGB))
-    plt.show()
+    plt.show()                                

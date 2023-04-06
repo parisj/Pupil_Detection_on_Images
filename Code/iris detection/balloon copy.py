@@ -101,7 +101,7 @@ def _window_energy(size,idx, point, G, img, M_e, M_s, points,
     print(f'range(-size, size+1): {len(range(-size, size+1))}')
     # create Arrays of the same shape as window to save each energy level 
     E_Elastic = np.zeros(window.shape)
-    print(f'E_Elasit.shape: {E_Elastic.shape}')
+    print(f'E_Elastic.shape: {E_Elastic.shape}')
     E_Smooth = np.zeros(window.shape)
     print(f'E_Smooth.shape: {E_Smooth.shape}')
     total_energy = np.zeros_like(window, dtype=np.float64)
@@ -128,7 +128,7 @@ def _window_energy(size,idx, point, G, img, M_e, M_s, points,
         
     print (f'energy_elastic: {E_Elastic}, energy_smooth: {E_Smooth}')
         
-    total_energy +=( alpha * E_Elastic + beta * E_Smooth) * np.ones_like(window)
+    total_energy = (alpha * E_Elastic + beta * E_Smooth) * np.ones_like(window)
     total_energy -= gamma * np.square(window)
     min_energy = np.argmin(total_energy)
     min_energy = np.unravel_index(min_energy, total_energy.shape)
@@ -139,6 +139,7 @@ def _window_energy(size,idx, point, G, img, M_e, M_s, points,
 
 def update_points(points, size, G, img, M_e, M_s,
                   alpha, beta, gamma):
+    
     updated_points = []
 
     for idx, point in enumerate(points):
@@ -162,7 +163,7 @@ def _initialize_algo(path, center, iterations, alpha, beta, gamma):
     G_blur = _blur_G(G.copy())
     points_origin = points
     for i in range(iterations):
-        updated_points = update_points(points, 15, G_blur, image, M_e, M_s, 
+        updated_points = update_points(points, 5, G_blur, image, M_e, M_s, 
                                        alpha, beta, gamma)
         plot_progress(i+1, points_origin, updated_points, image)
         points = updated_points       
@@ -194,8 +195,8 @@ if __name__ == '__main__':
     path = 'test_roi.png'
     iterations = 100
     center = 90,100
-    alpha = 0.001
-    beta = 0.5
+    alpha = 1
+    beta = 2
     gamma = 1
     active_contour(path, center, iterations, alpha, beta, gamma)
 

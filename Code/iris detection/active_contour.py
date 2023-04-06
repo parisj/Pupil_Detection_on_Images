@@ -77,12 +77,12 @@ def _blur_G(G):
     G2 = cv2.GaussianBlur(G, (45, 45), sigmaX=10, sigmaY=10)
     G_blurred += G2
 
-    G2 = cv2.GaussianBlur(G, (3, 3), sigmaX=10, sigmaY=10)
+    G2 = cv2.GaussianBlur(G, (3, 3),0)
     G_blurred += G2
     # normalize
     G_normalized = G_blurred / np.max(G_blurred)
     G_normalized = (G_normalized * 255).astype(np.uint8)
-
+    cv2.imshow('grad_blured', G_normalized)
     return G_normalized
 
 '''
@@ -122,7 +122,7 @@ def _window_energy(size,idx, point, G, img, M_e, M_s, points,
             energy_elastic_x = np.square(M_e[idx] @ points_energy[:,0])
             energy_elastic_y =  np.square(M_e[idx] @ points_energy[:,1])
             E_Elastic[x,y] = energy_elastic_x + energy_elastic_y
-            energy_smooth_x =np.square(M_s[idx] @ points_energy[:,0])
+            energy_smooth_x = np.square(M_s[idx] @ points_energy[:,0])
             energy_smooth_y =  np.square(M_s[idx] @ points_energy[:,1])
             E_Smooth[x,y] = energy_smooth_x + energy_smooth_y
         
@@ -192,8 +192,8 @@ def active_contour(path,center, iterations, alpha, beta, gamma):
 
 if __name__ == '__main__':
     path = 'test_roi.png'
-    iterations = 100
-    center = 90,100
+    iterations = 1
+    center = (110,100)
     alpha = 0.001
     beta = 0.5
     gamma = 1

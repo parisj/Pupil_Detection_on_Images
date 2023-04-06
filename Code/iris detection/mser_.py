@@ -66,7 +66,6 @@ class MSER:
             for i in range(self.w):
                 for j in range(self.h):
                     if th_img[level, i, j]:
-                        idx = j* self.w +i
                         # Get the parent pixel
                         parent = self.links[level - 1][(j * self.w) + i]
                         print(f'parent: {parent}')
@@ -83,10 +82,11 @@ class MSER:
 
                         # Increase the number of connected components
                         self.num_ccs += 1
-
+        print(f"self.components: {self.components}")
 
     def _extract_mser(self):
         # For each level in the component tree
+
         for level in range(1, 256):
             # Get the pixels of the level
             level_pixels = np.where(self.components[level] is not -1)
@@ -94,12 +94,11 @@ class MSER:
             print(f'level_pixels: {level_pixels},')
             # For each pixel of the level
             # level pixels has the same form as self.components (x,y)
-            
-            for i in range(level_pixels[0].shape):
-          
-                print(f' level_pixels[i,j]: {level_pixels[i][j]}')
-                x = level_pixels[0][i]
-                y = level_pixels[1][i]
+            print(f"level_pixels: {level_pixels}")
+            print(f"level_pixels shape: {len(level_pixels)}")
+            print(f"level_pixels[0] shape: {len(level_pixels[0])}")
+
+            for x , y in zip(level_pixels[0], level_pixels[1]):
 
                 # Get the connected components of the pixel
                 components = self.get_components(x, y, level)

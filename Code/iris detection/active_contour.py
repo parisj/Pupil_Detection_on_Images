@@ -1,7 +1,7 @@
 import numpy as np 
 import cv2
 import matplotlib.pyplot as plt
-
+from scipy.optimize import minimize
 '''
 N=4
 [[-1,  1,  0,  0],
@@ -59,6 +59,11 @@ def _init_circle(center,radius, image_shape):
     points = np.argwhere(mask > 0 )
     return mask, points
     
+    
+def create_circle_points(center, radius, num_points):
+    angles = np.linspace(0, 2 * np.pi, num_points, endpoint=False)
+    points = np.array([center[0] + radius * np.cos(angles), center[1] + radius * np.sin(angles)]).T
+    return points
 
 '''
 Use different Kernels to Blur the image, creates a broather Gradient trail 
@@ -68,17 +73,19 @@ def _blur_G(G):
     #Calculate different strong blurings 
     G_blurred = np.zeros_like(G, dtype=np.float64)
 
-    G2 = cv2.GaussianBlur(G, (205, 205), sigmaX=10, sigmaY=10)
+    G2 = cv2.GaussianBlur(G, (301, 301), sigmaX=10, sigmaY=10)
     G_blurred += G2
 
-    G2 = cv2.GaussianBlur(G, (105, 105), sigmaX=10, sigmaY=10)
+    G2 = cv2.GaussianBlur(G, (201, 201), sigmaX=10, sigmaY=10)
     G_blurred += G2
-
-    G2 = cv2.GaussianBlur(G, (45, 45), sigmaX=10, sigmaY=10)
-    G_blurred += G2
-
-    G2 = cv2.GaussianBlur(G, (3, 3),0)
-    G_blurred += G2
+#
+    #G2 = cv2.GaussianBlur(G, (101, 101), sigmaX=10, sigmaY=10)
+    #G_blurred += G2
+#
+    #G2 = cv2.GaussianBlur(G, (61, 61),0)
+    #G_blurred += G2
+    #G2 = cv2.GaussianBlur(G, (15, 15),0)
+    #G_blurred += G2
     # normalize
     G_normalized = G_blurred / np.max(G_blurred)
     G_normalized = (G_normalized * 255).astype(np.uint8)
@@ -137,7 +144,89 @@ def _window_energy(size,idx, point, G, img, M_e, M_s, points,
     return new_point
 
 
-def update_points(points, size, G, img, M_e, M_s,
+def total_energy(points, G, M_e, M_s, alpha, beta, gamma):
+    points = points.reshape((-1, 2)).astype(int)
+    print(f'points: {points}')
+    energy_elastic_x = np.sum(np.square(M_e @ points[:, 0]))
+    energy_elastic_y = np.sum(np.square(M_e @ points[:, 1]))
+    E_Elastic = energy_elastic_x + energy_elastic_y
+
+    energy_smooth_x = np.sum(np.square(M_s @ points[:, 0]))
+    energy_smooth_y = np.sum(np.square(M_s @ points[:, 1]))
+    E_Smooth = energy_smooth_x + energy_smooth_y
+
+    E_External = -gamma * np.sum(np.square(G[points[:, 0], points[:, 1]]))
+
+    energy = -alpha * E_Elastic + beta * E_Smooth + E_External
+    #energy = E_External
+    print(f'E_Elastic: {E_Elastic},  alpha * E_Elastic: {-alpha* E_Elastic}\n E_Smooth: {E_Smooth}, beta * E_Smooth: {beta *E_Smooth} \n E_External: {E_External}, gamma * E_External : {gamma * E_External},\n energy {energy}')
+    return energy
+
+
+def callback(xk, img, G, M_e, M_s, alpha, beta, gamma):
+    iteration_points = xk.reshape((-1, 2)).astype(int)
+    print(f'xk: {xk}')
+    energy_value = total_energy(xk, G, M_e, M_s, alpha, beta, gamma)
+    
+    plt.imshow(img, cmap='gray')
+    plt.scatter(iteration_points[:, 1], iteration_points[:, 0], c='blue', marker='x')
+    plt.title(f'Iteration points\n Energy value: {energy_value}')
+    plt.draw()
+    plt.pause(0.1)
+    plt.clf()
+
+def gradient_energy(points, G, M_e, M_s, alpha, beta, gamma):
+    points = points.reshape((-1, 2)).astype(int)
+
+    grad_E_Elastic_x = 2 * (-alpha) * (M_e.T @ (M_e @ points[:, 0]))
+    grad_E_Elastic_y = 2 * (-alpha) * (M_e.T @ (M_e @ points[:, 1]))
+
+    grad_E_Smooth_x = 2 * beta * (M_s.T @ (M_s @ points[:, 0]))
+    grad_E_Smooth_y = 2 * beta * (M_s.T @ (M_s @ points[:, 1]))
+
+    grad_E_External_x = -gamma * G[points[:, 0], points[:, 1]]
+    grad_E_External_y = -gamma * G[points[:, 0], points[:, 1]]
+    
+    grad_x = grad_E_Elastic_x + grad_E_Smooth_x + grad_E_External_x
+    grad_y = grad_E_Elastic_y + grad_E_Smooth_y + grad_E_External_y
+
+    gradient = np.column_stack((grad_x, grad_y)).flatten()
+
+    return gradient
+
+def update_points(points, G, img, M_e, M_s, alpha, beta, gamma):
+    height, width = img.shape
+    bounds = [(0, height - 1) for _ in points] + [(0, width - 1) for _ in points]
+    bounds = [(min_y, max_y) for min_y, max_y in bounds[:len(points)]] + [(min_x, max_x) for min_x, max_x in bounds[len(points):]]
+    print(f'bounds.shape : {len(bounds)}')
+
+
+    #result = minimize(total_energy, 
+    #                points, 
+    #                args=(G, M_e, M_s, alpha, beta, gamma),
+    #                bounds=bounds, method='L-BFGS-B', 
+    #                callback=lambda xk: callback(xk, img,G, M_e, M_s, alpha, beta, gamma), 
+    #                options={'disp': True})
+
+
+
+    result = minimize(total_energy, 
+                points.ravel(), 
+                args=(G, M_e, M_s, alpha, beta, gamma),
+                method='BFGS',
+                jac=gradient_energy,
+                callback=lambda xk: callback(xk, img,G, M_e, M_s, alpha, beta, gamma), 
+                options={'disp': True})
+
+    updated_points = result.x.reshape((-1, 2)).astype(int)
+    
+    print(f'result.success: {result.success}')
+    plot_result(img, updated_points)
+    return updated_points
+
+
+
+def update_points_old(points, size, G, img, M_e, M_s,
                   alpha, beta, gamma):
     updated_points = []
 
@@ -150,22 +239,25 @@ def update_points(points, size, G, img, M_e, M_s,
 
 
 
-def _initialize_algo(path, center, iterations, alpha, beta, gamma):
+def _initialize_algo(path, center, alpha, beta, gamma):
     image= cv2.imread(path)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    circle, points = _init_circle(center,10, gray.shape)
-    N = np.count_nonzero(circle)
+    points = create_circle_points(center,30,15)
+    print(f'points: {points}, shape {points.shape}')
+    N = points.shape[0]
+    
 
     M_e = _diff_elastic(N)
+    print(f'M_e.shape: {M_e.shape}')
     M_s = _diff_smooth(N)
+    print(f'M_s.shape: {M_s.shape}')
     G = _gradient(gray)
     G_blur = _blur_G(G.copy())
-    points_origin = points
-    for i in range(iterations):
-        updated_points = update_points(points, 15, G_blur, image, M_e, M_s, 
+
+    updated_points = update_points(points, G_blur, gray, M_e, M_s, 
                                        alpha, beta, gamma)
-        plot_progress(i+1, points_origin, updated_points, image)
-        points = updated_points       
+    points = updated_points       
+    plt.show()
     return updated_points
     
 
@@ -185,17 +277,29 @@ def plot_progress(iteration, initial_points, updated_points, img):
     plt.pause(0.5)
 
 
-def active_contour(path,center, iterations, alpha, beta, gamma):
-    points = _initialize_algo(path, center, iterations, alpha, beta ,gamma)
+def plot_result(image, points):
+    plt.figure(figsize=(10, 10))
+    plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+    plt.scatter(points[:, 1], points[:, 0], c='red', marker='x', label='Updated Points')
+    plt.title("Active Contour Result")
+    plt.legend()
+    plt.show()
+
+
+def active_contour(path,center,  alpha, beta, gamma):
+    points = _initialize_algo(path, center,  alpha, beta ,gamma)
     plt.figure()
+    
     return points
+
+
 
 if __name__ == '__main__':
     path = 'test_roi.png'
-    iterations = 1
-    center = (110,100)
+  
+    center = (120,100)
     alpha = 0.001
-    beta = 0.5
-    gamma = 1
-    active_contour(path, center, iterations, alpha, beta, gamma)
+    beta = 0.1
+    gamma = 0.1
+    points = active_contour(path, center,  alpha, beta, gamma)
 

@@ -69,11 +69,12 @@ def get_video_frame(path):
     
 
 def haar_roi_extraction( image, plot):
-    
+    print(f'plot: {plot}')
+    print(f'image: {image}')
     Haar_kernel = HaarFeature(8, 3, image)
-    coords, roi= Haar_kernel.find_pupil_ellipse(plot)
+    position_pupil, roi, roi_coords = Haar_kernel.find_pupil_ellipse(plot)
     #print('roi', roi)
-    return  coords, roi
+    return  position_pupil, roi
 
 def threshold_ellipse(roi, intensity):
 
@@ -87,7 +88,7 @@ def main_Haar():
     pupil_obj, iris_obj, observer, evaluation_obj = setup()
     
     #Load frame by frame to process
-    for frame, label_center in get_video_frame('D:/data_set/LPW/1/4.avi,D:/data_set/LPW/1/4.txt'):
+    for frame, label_center in get_video_frame('D:/data_set/LPW/1/1.avi,D:/data_set/LPW/1/1.txt'):
         setup()
         pupil_obj.set_img(frame.copy())
 
@@ -106,24 +107,24 @@ def main_Haar():
         edges = threshold_ellipse(roi, intensity)
         cv2.imshow('edges', edges)
         #pupil = eda.best_ellipse(edges)
-        merged_regions = MSER.mser(roi)
-        print("Number of contours found:", len(merged_regions))
-
-
-        regions = roi.copy()
-        for r in merged_regions:
-            regions = cv2.drawContours(regions, r, -1, (0, 255, 0), 2)
-        
-        cv2.imshow('regions', regions)
+        #merged_regions = MSER.mser(roi)
+        #print("Number of contours found:", len(merged_regions))
+#
+#
+        #regions = roi.copy()
+        #for r in merged_regions:
+        #    regions = cv2.drawContours(regions, r, -1, (0, 255, 0), 2)
+        #
+        #cv2.imshow('regions', regions)
        
    
         
         xy_1 = (int(coords[0]- 110), int(coords[1]-110))
         xy_2 = (int(coords[0]+110), int(coords[1]+110))
         
-        #cv2.rectangle(frame,xy_1, xy_2, (255,255,50), 1 )
-        #cv2.imshow('result', frame)
-        #cv2.imshow('roi', roi)
+        cv2.rectangle(frame,xy_1, xy_2, (255,255,50), 1 )
+        cv2.imshow('result', frame)
+        cv2.imshow('roi', roi)
         #
         #BOOL_PUPIL = pupil is not None
         #if BOOL_PUPIL is not True:

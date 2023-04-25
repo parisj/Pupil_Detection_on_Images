@@ -1,6 +1,9 @@
-import csv 
+
 import math 
 import pandas as pd
+import matplotlib.pyplot as plt
+from scipy.stats import zscore
+import numpy as np 
 
 class Evaluation:
     def __init__(self, eval_obj,  name_file, path_file):
@@ -11,43 +14,29 @@ class Evaluation:
         self._coords_roi = []
         self._center = []
         self._error = []
-        self._header = ['frame number', 'label for center', 'measured center','bool inside Roi', 'euclidean distance label - measured']
-
+        self._header = ['frame number', 'data set label center', 'measured center','data set center inside Roi', 'euclidean distance label - measured']
+        self._df = pd.DataFrame(columns = self._header)
      
     def create_log(self):
 
-        with open (self._path_file + self._name_file, 'w', newline='') as file:
-
-            writer = csv.writer(file, delimiter= ',' )
-            # Start with header
-            writer.writerow(self._header)
+        total_lines = len(self._label_centers)
+        
+        # iterate over all center labels and append the measured center if it exists
+        for i, label in enumerate(self._label_centers):
+            inside_roi = self.pupil_in_roi(self._coords_roi[i], label)
+            # if  measurement was possible
+            if self._center[i] != 'None':
+                error = self.calculate_error(self._center[i], label)
+                self._error.append((i,error))
+            else: 
+                error = self._center[i]
+            new_row = [i,label, self._center[i], inside_roi, error]
+            self._df.loc[len(self._df)] = new_row
             
-            total_lines = len(self._label_centers)
-            # iterate over all center labels and append the measured center if it exists
-            for i, label in enumerate(self._label_centers):
-                inside_roi = self.pupil_in_roi(self._coords_roi[i], label)
-                # if  measurement was possible
-                if self._center[i] != 'None': 
+        self._df.to_csv(self._path_file + self._name_file + '.csv', index = False)
+        analyze_dataframe(self._df, 'euclidean distance label - measured')
 
-                    error = self.calculate_error(self._center[i], label)
-                    self._error.append((i,error))
-                    
-                else: 
-                    error = self._center[i] 
-                    
-                writer.writerow([i,label, self._center[i], inside_roi, error])
- 
-            failed = self.calculate_failed()
-            total_measurements = total_lines - failed
-            
-            sum_error = 0 
-            for i, e in self._error:
-                sum_error += e
-            average_error =  sum_error/total_measurements 
-                  
-            writer.writerow(['Total Frames','Total Measurements', 'Failed','Average Error' ])
-            writer.writerow([total_lines, total_measurements, failed, average_error ])       
-     
+     #Calculate the euclidean distance between the label and the measured center
     def calculate_error(self, center, label):
         return math.sqrt((float(center[0]) - float(label[0])) ** 2 + (float(center[1]) - float(label[1])) ** 2)
     
@@ -89,7 +78,34 @@ class Evaluation:
         return (x1 < x < x2 and y1 < y < y2)
     
     
-        
+def analyze_dataframe(df, column):
+    # Load the saved dataframe
+    df = df.copy()
+    
+    # Calculate the average mean of the chosen column
+    mean = df[column].mean()
+    
+    # Identify outliers and calculate the z-score for each
+    z_scores = zscore(df[column])
+    threshold = 5
+    outliers = np.where(np.abs(z_scores) > threshold)[0]
+    num_outliers = len(outliers)
+    
+    # Create a new dataframe to store the results
+    result_df = pd.DataFrame({
+        'Column': [column],
+        'Mean': [mean],
+        'Num Outliers': [num_outliers],
+        'Z-Scores': [z_scores]
+    })
+    
+    # Show the result in a bar plot
+    result_df.plot(kind='bar', x='Column', y=['Mean', 'Num Outliers'])
+    plt.show()
+    
+    # Return the result dataframe
+    return result_df
         
             
     
+# Change area, change path, change 

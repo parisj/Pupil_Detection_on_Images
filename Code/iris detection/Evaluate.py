@@ -1,5 +1,6 @@
 import csv 
 import math 
+import pandas as pd
 
 class Evaluation:
     def __init__(self, eval_obj,  name_file, path_file):
@@ -10,7 +11,7 @@ class Evaluation:
         self._coords_roi = []
         self._center = []
         self._error = []
-        self._header = ['frame', 'label', 'measured','inside Roi', 'error']
+        self._header = ['frame number', 'label for center', 'measured center','bool inside Roi', 'euclidean distance label - measured']
 
      
     def create_log(self):

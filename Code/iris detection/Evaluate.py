@@ -77,7 +77,7 @@ class Evaluation:
         bottom_1 = (x2,y1)
         bottom_2 = (x2,y2)
         '''
-    
+        print(f'coords: {coords}')
         x1 = coords[0][0]
         x2 = coords[1][0]
         y1 = coords[0][1]

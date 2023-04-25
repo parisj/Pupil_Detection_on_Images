@@ -99,7 +99,7 @@ class active_contour:
     # Create points_ellipse
     def _init_circle(self, center, axis, angle, image_shape, num_points= 20):
         t = np.linspace(0, 2*np.pi, num_points)
-        x =  round(axis[0]//2) * np.cos(t)
+        x =  round(axis[0]/2) * np.cos(t)
         y = round(axis[1]/2) * np.sin(t)
         
         grad_x_normal = -round(axis[0]/2) * np.sin(t) 
@@ -113,9 +113,11 @@ class active_contour:
         
         # Rotation Matrix
         R = np.array([[np.cos(angle), -np.sin(angle)], [np.sin(angle), np.cos(angle)]])
-        
+        # Rotate points
         grad_normal = np.matmul(R, -np.array([normal_x, normal_y]))
         points_ellipse = np.matmul(R, np.array([x, y])).astype(np.float64)
+        
+        #centering the points_ellipse
         points_ellipse[0,:] += round(center[0])
         points_ellipse[1,:] += round(center[1])
 
@@ -146,17 +148,20 @@ class active_contour:
         '''
         Calculates the gradient of the image
         '''
-        
-        sx = cv2.Sobel(img, cv2.CV_64F, 1, 0, ksize=5)
-        sy = cv2.Sobel(img, cv2.CV_64F, 0, 1, ksize=5)
+        img_copy =img.copy()
+        img_copy = cv2.GaussianBlur(img_copy, (91, 91), sigmaX=0, sigmaY=0)
+        sx = cv2.Sobel(img_copy, cv2.CV_64F, 1, 0, ksize=5)
+        sy = cv2.Sobel(img_copy, cv2.CV_64F, 0, 1, ksize=5)
         
         # Calculate Gradient Mag and direction
         mag = np.sqrt(sx**2 + sy**2)
-        
+        mag_blur = mag
+        #sx_blur = cv2.GaussianBlur(sx, (51, 51), sigmaX=0, sigmaY=0)
+        #sy_blur = cv2.GaussianBlur(sy, (51, 51), sigmaX=0, sigmaY=0)
         # Fade the Gradient to create force field
         #mag_blur = cv2.GaussianBlur(mag, (11, 11), sigmaX=10, sigmaY=10)
         #mag_blur += cv2.GaussianBlur(mag, (21, 21), sigmaX=10, sigmaY=10)
-        mag_blur = cv2.GaussianBlur(mag, (3, 3), sigmaX=0, sigmaY=0)
+        #mag_blur = cv2.GaussianBlur(mag, (51, 51), sigmaX=0, sigmaY=0)
         
         # normalize the magnitude
         mag_blur = mag_blur / np.max(mag_blur)
@@ -186,17 +191,47 @@ class active_contour:
         self.set_direction(direction)
         return mag_blur, direction
     
-    def _cross(self, center, axis, angle, img, num_points=20 ):
+    
+    def _setup_points (self,points,normalv,grad_info):
+        points_normal_vec = np.array([normalv[:,0],normalv[:,1]]).reshape(-1,2)
+        #print(f'grad_info[:,0]:{grad_info[:,0]}')
+        #print(f'grad_info[0,:]:{grad_info[0,:]}')
+
+        # Split into x and y components of the gradient
+        # grad_info [0] = magnitude
+        # grad_info [1] = direction
+        dx = grad_info[:,0]*np.cos((grad_info[:,1]))
+        dy = grad_info[:,0]*np.sin((grad_info[:,1]))
+        
+        
+        gradient_vec = np.array([dx, dy]).reshape(-1,2)
+        points_gradient_vec = np.array([gradient_vec[:,0],gradient_vec[:,1]]).reshape(-1,2)
+      
+        magnitudes_normal = np.linalg.norm(points_normal_vec, axis=1)
+        points_normal_vec = points_normal_vec / magnitudes_normal[:, np.newaxis]
+        
+        #print (f'points_gradient_vec: {points_gradient_vec}')
+
+        #print (f'points_normal_vec: {points_gradient_vec}')
+        self.set_normalvector(points_normal_vec)
+
+        return points_normal_vec, points_gradient_vec
+    
+
+    
+    def _cross(self, center, axis, angle, img_shape, num_points=20 ):
    
-        points, normal_curve = self._init_circle(center, axis, angle, img, num_points)
+        points, _ = self._init_circle(center, axis, angle, img_shape, num_points)
         #print(f'points: {points}')
         #print(f'normal: {normal}')
+        
         grad = self.get_gradient()
         points.reshape(-1,2)
         direction = self.get_direction()
         #print(f'grad: {grad}')
         #print(f'direction: {direction}')
         #print(f'grad.shape: {grad.shape}')
+        
         grad_points = grad[np.round(points[0,:]).astype(int), np.round(points[1,:]).astype(int)]
         direction_points = direction [np.round(points[0,:]).astype(int), np.round(points[1,:]).astype(int)]
         normalv = self.get_normalvector()
@@ -204,16 +239,18 @@ class active_contour:
         grad_info = np.array([e for e in zip(grad_points, direction_points)])
         #print(f'grad_info: {grad_info}')
         points_normal_vec, points_gradient_vec = self._setup_points(points, normalv, grad_info)
+        
         elementwise_product = np.multiply(points_normal_vec, points_gradient_vec)
-        #print(f'elementwise_product: {elementwise_product}')
-        #for idx, cross in enumerate( zip( normalv, grad_info)):
-            #print(f'idx: {idx}, cross: {cross}')
-            #print(f'point: {points[:,idx]}')
+        
+        print(f'elementwise_product: {elementwise_product}')
+        for idx, cross in enumerate( zip( points_normal_vec, points_gradient_vec)):
+            print(f'points normal and gradient: {cross}, elementwise_product: {elementwise_product[idx]}')
+
         return elementwise_product
     
 
     
-    def _energy(self, center, axis, angle, img, num_points=20,alpha=1, beta=10, gamma=200, delta=0.1, zeta= 200):
+    def _energy(self, center, axis, angle, img, num_points=20, alpha=5, beta=2, gamma=2, delta=1, zeta= 0):
         #size_penalty = penalty_weight * (1 / (axis[0] * axis[1]))
         
         # Set up the constraints
@@ -221,56 +258,38 @@ class active_contour:
 
 
         size_reward = 1 * (axis[0]//2 * axis[1]//2)
-        print(f'cross_product: {self._cross((center[0], center[1]), (axis[0], axis[1]), angle, img, num_points)}')
-        cross_product= self._cross((center[0], center[1]), (axis[0], axis[1]), angle, img, num_points)
+        print(f'cross_product: {np.sum(self._cross((center[0], center[1]), (axis[0], axis[1]), angle, img, num_points), axis=1)}')
+        cross_product= np.sum(self._cross((center[0], center[1]), (axis[0], axis[1]), angle, img, num_points), axis = 1 )
         
         cross_product_reward = -np.sum(cross_product[cross_product > 0])
         cross_product_penalty =-np.sum(cross_product[cross_product < 0])
         cross_product_non = np.count_nonzero(cross_product == 0)
+        
+        cross_product_total = np.sum(cross_product, axis=0)
         print(f'cross_product_non: {cross_product_non}')
         print(f'cross_product_reward: {cross_product_reward}')
         print(f'cross_product_penalty: {cross_product_penalty}')
         print(f'size_reward: {size_reward}')
         print(f'energy: {alpha * cross_product_reward + beta * cross_product_penalty -  delta * size_reward}')
         
-        return  alpha * cross_product_reward + beta * cross_product_penalty+ gamma * size_penalty -  delta * size_reward + zeta * cross_product_non
-    
+        #return  alpha * cross_product_reward + beta * cross_product_penalty+ gamma * size_penalty -  delta * size_reward + zeta * cross_product_non
+        return - alpha * cross_product_total + beta *cross_product_penalty + gamma * size_penalty 
 
-
-    def _setup_points (self,points,normalv,grad_info):
-        points_normal_vec = np.array([normalv[:,0],normalv[:,1]]).reshape(-1,2)
-        #print(f'grad_info[:,0]:{grad_info[:,0]}')
-        #print(f'grad_info[0,:]:{grad_info[0,:]}')
-
-        dx = grad_info[:,0]*np.cos((grad_info[:,1]))
-        dy = grad_info[:,0]*np.sin((grad_info[:,1]))
-        gradient_vec = np.array([dx, dy]).reshape(-1,2)
-        points_gradient_vec = np.array([gradient_vec[:,0],gradient_vec[:,1]]).reshape(-1,2)
-      
-        magnitudes = np.linalg.norm(points_normal_vec, axis=1)
-        points_normal_vec = points_normal_vec / magnitudes[:, np.newaxis]
-        
-        #print (f'points_gradient_vec: {points_gradient_vec}')
-
-        #print (f'points_normal_vec: {points_gradient_vec}')
-        
-        return points_normal_vec, points_gradient_vec
-    
 
     
     def _optimize(self, center, axis, angle, img_shape, num_points=20 ):
         initial_guess = np.array([*center, *axis, angle])
         energy_func = lambda x: self._energy(x[:2], x[2:4], x[4], img_shape, num_points)
-        
+        print(f'img_shape: {img_shape}')
         # Set up the constraints
- 
+
         
-        center_bounds = [(0, img_shape[0]), (0, img_shape[1])]
-        axis_bounds = [(1, (img_shape[0] )), (1, (img_shape[1]))]
-        angle_bounds = [(0, 360)]
-        bounds = center_bounds + axis_bounds + angle_bounds
-        
-        
+        #center_bounds = [(0, img_shape[0]), (0, img_shape[1])]
+        #axis_bounds = [(1, (img_shape[0] )), (1, (img_shape[1]))]
+        #angle_bounds = [(0, 360)]
+        #print(f'bounds: {bounds}')
+    
+        bounds= ((0, img_shape[0]-1), (0, img_shape[1]-1), (1, (img_shape[0]-1 )), (1, (img_shape[1]-1)), (0, 360))
         constraints =   [{'type': 'ineq', 'fun': center_constraint1, 'args': (img_shape,)},
                         {'type': 'ineq', 'fun': center_constraint2, 'args': (img_shape,)},
                         {'type': 'ineq', 'fun': center_constraint3, 'args': (img_shape,)},
@@ -278,10 +297,10 @@ class active_contour:
         
         
         
-        print(f'bounds: {bounds}')        
-        
+        #print(f'bounds: {bounds}')        
+        # other possible methods: 'SLSQP', 'COBYLA', 'TNC', 'L-BFGS-B', 'SLSQP', 'trust-constr'
         result = minimize(energy_func, initial_guess, method='SLSQP',
-                          bounds = bounds,constraints = constraints,
+                        bounds=bounds, constraints= constraints, tol = 1e-10,
                           options = {'maxiter': 1000}, callback=callback(self.get_roi(),(*center, *axis, angle)))
         
         optimized_params = result.x
@@ -306,25 +325,26 @@ min_x, min_y < center ellipse < max_x, max_y
 
 def center_constraint1(x, img_shape):
     # x[0] is the center x coordinate
+    # x[2] is the major axis length
     min_x = x[2] // 2
-    max_x = img_shape[0] - x[2] // 2 
     return x[0] - min_x 
 
 def center_constraint2(x, img_shape):
     # x[0] is the center x coordinate
-    min_x = x[2] // 2
+    # x[2] is the major axis length
     max_x = img_shape[0] - x[2] // 2 
     return max_x - x[0] 
 
 def center_constraint3(x, img_shape):
     # x[1] is the center y coordinate
+    # x[3] is the minor axis length
     min_y = x[3] // 2
-    max_y = img_shape[1] - x[3] // 2
+
     return x[1] - min_y 
 
 def center_constraint4(x, img_shape):
     # x[1] is the center y coordinate
-    min_y = x[3] // 2
+    # x[3] is the minor axis length
     max_y = img_shape[1] - x[3] // 2
     return max_y - x[1] 
     
@@ -333,7 +353,7 @@ def center_constraint4(x, img_shape):
 def plot(img, center, axis, angle):
     img = img.copy()
     cv2.ellipse(img, center, axis, angle, 0, 360, (255, 255, 0), 2)
-    cv2.waitKey(0)
+    cv2.waitKey(1)
     return True
 
 def callback(img,x):
@@ -348,7 +368,7 @@ if __name__ == '__main__':
     contour._gradient(gray)
     contour._init_roi(image)
     img_shape = image.shape
-    optimized_center, optimized_axis, optimized_angle = contour._optimize((img_shape[0]//2, img_shape[1]//2), (30, 30), 0, img_shape, 50)
+    optimized_center, optimized_axis, optimized_angle = contour._optimize((img_shape[0]//2, img_shape[1]//2), (30, 25), 0, img_shape, 20)
     print(optimized_center, optimized_axis, optimized_angle)
     optimized_center = optimized_center.astype(np.int32)
     optimized_axis = np.array([optimized_axis[0]/2, optimized_axis[1]/2]).astype(np.int32)

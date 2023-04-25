@@ -9,7 +9,7 @@ import seaborn as sns
 from HaarFeature import HaarFeature
 import ellipse_detection_algo as eda
 import create_plots as cp
-import MSER
+from acwe import ACWE
 
 ''' 
 --------------------------------------
@@ -74,7 +74,7 @@ def haar_roi_extraction( image, plot):
     Haar_kernel = HaarFeature(8, 3, image)
     position_pupil, roi, roi_coords = Haar_kernel.find_pupil_ellipse(plot)
     #print('roi', roi)
-    return  position_pupil, roi
+    return  position_pupil, roi, roi_coords
 
 def threshold_ellipse(roi, intensity):
 
@@ -84,7 +84,7 @@ def threshold_ellipse(roi, intensity):
 
     return thresholded
 
-def main_Haar():               
+def main_detection():               
     pupil_obj, iris_obj, observer, evaluation_obj = setup()
     
     #Load frame by frame to process
@@ -99,13 +99,10 @@ def main_Haar():
         gray_eye_image = clahe.apply(gray_eye_image)
         pupil_obj.set_processing(gray_eye_image.copy())
         
-        coords, roi = haar_roi_extraction(pupil_obj.get_processing(), plot= True)
-        #print('coords :', coords  )
-        #print('roi', roi)
-        intensity = gray_eye_image[coords[1], coords[0]]
+        coords, roi, roi_coords = haar_roi_extraction(pupil_obj.get_processing(), plot= True)
+
+
     
-        edges = threshold_ellipse(roi, intensity)
-        cv2.imshow('edges', edges)
         #pupil = eda.best_ellipse(edges)
         #merged_regions = MSER.mser(roi)
         #print("Number of contours found:", len(merged_regions))
@@ -125,17 +122,26 @@ def main_Haar():
         cv2.rectangle(frame,xy_1, xy_2, (255,255,50), 1 )
         cv2.imshow('result', frame)
         cv2.imshow('roi', roi)
+        
+        center = (roi.shape[0]//2, roi.shape[1]//2)
+        radius = 15
+        acwe = ACWE()
+        acwe.start(center, radius, roi, 3, 100, 1, 1, 0.01)
+        BOOL_PUPIL = acwe.result()
+        ellipse = acwe.get_result_ellipse()
+        #acwe.plot_ellipse()
+        pupil_obj.set_ellipse(ellipse, coords)
         #
         #BOOL_PUPIL = pupil is not None
-        #if BOOL_PUPIL is not True:
-        #    continue
+        if BOOL_PUPIL is not True:
+            print(f'pupil not found')
+            continue
         #pupil_obj.set_ellipse(pupil, coords)
-        #print(label_center, pupil_obj.get_center())
-        #evaluation_obj.add_frame(BOOL_PUPIL,label_center ,pupil_obj.get_center() )
+        print(label_center, pupil_obj.get_center())
+        evaluation_obj.add_frame(BOOL_PUPIL,label_center ,pupil_obj.get_center(), roi_coords )
         #cp.plot_ellipse(roi, pupil)
-#
-        ##kmean(roi)
-        #observer.plot_pupil(pupil_obj)
+
+        observer.plot_pupil(pupil_obj)
         #observer.plot_imgs('original')
         
         key = cv2.waitKey(1)
@@ -150,7 +156,7 @@ def main_Haar_image():
     gray_eye_image=cv2.resize(frame,(int(frame.shape[1]*60/100),int(frame.shape[0]*60/100)), interpolation=cv2.INTER_LINEAR)
     clahe = cv2.createCLAHE(clipLimit=1.0, tileGridSize=(11,11))
     gray_eye_image = clahe.apply(gray_eye_image)
-    coords, roi = haar_roi_extraction(gray_eye_image, plot= True)
+    coords, roi, roi_coords = haar_roi_extraction(gray_eye_image, plot= True)
     print(coords)
     intensity = gray_eye_image[coords[1], coords[0]]
 
@@ -159,6 +165,6 @@ def main_Haar_image():
     cv2.waitKey(0)
     
 if __name__ == '__main__':
-    main_Haar()
-    #main_Haar_image()
+    main_detection()
+    #main_Haar_image()q
     cv2.waitKey(0)

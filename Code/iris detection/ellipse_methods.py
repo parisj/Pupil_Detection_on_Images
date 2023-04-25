@@ -21,21 +21,23 @@ Return those Objects for Pupil tracking
 '''
 
 
-def setup():
-    
+def setup(path):
+    file = path.split('/')
+    data_set = file[-3]
+    index1 = file[-2]
+    index2 = file[-1].split('.')[0]
+    name = data_set+'_'+index1+'_'+index2
     pupil_obj = Pupil()
     iris_obj = Iris()
     observer = ImageObserver()
-    evaluation_obj = Evaluation(pupil_obj,'results.csv','Code/iris detection/results/')
+    evaluation_obj = Evaluation(pupil_obj,name,'Code/iris detection/results/')
 
     observer.add_img_obj(pupil_obj)   
     return pupil_obj, iris_obj, observer, evaluation_obj
 
-def get_video_frame(path):
-    video_file, txt_file = path.split(',')
+def get_video_frame(video_file, txt_file):
+
     print(video_file, txt_file)
-
-
     with open (txt_file) as f:
         lines = f.readlines()
    
@@ -67,10 +69,13 @@ def get_video_frame(path):
     #for frame in get_video_frames(video_path):
     #    process_frame(frame)  # Call your custom frame processing method
     
+def split_path(path):
+    video_file, txt_file = path.split(',')
+    return video_file, txt_file
 
 def haar_roi_extraction( image, plot):
-    print(f'plot: {plot}')
-    print(f'image: {image}')
+    #print(f'plot: {plot}')
+    #print(f'image: {image}')
     Haar_kernel = HaarFeature(8, 3, image)
     position_pupil, roi, roi_coords = Haar_kernel.find_pupil_ellipse(plot)
     #print('roi', roi)
@@ -84,12 +89,14 @@ def threshold_ellipse(roi, intensity):
 
     return thresholded
 
-def main_detection():               
-    pupil_obj, iris_obj, observer, evaluation_obj = setup()
+def main_detection(path):    
+    video_file, txt_file = split_path(path)
+               
+    pupil_obj, iris_obj, observer, evaluation_obj = setup(video_file)
     
     #Load frame by frame to process
-    for frame, label_center in get_video_frame('D:/data_set/LPW/1/1.avi,D:/data_set/LPW/1/1.txt'):
-        setup()
+    for frame, label_center in get_video_frame(video_file=video_file, txt_file=txt_file):
+
         pupil_obj.set_img(frame.copy())
 
         gray_eye_image = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -101,20 +108,6 @@ def main_detection():
         
         coords, roi, roi_coords = haar_roi_extraction(pupil_obj.get_processing(), plot= True)
 
-
-    
-        #pupil = eda.best_ellipse(edges)
-        #merged_regions = MSER.mser(roi)
-        #print("Number of contours found:", len(merged_regions))
-#
-#
-        #regions = roi.copy()
-        #for r in merged_regions:
-        #    regions = cv2.drawContours(regions, r, -1, (0, 255, 0), 2)
-        #
-        #cv2.imshow('regions', regions)
-       
-   
         
         xy_1 = (int(coords[0]- 110), int(coords[1]-110))
         xy_2 = (int(coords[0]+110), int(coords[1]+110))
@@ -123,21 +116,23 @@ def main_detection():
         cv2.imshow('result', frame)
         cv2.imshow('roi', roi)
         
-        center = (roi.shape[0]//2, roi.shape[1]//2)
-        radius = 15
+        center = (coords[1]-roi_coords[0][1], coords[0]-roi_coords[0][0])
+        radius = 10
         acwe = ACWE()
-        acwe.start(center, radius, roi, 3, 100, 1, 1, 0.01)
+        acwe.start(center, radius, roi, 4, 1000, 1.2, 0.3, 0.003)
         BOOL_PUPIL = acwe.result()
         ellipse = acwe.get_result_ellipse()
         #acwe.plot_ellipse()
         pupil_obj.set_ellipse(ellipse, coords)
         #
-        #BOOL_PUPIL = pupil is not None
-        if BOOL_PUPIL is not True:
-            print(f'pupil not found')
+ 
+        if BOOL_PUPIL is False:
+            filename = 'failed_eval_'+str(label_center[0])+'_'+str(label_center[1])+'.png'
+            
+            #print(f'pupil not found')
             continue
         #pupil_obj.set_ellipse(pupil, coords)
-        print(label_center, pupil_obj.get_center())
+        #print(label_center, pupil_obj.get_center())
         evaluation_obj.add_frame(BOOL_PUPIL,label_center ,pupil_obj.get_center(), roi_coords )
         #cp.plot_ellipse(roi, pupil)
 
@@ -152,12 +147,12 @@ def main_detection():
     
 def main_Haar_image():
     frame = cv2.imread('eye_img_22.png', cv2.IMREAD_GRAYSCALE)
-    print(frame.shape)
+
     gray_eye_image=cv2.resize(frame,(int(frame.shape[1]*60/100),int(frame.shape[0]*60/100)), interpolation=cv2.INTER_LINEAR)
     clahe = cv2.createCLAHE(clipLimit=1.0, tileGridSize=(11,11))
     gray_eye_image = clahe.apply(gray_eye_image)
     coords, roi, roi_coords = haar_roi_extraction(gray_eye_image, plot= True)
-    print(coords)
+
     intensity = gray_eye_image[coords[1], coords[0]]
 
 
@@ -165,6 +160,6 @@ def main_Haar_image():
     cv2.waitKey(0)
     
 if __name__ == '__main__':
-    main_detection()
-    #main_Haar_image()q
+    main_detection('D:/data_set/LPW/1/4.avi,D:/data_set/LPW/1/4.txt')
+
     cv2.waitKey(0)

@@ -1,6 +1,7 @@
 
 import math 
 import pandas as pd
+import seaborn as sns
 import matplotlib.pyplot as plt
 from scipy.stats import zscore
 import numpy as np 
@@ -14,7 +15,9 @@ class Evaluation:
         self._coords_roi = []
         self._center = []
         self._error = []
-        self._header = ['frame number', 'data set label center', 'measured center','data set center inside Roi', 'euclidean distance label - measured']
+        self._x_error = []
+        self._y_error = []
+        self._header = ['frame number', 'data set label center', 'measured center','data set center inside Roi', 'euclidean distance label - measured', 'x_error', 'y_error']
         self._df = pd.DataFrame(columns = self._header)
      
     def create_log(self):
@@ -27,14 +30,18 @@ class Evaluation:
             # if  measurement was possible
             if self._center[i] != 'None':
                 error = self.calculate_error(self._center[i], label)
+                x_error = float(self._center[i][0]) - float(label[0])
+                y_error = float(self._center[i][1]) - float(label[1])
                 self._error.append((i,error))
+                self._x_error.append((i,x_error))
+                self._y_error.append((i,y_error))
             else: 
                 error = self._center[i]
-            new_row = [i,label, self._center[i], inside_roi, error]
+            new_row = [i,label, self._center[i], inside_roi, error, x_error, y_error]
             self._df.loc[len(self._df)] = new_row
             
-        self._df.to_csv(self._path_file + self._name_file + '.csv', index = False)
-        analyze_dataframe(self._df, 'euclidean distance label - measured')
+        self._df.to_excel(self._path_file + self._name_file + '.xlsx', index = False)
+    
 
      #Calculate the euclidean distance between the label and the measured center
     def calculate_error(self, center, label):
@@ -50,10 +57,10 @@ class Evaluation:
         
         if BOOL_FOUND:
             self._center.append(measured)
-            #print('Measured')
+
         else: 
             self._center.append('None')
-            #print('None')
+
             
             
 
@@ -67,7 +74,7 @@ class Evaluation:
         bottom_1 = (x2,y1)
         bottom_2 = (x2,y2)
         '''
-        print(f'coords: {coords}')
+
         x1 = coords[0][0]
         x2 = coords[1][0]
         y1 = coords[0][1]
@@ -78,34 +85,7 @@ class Evaluation:
         return (x1 < x < x2 and y1 < y < y2)
     
     
-def analyze_dataframe(df, column):
-    # Load the saved dataframe
-    df = df.copy()
-    
-    # Calculate the average mean of the chosen column
-    mean = df[column].mean()
-    
-    # Identify outliers and calculate the z-score for each
-    z_scores = zscore(df[column])
-    threshold = 5
-    outliers = np.where(np.abs(z_scores) > threshold)[0]
-    num_outliers = len(outliers)
-    
-    # Create a new dataframe to store the results
-    result_df = pd.DataFrame({
-        'Column': [column],
-        'Mean': [mean],
-        'Num Outliers': [num_outliers],
-        'Z-Scores': [z_scores]
-    })
-    
-    # Show the result in a bar plot
-    result_df.plot(kind='bar', x='Column', y=['Mean', 'Num Outliers'])
-    plt.show()
-    
-    # Return the result dataframe
-    return result_df
-        
+
             
     
 # Change area, change path, change 

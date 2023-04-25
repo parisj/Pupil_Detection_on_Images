@@ -1,6 +1,7 @@
 import numpy as np 
 import cv2
 
+
 class ACWE: 
     def __init__(self): 
         
@@ -164,7 +165,7 @@ class ACWE:
                 percent_change = (mask_difference / total_pixels) * 100
 
                 if percent_change < self.get_convergence_threshold():
-                    print("Convergence reached.")
+                    #print("Convergence reached.")
                     break
 
             prev_mask = self.get_mask().copy()
@@ -207,7 +208,7 @@ class ACWE:
         overlay = cv2.addWeighted(image, 1, filled_mask, alpha, 0)
         cv2.drawContours(overlay, contours, -1, color, 1)
         cv2.imshow('Result', overlay)
-        cv2.waitKey(0)
+        cv2.waitKey(1)
 
 
 
@@ -236,7 +237,10 @@ class ACWE:
 
         # Find the contour with the largest area (in case there are multiple contours)
         largest_contour = max(contours, key=cv2.contourArea)
-
+        print(f'Largest contour: {len(largest_contour)}')
+        print(f'Largest contour: {largest_contour}')
+        if len(largest_contour) < 5:
+            return False
         # Fit an ellipse to the largest contour
         ellipse = cv2.fitEllipse(largest_contour)
         self.set_result_ellipse(ellipse)
@@ -246,9 +250,9 @@ if __name__ == '__main__':
     image = cv2.imread('test_roi2.png')
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     center = (image.shape[1]//2, image.shape[0]//2)
-    radius = 15
+    radius = 10
     acwe = ACWE()
-    acwe.start(center, radius, image, 3, 100, 1, 0.2, 0.01)
+    acwe.start(center, radius, image, 3, 100, 1, 0.1, 0.005)
     acwe.result()
     acwe.plot_ellipse()
     cv2.destroyAllWindows()

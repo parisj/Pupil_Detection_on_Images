@@ -65,7 +65,7 @@ def confidence_ellipse(x, y, ax, n_std=3.0, facecolor='none', **kwargs):
 def analyze_dataframe(path,name_file, column, x_error_column, y_error_column):
     # Load the saved dataframe
     df = pd.read_excel(path, sheet_name='Sheet1', index_col=None, header=0)
-    print(df)
+    #print(df)
     name = 'File: ' + name_file
     # Calculate the average mean of the chosen column
     mean = df[column].mean()
@@ -98,32 +98,43 @@ def analyze_dataframe(path,name_file, column, x_error_column, y_error_column):
     cmap = sns.cubehelix_palette(rot=-.2,light=1, as_cmap=True)
     fig, ax = plt.subplots(figsize=(6, 6))
     plt.grid(True, which='major', axis='both')
-
+    cbar_kwargs = { 'label': 'error density','shrink': 0.8, 'drawedges': False}
     ax = sns.kdeplot(data=df, x=x_error_column, y=y_error_column, 
                 cmap=cmap, fill=True, clip=(-25, 25), cut=0,
-                thresh=0, levels=20
-               )
+                thresh=0, levels=20, legend = True, cbar= True, cbar_kws=cbar_kwargs)
+    #, cbar= True, cbar_kws=cbar_kwargs
+    
 
     sns.set_theme()
-    sns.despine(left=True, bottom=True)
-    plt.xticks(range(round(min_limit)-2, round(max_limit)+2, 1))
-    plt.xlabel('X Error')
-    plt.yticks(range(round(min_limit)-2, round(max_limit)+2, 1))
-    plt.ylabel('Y Error')
 
+
+
+    sns.despine(left=True, bottom=True)
+
+    # mappable = ax.collections[0]
+    # mappable.set_cmap(cmap)
+    # cbar = fig.colorbar(ax=ax, mappable=mappable,**cbar_kwargs)
+    # cbar.outline.set_visible(False)
+    # cbar.ax.tick_params(labelsize=10)
+    # cbar.ax.set_ylabel(cbar_kwargs['label'], fontsize=10)
+    plt.xticks(range(round(min_limit)-2, round(max_limit)+2, 1))
+    plt.xlabel('x error [pixel]')
+    plt.yticks(range(round(min_limit)-2, round(max_limit)+2, 1))
+    plt.ylabel('y error [pixel]')
     plt.xlim(x_min-0.5, x_max+0.5)
     plt.ylim(y_min-0.5, y_max+0.5)
+
     general_info = '\n'.join((
         r'z-score threshold: $%.2f$' % (threshold, ),
-        r'Number of outliers: $%d$' % (num_outliers, ),
-        r'Mean: $%.2f$' % (mean, )))
+        r'number of outliers: $%d$' % (num_outliers, ),
+        r'mean error: $%.2f$' % (mean, )))
     
     props = dict(boxstyle='square', facecolor='white', alpha=0.7,edgecolor='gray')
     
     ax.text(0.95, 0.95, general_info, transform=ax.transAxes, fontsize=10,
             verticalalignment='top',horizontalalignment='right', bbox=props)
     
-    ax.text(0.95,0.80, name, transform=ax.transAxes, fontsize=8, 
+    ax.text(0.95,0.84, name, transform=ax.transAxes, fontsize=8, 
             verticalalignment='top',horizontalalignment='right', bbox=props)
 
     confidence_ellipse(array_error[:,0], array_error[:,1], ax, n_std=1,
@@ -131,8 +142,10 @@ def analyze_dataframe(path,name_file, column, x_error_column, y_error_column):
     
     ax.grid(color='gray', linestyle='--', linewidth=0.5, alpha=0.5)
     ax.legend(loc= 'upper left', fontsize=10)
-    ax.set_title('Error Distribution in X and Y Axis')
+    ax.set_title('Error distribution in x and y ')
+
     plt.tight_layout()
+    
     
     plt.savefig('Code/iris detection/results/figures/'+name_file+'.png', dpi=300)
     #
@@ -145,5 +158,5 @@ def analyse(path):
     analyze_dataframe(path, name,'euclidean distance label - measured', 'x_error', 'y_error')
 
 if __name__ == '__main__':
-    path= 'Code/iris detection/results/LPW_1_4.xlsx'
+    path= 'Code/iris detection/results/LPW_1_1.xlsx'
     analyse(path)

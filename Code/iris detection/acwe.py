@@ -30,7 +30,7 @@ class ACWE:
         self.lambda1 = None
         self.lambda2 = None
         self.convergence_threshold = None
-        
+        self.center_start = None
         self.result_ellipse = None
         
         
@@ -46,6 +46,12 @@ class ACWE:
         
     def get_intensity(self):
         return self.intensity
+    
+    def set_center_start(self, center_start):
+        self.center_start = center_start
+    
+    def get_center_start(self):
+        return self.center_start
     
     def set_mask(self, mask):
         self.mask = mask.astype(np.uint8)
@@ -84,7 +90,7 @@ class ACWE:
     def _init_mask(self, center, radius):
         image_shape = self.get_intensity().shape
         mask = np.zeros(image_shape)
-        cv2.circle(mask, center, radius, 1, -1)
+        cv2.circle(mask, (center[1],center[0]), radius, 1, -1)
         self.set_mask(mask)
         return True
         
@@ -186,11 +192,12 @@ class ACWE:
             self.set_mask(mask)
             
             self.smoothing(iterations_smoothing)
-            #self.callback()
+            self.callback()
             
     def start(self, center, radius, image, iterations_smoothing, iterations_ACWE, lambda1, lambda2, convergence_threshold):
 
         self._init_Intensity(image)
+        self.set_center_start(center)
         self._init_mask(center, radius)
         self.lambda1 = lambda1
         self.lambda2 = lambda2
@@ -207,6 +214,8 @@ class ACWE:
         cv2.drawContours(filled_mask, contours, -1, color, cv2.FILLED)
         overlay = cv2.addWeighted(image, 1, filled_mask, alpha, 0)
         cv2.drawContours(overlay, contours, -1, color, 1)
+        cv2.circle(overlay, self.get_center_start(), 2, (0, 255, 0), -1)
+        cv2.circle(overlay, (self.get_center_start()[1],self.get_center_start()[0]), 2, (0, 0, 255), -1)
         cv2.imshow('Result', overlay)
         cv2.waitKey(1)
 
@@ -234,11 +243,12 @@ class ACWE:
 
         # Find the contours in the mask
         contours, _ = cv2.findContours(eroded_mask.astype(np.uint8), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
+        if contours is None or len(contours) == 0:
+            return False
         # Find the contour with the largest area (in case there are multiple contours)
         largest_contour = max(contours, key=cv2.contourArea)
-        print(f'Largest contour: {len(largest_contour)}')
-        print(f'Largest contour: {largest_contour}')
+        #print(f'Largest contour: {len(largest_contour)}')
+        #print(f'Largest contour: {largest_contour}')
         if len(largest_contour) < 5:
             return False
         # Fit an ellipse to the largest contour

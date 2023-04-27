@@ -33,7 +33,7 @@ def setup(path):
     evaluation_obj = Evaluation(pupil_obj,name,'Code/iris detection/results/')
 
     observer.add_img_obj(pupil_obj)   
-    return pupil_obj, iris_obj, observer, evaluation_obj
+    return pupil_obj, iris_obj, observer, evaluation_obj, name
 
 def get_video_frame(video_file, txt_file):
 
@@ -61,6 +61,11 @@ def get_video_frame(video_file, txt_file):
         if not ret:
             break
         count += 1
+        
+        # resize frame: 
+        #frame = cv2.resize(frame, dsize=None, fx=0.7, fy=0.7, interpolation=cv2.INTER_LINEAR)
+        #center_label = (int(center_label[0]*0.7), int(center_label[1]*0.7))
+        
         yield frame, center_label
 
     cap.release()
@@ -92,7 +97,7 @@ def threshold_ellipse(roi, intensity):
 def main_detection(path):    
     video_file, txt_file = split_path(path)
                
-    pupil_obj, iris_obj, observer, evaluation_obj = setup(video_file)
+    pupil_obj, iris_obj, observer, evaluation_obj, name = setup(video_file)
     
     #Load frame by frame to process
     for frame, label_center in get_video_frame(video_file=video_file, txt_file=txt_file):
@@ -112,9 +117,9 @@ def main_detection(path):
         xy_1 = (int(coords[0]- 110), int(coords[1]-110))
         xy_2 = (int(coords[0]+110), int(coords[1]+110))
         
-        cv2.rectangle(frame,xy_1, xy_2, (255,255,50), 1 )
-        cv2.imshow('result', frame)
-        cv2.imshow('roi', roi)
+        #cv2.rectangle(frame,xy_1, xy_2, (255,255,50), 1 )
+        #cv2.imshow('result', frame)
+        #cv2.imshow('roi', roi)
         
         center = (coords[1]-roi_coords[0][1], coords[0]-roi_coords[0][0])
         radius = 10
@@ -123,20 +128,25 @@ def main_detection(path):
         BOOL_PUPIL = acwe.result()
         ellipse = acwe.get_result_ellipse()
         #acwe.plot_ellipse()
-        pupil_obj.set_ellipse(ellipse, coords)
+  
         #
- 
-        if BOOL_PUPIL is False:
-            filename = 'failed_eval_'+str(label_center[0])+'_'+str(label_center[1])+'.png'
-            
+        
+        
+        if BOOL_PUPIL is True:
+            pupil_obj.set_ellipse(ellipse, coords)
+
+        else:
+            filename = name+'_'+str(label_center[0])+'_'+str(label_center[1])+'.png'
+            cv2.imwrite('Code/iris detection/results/failed_eval/'+name+'/'+filename, frame)
             #print(f'pupil not found')
-            continue
+        
         #pupil_obj.set_ellipse(pupil, coords)
         #print(label_center, pupil_obj.get_center())
+        
         evaluation_obj.add_frame(BOOL_PUPIL,label_center ,pupil_obj.get_center(), roi_coords )
         #cp.plot_ellipse(roi, pupil)
 
-        observer.plot_pupil(pupil_obj)
+        #observer.plot_pupil(pupil_obj)
         #observer.plot_imgs('original')
         
         key = cv2.waitKey(1)
@@ -160,6 +170,6 @@ def main_Haar_image():
     cv2.waitKey(0)
     
 if __name__ == '__main__':
-    main_detection('D:/data_set/LPW/1/4.avi,D:/data_set/LPW/1/4.txt')
+    main_detection('D:/data_set/LPW/10/1.avi,D:/data_set/LPW/10/1.txt')
 
     cv2.waitKey(0)

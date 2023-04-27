@@ -82,7 +82,7 @@ class HaarFeature:
             normalized_response = cv2.GaussianBlur(normalized_response, (3,3),0)
 
             response_image_color = cv2.applyColorMap(normalized_response, colormap)
-            cv2.imshow('Response Image', response_image_color)
+            #cv2.imshow('Response Image', response_image_color)
             
         #extract ROI
         roi, roi_coords = self.extract_roi(position_pupil, 110)

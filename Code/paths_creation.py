@@ -29,4 +29,5 @@ def write_videos_and_labels(path, name,drive, file_ending):
             f.write('\n')   
             
 if __name__ == '__main__':
-    write_videos_and_labels('\data_set\LPW',"LPW",'E:','avi')
+    write_videos_and_labels('\data_set\LPW',"LPW.csv",'D:','avi')
+    

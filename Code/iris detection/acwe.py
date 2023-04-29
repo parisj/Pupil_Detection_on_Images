@@ -43,7 +43,6 @@ class ACWE:
     def set_intensity(self, intensity):
         self.intensity = intensity
 
-        
     def get_intensity(self):
         return self.intensity
     
@@ -56,7 +55,6 @@ class ACWE:
     def set_mask(self, mask):
         self.mask = mask.astype(np.uint8)
 
-    
     def get_mask(self):
         return self.mask   
     
@@ -94,8 +92,7 @@ class ACWE:
         self.set_mask(mask)
         return True
         
-    def _init_Intensity(self, image):
-        
+    def _init_Intensity(self, image): 
         image_color = image.copy()
         image_color = cv2.cvtColor(image_color, cv2.COLOR_GRAY2BGR)
         self.set_image(image_color)
@@ -103,8 +100,8 @@ class ACWE:
         self.set_intensity(image)
         return True
     
+    
     #Page 19 pf the paper, c1 is the mean intensity inside the contour
-
     def calc_c1(self):
         '''
         c1 = integral of Intensity inside the contour/area inside the contour

@@ -1,30 +1,30 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2022.2.28)  1 MAR 2023 16:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.10) (preloaded format=pdflatex 2022.11.1)  29 APR 2023 13:01
 entering extended mode
- restricted \write18 enabled.
+ \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"c:/Users/Anton Jakob/Dropbox/My PC (AJP)/Documents/OST/FS2023/SA/Algorithms_Eye_Detection/Latex/thesis/thesis.tex"
-(c:/Users/Anton Jakob/Dropbox/My PC (AJP)/Documents/OST/FS2023/SA/Algorithms_Eye_Detection/Latex/thesis/thesis.tex
-LaTeX2e <2021-11-15> patch level 1
-L3 programming layer <2021-11-22> (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/memoir\memoir.cls
+**"c:/Users/Anton/Dropbox/My PC (AJP)/Documents/OST/FS2023/SA/Algorithms_Eye_Detection/Latex/thesis/thesis.tex"
+(c:/Users/Anton/Dropbox/My PC (AJP)/Documents/OST/FS2023/SA/Algorithms_Eye_Detection/Latex/thesis/thesis.tex
+LaTeX2e <2022-06-01> patch level 5
+L3 programming layer <2022-09-28> (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/memoir\memoir.cls
 Document Class: memoir 2022/11/17 v3.7.19 configurable book, report, article document class
-(C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty
+(C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty
 Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count183
+\etb@tempcnta=\count185
 )
 \onelineskip=\skip47
 \lxvchars=\skip48
 \xlvchars=\skip49
-\@memcnta=\count184
-\c@@memmarkcntra=\count185
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
-Package: iftex 2020/03/06 v1.0d TeX engine tests
+\@memcnta=\count186
+\c@@memmarkcntra=\count187
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
+Package: iftex 2022/02/03 v1.0f TeX engine tests
 )
 \stockheight=\dimen138
 \stockwidth=\dimen139
 \trimtop=\skip50
 \trimedge=\skip51
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/memoir\mem11.clo
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/memoir\mem11.clo
 File: mem11.clo 2022/07/29 v0.5 memoir class 11pt size option
 )
 \binding=\skip52
@@ -37,20 +37,20 @@ File: mem11.clo 2022/07/29 v0.5 memoir class 11pt size option
 \mem@maxheadheight=\skip59
 \mem@maxfootheight=\skip60
 \headwidth=\skip61
-\c@storedpagenumber=\count186
+\c@storedpagenumber=\count188
 \memPD=\dimen140
 \m@mabparskip=\skip62
 \thanksmarkwidth=\skip63
 \thanksmarksep=\skip64
 \droptitle=\skip65
-\c@book=\count187
-\c@part=\count188
-\c@chapter=\count189
-\c@section=\count190
-\c@subsection=\count191
-\c@subsubsection=\count192
-\c@paragraph=\count193
-\c@subparagraph=\count194
+\c@book=\count189
+\c@part=\count190
+\c@chapter=\count191
+\c@section=\count192
+\c@subsection=\count193
+\c@subsubsection=\count194
+\c@paragraph=\count195
+\c@subparagraph=\count196
 \beforechapskip=\skip66
 \midchapskip=\skip67
 \afterchapskip=\skip68
@@ -72,8 +72,8 @@ File: mem11.clo 2022/07/29 v0.5 memoir class 11pt size option
 \beforesubparaskip=\skip84
 \aftersubparaskip=\skip85
 \pfbreakskip=\skip86
-\c@@ppsavesec=\count195
-\c@@ppsaveapp=\count196
+\c@@ppsavesec=\count197
+\c@@ppsaveapp=\count198
 \ragrparindent=\dimen141
 \everylistparindent=\dimen142
 \parsepi=\skip87
@@ -95,10 +95,10 @@ File: mem11.clo 2022/07/29 v0.5 memoir class 11pt size option
 \absrightindent=\skip101
 \absparindent=\skip102
 \absparsep=\skip103
-\c@vslineno=\count197
-\c@poemline=\count198
-\c@modulo@vs=\count199
-\c@memfvsline=\count266
+\c@vslineno=\count199
+\c@poemline=\count266
+\c@modulo@vs=\count267
+\c@memfvsline=\count268
 \vleftskip=\skip104
 \vrightskip=\skip105
 \stanzaskip=\skip106
@@ -106,35 +106,35 @@ File: mem11.clo 2022/07/29 v0.5 memoir class 11pt size option
 \vgap=\skip108
 \vindent=\skip109
 \vleftmargin=\dimen144
-\c@verse=\count267
-\c@chrsinstr=\count268
+\c@verse=\count269
+\c@chrsinstr=\count270
 \beforepoemtitleskip=\skip110
 \afterpoemtitleskip=\skip111
-\c@poem=\count269
+\c@poem=\count271
 \beforePoemTitleskip=\skip112
 \midPoemTitleskip=\skip113
 \afterPoemTitleskip=\skip114
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
-Package: array 2021/10/04 v2.5f Tabular extension package (FMi)
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
+Package: array 2022/03/10 v2.5f Tabular extension package (FMi)
 \col@sep=\dimen145
-\ar@mcellbox=\box50
+\ar@mcellbox=\box51
 \extrarowheight=\dimen146
 \NC@list=\toks17
 \extratabsurround=\skip115
 \backup@length=\skip116
-\ar@cellbox=\box51
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/tools\dcolumn.sty
+\ar@cellbox=\box52
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/tools\dcolumn.sty
 Package: dcolumn 2014/10/28 v1.06 decimal alignment package (DPC)
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/tools\delarray.sty
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/tools\delarray.sty
 Package: delarray 2014/10/28 v1.01 array delimiter package (DPC)
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/tools\tabularx.sty
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/tools\tabularx.sty
 Package: tabularx 2020/01/15 v2.11c `tabularx' package (DPC)
 \TX@col@width=\dimen147
 \TX@old@table=\dimen148
 \TX@old@col=\dimen149
 \TX@target=\dimen150
 \TX@delta=\dimen151
-\TX@cols=\count270
+\TX@cols=\count272
 \TX@ftn=\toks18
 )
 \heavyrulewidth=\dimen152
@@ -147,23 +147,23 @@ Package: tabularx 2020/01/15 v2.11c `tabularx' package (DPC)
 \cmidrulesep=\dimen159
 \cmidrulekern=\dimen160
 \defaultaddspace=\dimen161
-\@cmidla=\count271
-\@cmidlb=\count272
+\@cmidla=\count273
+\@cmidlb=\count274
 \@aboverulesep=\dimen162
 \@belowrulesep=\dimen163
-\@thisruleclass=\count273
-\@lastruleclass=\count274
+\@thisruleclass=\count275
+\@lastruleclass=\count276
 \@thisrulewidth=\dimen164
 \ctableftskip=\skip117
 \ctabrightskip=\skip118
-\abovecolumnspenalty=\count275
-\@linestogo=\count276
-\@cellstogo=\count277
-\@cellsincolumn=\count278
+\abovecolumnspenalty=\count277
+\@linestogo=\count278
+\@cellstogo=\count279
+\@cellsincolumn=\count280
 \crtok=\toks19
 \@mincolumnwidth=\dimen165
-\c@newflo@tctr=\count279
-\mem@margin@floatbox=\box52
+\c@newflo@tctr=\count281
+\mem@margin@floatbox=\box53
 \@contcwidth=\skip119
 \@contindw=\skip120
 \abovecaptionskip=\skip121
@@ -174,9 +174,9 @@ Package: tabularx 2020/01/15 v2.11c `tabularx' package (DPC)
 \subfloatbottomskip=\skip126
 \subfloatlabelskip=\skip127
 \subfloatcapmargin=\dimen166
-\c@@contsubnum=\count280
-\m@mscap@capbox=\box53
-\m@mscap@fbox=\box54
+\c@@contsubnum=\count282
+\m@mscap@capbox=\box54
+\m@mscap@fbox=\box55
 \sidecapsep=\dimen167
 \sidecapwidth=\dimen168
 \m@m@tempdima=\dimen169
@@ -218,7 +218,7 @@ LaTeX Info: Redefining \emph on input line 7663.
 \cftsubparagraphindent=\skip155
 \cftsubparagraphnumwidth=\skip156
 \prechapterprecisshift=\dimen176
-\c@maxsecnumdepth=\count281
+\c@maxsecnumdepth=\count283
 \bibindent=\dimen177
 \bibitemsep=\skip157
 \indexcolsep=\skip158
@@ -239,7 +239,7 @@ LaTeX Info: Redefining \emph on input line 7663.
 \footinsdim=\skip168
 \footinsv@r=\insert250
 \@mpfootinsv@r=\insert249
-\m@m@k=\count282
+\m@m@k=\count284
 \m@m@h=\dimen180
 \m@mipn@skip=\skip169
 \sidefootins=\insert248
@@ -249,53 +249,54 @@ LaTeX Info: Redefining \emph on input line 7663.
 \sidefootvsep=\skip173
 \sidefootwidth=\skip174
 \m@mdownsf=\skip175
-\c@sidefootnote=\count283
+\c@sidefootnote=\count285
 \sidefootmarkwidth=\skip176
 \sidefootmarksep=\skip177
 \sidefootparindent=\skip178
-\c@pagenote=\count284
-\c@pagenoteshadow=\count285
+\c@pagenote=\count286
+\c@pagenoteshadow=\count287
 \mem@pn@lastkern=\skip179
 \every@verbatim=\toks21
 \afterevery@verbatim=\toks22
 \verbatim@line=\toks23
-\tab@position=\count286
+\tab@position=\count288
 \verbatim@in@stream=\read2
 \verbatimindent=\skip180
 \verbatim@out=\write3
 \bvboxsep=\skip181
-\c@memfbvline=\count287
-\c@bvlinectr=\count288
+\c@memfbvline=\count289
+\c@bvlinectr=\count290
 \bvnumlength=\skip182
 \fb@frw=\dimen181
 \fb@frh=\dimen182
 \FrameRule=\dimen183
 \FrameSep=\dimen184
-\c@cp@cntr=\count289
-\c@ism@mctr=\count290
-\c@xsm@mctr=\count291
-\c@csm@mctr=\count292
-\c@ksm@mctr=\count293
-\c@xksm@mctr=\count294
-\c@cksm@mctr=\count295
-\c@msm@mctr=\count296
-\c@xmsm@mctr=\count297
-\c@cmsm@mctr=\count298
-\c@bsm@mctr=\count299
-\c@workm@mctr=\count300
-\c@sheetsequence=\count301
-\c@lastsheet=\count302
-\c@lastpage=\count303
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/textcase\textcase.sty
+\c@cp@cntr=\count291
+\c@ism@mctr=\count292
+\c@xsm@mctr=\count293
+\c@csm@mctr=\count294
+\c@ksm@mctr=\count295
+\c@xksm@mctr=\count296
+\c@cksm@mctr=\count297
+\c@msm@mctr=\count298
+\c@xmsm@mctr=\count299
+\c@cmsm@mctr=\count300
+\c@bsm@mctr=\count301
+\c@workm@mctr=\count302
+\c@sheetsequence=\count303
+\c@lastsheet=\count304
+\c@lastpage=\count305
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/textcase\textcase.sty
 Package: textcase 2022/07/10 v1.03 Text only upper/lower case changing (DPC)
+Package textcase Info: Defining Legacy names on input line 20.
 )
-\c@figure=\count304
-\c@lofdepth=\count305
+\c@figure=\count306
+\c@lofdepth=\count307
 \cftbeforefigureskip=\skip183
 \cftfigureindent=\skip184
 \cftfigurenumwidth=\skip185
-\c@table=\count306
-\c@lotdepth=\count307
+\c@table=\count308
+\c@lotdepth=\count309
 \cftbeforetableskip=\skip186
 \cfttableindent=\skip187
 \cfttablenumwidth=\skip188
@@ -329,23 +330,23 @@ Package tocloft [2008/07/23] emulated by memoir.
 Package tocvsec2 [2008/07/23] emulated by memoir.
 Package verbatim [2008/07/23] emulated by memoir.
 Package verse [2008/07/23] emulated by memoir.
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/generic/babel\babel.sty
-Package: babel 2021/11/29 3.67 The Babel package
-\babel@savecnt=\count308
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/generic/babel\babel.sty
+Package: babel 2022/10/04 3.81 The Babel package
+\babel@savecnt=\count310
 \U@D=\dimen185
 \l@unhyphenated=\language79
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/generic/babel\txtbabel.def)
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/generic/babel\txtbabel.def)
 \bbl@readstream=\read3
-\bbl@dirlevel=\count309
+\bbl@dirlevel=\count311
 
 *************************************
 * Local config file bblopts.cfg used
 *
-(C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/arabi\bblopts.cfg
+(C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/arabi\bblopts.cfg
 File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of babel
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/babel-english\english.ldf
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/babel-english\english.ldf
 Language: english 2017/06/06 v3.3r English support from the babel system
 Package babel Info: Hyphen rules for 'canadian' set to \l@english
 (babel)             (\language0). Reported on input line 102.
@@ -353,54 +354,67 @@ Package babel Info: Hyphen rules for 'australian' set to \l@ukenglish
 (babel)             (\language73). Reported on input line 105.
 Package babel Info: Hyphen rules for 'newzealand' set to \l@ukenglish
 (babel)             (\language73). Reported on input line 108.
-)) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.sty
+)) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/generic/babel/locale/en\babel-english.tex
+Package babel Info: Importing font and identification data for english
+(babel)             from babel-en.ini. Reported on input line 11.
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.sty
 Package: inputenc 2021/02/14 v1.3d Input encoding file
 \inpenc@prehook=\toks24
 \inpenc@posthook=\toks25
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\mathpazo.sty
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\mathpazo.sty
 Package: mathpazo 2020/03/25 PSNFSS-v9.3 Palatino w/ Pazo Math (D.Puga, WaS) 
 \symupright=\mathgroup4
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsmath.sty
-Package: amsmath 2021/10/15 v2.17l AMS math features
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsmath.sty
+Package: amsmath 2022/04/08 v2.17n AMS math features
 \@mathmargin=\skip189
 
 For additional information on amsmath, use the `?' option.
-(C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amstext.sty
+(C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amstext.sty
 Package: amstext 2021/08/26 v2.01 AMS text
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks26
 \ex@=\dimen186
-)) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty
+)) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen187
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty
-Package: amsopn 2021/08/26 v2.02 operator names
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty
+Package: amsopn 2022/04/08 v2.04 operator names
 )
-\inf@bad=\count310
+\inf@bad=\count312
 LaTeX Info: Redefining \frac on input line 234.
-\uproot@=\count311
-\leftroot@=\count312
+\uproot@=\count313
+\leftroot@=\count314
 LaTeX Info: Redefining \overline on input line 399.
-\classnum@=\count313
-\DOTSCASE@=\count314
+LaTeX Info: Redefining \colon on input line 410.
+\classnum@=\count315
+\DOTSCASE@=\count316
 LaTeX Info: Redefining \ldots on input line 496.
 LaTeX Info: Redefining \dots on input line 499.
 LaTeX Info: Redefining \cdots on input line 620.
-\Mathstrutbox@=\box55
-\strutbox@=\box56
+\Mathstrutbox@=\box56
+\strutbox@=\box57
+LaTeX Info: Redefining \big on input line 722.
+LaTeX Info: Redefining \Big on input line 723.
+LaTeX Info: Redefining \bigg on input line 724.
+LaTeX Info: Redefining \Bigg on input line 725.
 \big@size=\dimen188
 LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
-\macc@depth=\count315
-\c@MaxMatrixCols=\count316
+\macc@depth=\count317
+LaTeX Info: Redefining \bmod on input line 905.
+LaTeX Info: Redefining \pmod on input line 910.
+LaTeX Info: Redefining \smash on input line 940.
+LaTeX Info: Redefining \relbar on input line 970.
+LaTeX Info: Redefining \Relbar on input line 971.
+\c@MaxMatrixCols=\count318
 \dotsspace@=\muskip16
-\c@parentequation=\count317
-\dspbrk@lvl=\count318
+\c@parentequation=\count319
+\dspbrk@lvl=\count320
 \tag@help=\toks27
-\row@=\count319
-\column@=\count320
-\maxfields@=\count321
+\row@=\count321
+\column@=\count322
+\maxfields@=\count323
 \andhelp@=\toks28
 \eqnshift@=\dimen189
 \alignsep@=\dimen190
@@ -412,25 +426,25 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
 \multlinegap=\skip190
 \multlinetaggap=\skip191
 \mathdisplay@stack=\toks30
-LaTeX Info: Redefining \[ on input line 2938.
-LaTeX Info: Redefining \] on input line 2939.
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amssymb.sty
+LaTeX Info: Redefining \[ on input line 2953.
+LaTeX Info: Redefining \] on input line 2954.
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amsfonts.sty
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \symAMSa=\mathgroup5
 \symAMSb=\mathgroup6
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-)) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/jknappen\mathrsfs.sty
+)) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/jknappen\mathrsfs.sty
 Package: mathrsfs 1996/01/01 Math RSFS package v1.0 (jk)
 \symrsfs=\mathgroup7
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/ntheorem\ntheorem.sty
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/ntheorem\ntheorem.sty
 Style `ntheorem', Version 1.33 <2011/08/15>
 Package: ntheorem 2011/08/15 1.33
-(C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/base\ifthen.sty
-Package: ifthen 2020/11/24 v1.1c Standard LaTeX ifthen package (DPC)
+(C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/base\ifthen.sty
+Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
 )
 \theorem@style=\toks31
 \theorem@@style=\toks32
@@ -463,234 +477,276 @@ Package: ifthen 2020/11/24 v1.1c Standard LaTeX ifthen package (DPC)
 \thm@topsep=\skip198
 \thm@topsepadd=\skip199
 Package ntheorem Info: Option `thmmarks' loaded on input line 1175.
-\c@endNonectr=\count322
-\c@currNonectr=\count323
+\c@endNonectr=\count324
+\c@currNonectr=\count325
 \mysavskip=\skip256
 Package ntheorem Info: option `amsmath' handling for `thmmarks' loaded on input line 1175.
 \thm@amstmpdepth=\dimen199
 \tagwidth=\dimen256
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
-Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \KV@toks@=\toks49
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
-Package: graphics 2021/03/04 v1.4d Standard LaTeX Graphics (DPC,SPQR)
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
+Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
 Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.cfg
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 107.
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
-File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
+File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen257
 \Gin@req@width=\dimen258
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/generic/soul\soul.sty
-Package: soul 2003/11/17 v2.4 letterspacing/underlining (mf)
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/generic/soul\soul.sty
+Package: soul 2023-02-18 v3.0 Permit use of UTF-8 characters in soul (HO)
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/generic/soul\soul-ori.sty
+Package: soul-ori 2023-02-18 v3.0 letterspacing/underlining (mf)
 \SOUL@word=\toks50
 \SOUL@lasttoken=\toks51
-\SOUL@cmds=\toks52
-\SOUL@buffer=\toks53
-\SOUL@token=\toks54
+\SOUL@syllable=\toks52
+\SOUL@cmds=\toks53
+\SOUL@buffer=\toks54
+\SOUL@token=\toks55
+\SOUL@syllgoal=\dimen259
+\SOUL@syllwidth=\dimen260
+\SOUL@charkern=\dimen261
+\SOUL@hyphkern=\dimen262
+\SOUL@dimen=\dimen263
+\SOUL@dimeni=\dimen264
+\SOUL@minus=\count326
+\SOUL@comma=\count327
+\SOUL@apo=\count328
+\SOUL@grave=\count329
 \SOUL@spaceskip=\skip257
-\SOUL@ttwidth=\dimen259
-\SOUL@uldp=\dimen260
-\SOUL@ulht=\dimen261
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/pdfpages\pdfpages.sty
-Package: pdfpages 2022/01/29 v0.5u Insert pages of external PDF documents (AM)
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/tools\calc.sty
+\SOUL@ttwidth=\dimen265
+\SOUL@uldp=\dimen266
+\SOUL@ulht=\dimen267
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/generic/etexcmds\etexcmds.sty
+Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+)) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/pdfpages\pdfpages.sty
+Package: pdfpages 2022/12/19 v0.5x Insert pages of external PDF documents (AM)
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/tools\calc.sty
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count324
-\calc@Bcount=\count325
-\calc@Adimen=\dimen262
-\calc@Bdimen=\dimen263
+\calc@Acount=\count330
+\calc@Bcount=\count331
+\calc@Adimen=\dimen268
+\calc@Bdimen=\dimen269
 \calc@Askip=\skip258
 \calc@Bskip=\skip259
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count326
+\calc@Ccount=\count332
 \calc@Cskip=\skip260
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/eso-pic\eso-pic.sty
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/eso-pic\eso-pic.sty
 Package: eso-pic 2020/10/14 v3.0a eso-pic (RN)
-\ESO@tempdima=\dimen264
-\ESO@tempdimb=\dimen265
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
-Package: xcolor 2021/10/31 v2.13 LaTeX color extensions (UK)
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
+\ESO@tempdima=\dimen270
+\ESO@tempdimb=\dimen271
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
+Package: xcolor 2022/06/12 v2.14 LaTeX color extensions (UK)
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: pdftex.def on input line 227.
-Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1352.
-Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1356.
-Package xcolor Info: Model `RGB' extended on input line 1368.
-Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1370.
-Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1371.
-Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1372.
-Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1373.
-Package xcolor Info: Model `Gray' substituted by `gray' on input line 1374.
-Package xcolor Info: Model `wave' substituted by `hsb' on input line 1375.
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1353.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1357.
+Package xcolor Info: Model `RGB' extended on input line 1369.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1371.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1372.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1373.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1374.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1375.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1376.
 ))
-\AM@pagewidth=\dimen266
-\AM@pageheight=\dimen267
-\AM@fboxrule=\dimen268
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/pdfpages\pppdftex.def
-File: pppdftex.def 2022/01/29 v0.5u Pdfpages driver for pdfTeX (AM)
+\AM@pagewidth=\dimen272
+\AM@pageheight=\dimen273
+\AM@fboxrule=\dimen274
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/pdfpages\pppdftex.def
+File: pppdftex.def 2022/12/19 v0.5x Pdfpages driver for pdfTeX (AM)
 )
-\pdfpages@includegraphics@status=\count327
-\AM@pagebox=\box57
-\AM@global@opts=\toks55
-\AM@pagecnt=\count328
-\AM@toc@title=\toks56
-\c@AM@survey=\count329
-\AM@templatesizebox=\box58
-) (extrapackages.tex (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/tools\varioref.sty
-Package: varioref 2021/07/07 v1.6f package for extended references (FMi)
-\c@vrcnt=\count330
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/datetime\datetime.sty
+\pdfpages@includegraphics@status=\count333
+\AM@pagebox=\box58
+\AM@global@opts=\toks56
+\AM@pagecnt=\count334
+\AM@toc@title=\toks57
+\AM@lof@heading=\toks58
+\c@AM@survey=\count335
+\AM@templatesizebox=\box59
+) (extrapackages.tex (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/tools\varioref.sty
+Package: varioref 2022/01/09 v1.6f package for extended references (FMi)
+\c@vrcnt=\count336
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/datetime\datetime.sty
 Package: datetime 2015/03/20 v2.60 Date Time Package
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/fmtcount\fmtcount.sty
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/fmtcount\fmtcount.sty
 Package: fmtcount 2020/01/30 v3.07
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/xkeyval\xkeyval.sty
-Package: xkeyval 2020/11/20 v2.8 package option processing (HA)
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\xkeyval.tex (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\xkvutils.tex
-\XKV@toks=\toks57
-\XKV@tempa@toks=\toks58
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/xkeyval\xkeyval.sty
+Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\xkeyval.tex (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\xkvutils.tex
+\XKV@toks=\toks59
+\XKV@tempa@toks=\toks60
 )
-\XKV@depth=\count331
+\XKV@depth=\count337
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
-)) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/fmtcount\fcprefix.sty
+)) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/fmtcount\fcprefix.sty
 Package: fcprefix 2012/09/28
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/fmtcount\fcnumparser.sty
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/fmtcount\fcnumparser.sty
 Package: fcnumparser 2017/06/15
-\fc@digit@counter=\count332
+\fc@digit@counter=\count338
 ))
-\c@padzeroesN=\count333
-\fc@tmpcatcode=\count334
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/fmtcount\fc-english.def
+\c@padzeroesN=\count339
+\fc@tmpcatcode=\count340
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/fmtcount\fc-english.def
 File: fc-english.def 2016/01/12
 )
-\@DT@modctr=\count335
-\@ordinalctr=\count336
-\@orgargctr=\count337
-\@strctr=\count338
-\@tmpstrctr=\count339
-\@DT@loopN=\count340
-\@DT@X=\count341
+\@DT@modctr=\count341
+\@ordinalctr=\count342
+\@orgargctr=\count343
+\@strctr=\count344
+\@tmpstrctr=\count345
+\@DT@loopN=\count346
+\@DT@X=\count347
 
 
 Package fmtcount Warning: \ordinal already defined use \FCordinal instead. on input line 466.
 
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/datetime\datetime-defaults.sty
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/datetime\datetime-defaults.sty
 Package: datetime-defaults 2013/09/10
 )
-\@day=\count342
-\@month=\count343
-\@year=\count344
-\c@HOUR=\count345
-\c@HOURXII=\count346
-\c@MINUTE=\count347
-\c@TOHOUR=\count348
-\c@TOMINUTE=\count349
-\c@SECOND=\count350
-\currenthour=\count351
-\currentminute=\count352
-\currentsecond=\count353
+\@day=\count348
+\@month=\count349
+\@year=\count350
+\c@HOUR=\count351
+\c@HOURXII=\count352
+\c@MINUTE=\count353
+\c@TOHOUR=\count354
+\c@TOMINUTE=\count355
+\c@SECOND=\count356
+\currenthour=\count357
+\currentminute=\count358
+\currentsecond=\count359
 Package datetime Info: No datetime.cfg file found, using default settings on input line 308.
-\@dtctr=\count354
-\dayofyear=\count355
-\dayofweek=\count356
+\@dtctr=\count360
+\dayofyear=\count361
+\dayofweek=\count362
 LaTeX Info: Redefining \today on input line 736.
-\dt@a=\toks59
-\dt@b=\toks60
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/mathtools\mathtools.sty
-Package: mathtools 2021/04/12 v1.27 mathematical typesetting tools
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/mathtools\mhsetup.sty
+\dt@a=\toks61
+\dt@b=\toks62
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/mathtools\mathtools.sty
+Package: mathtools 2022/06/29 v1.29 mathematical typesetting tools
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/mathtools\mhsetup.sty
 Package: mhsetup 2021/03/18 v1.4 programming setup (MH)
 )
-LaTeX Info: Thecontrolsequence`\('isalreadyrobust on input line 130.
-LaTeX Info: Thecontrolsequence`\)'isalreadyrobust on input line 130.
-LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 130.
-LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 130.
-\g_MT_multlinerow_int=\count357
-\l_MT_multwidth_dim=\dimen269
+\g_MT_multlinerow_int=\count363
+\l_MT_multwidth_dim=\dimen275
 \origjot=\skip261
-\l_MT_shortvdotswithinadjustabove_dim=\dimen270
-\l_MT_shortvdotswithinadjustbelow_dim=\dimen271
-\l_MT_above_intertext_sep=\dimen272
-\l_MT_below_intertext_sep=\dimen273
-\l_MT_above_shortintertext_sep=\dimen274
-\l_MT_below_shortintertext_sep=\dimen275
-\xmathstrut@box=\box59
-\xmathstrut@dim=\dimen276
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/esvect\esvect.sty
+\l_MT_shortvdotswithinadjustabove_dim=\dimen276
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen277
+\l_MT_above_intertext_sep=\dimen278
+\l_MT_below_intertext_sep=\dimen279
+\l_MT_above_shortintertext_sep=\dimen280
+\l_MT_below_shortintertext_sep=\dimen281
+\xmathstrut@box=\box60
+\xmathstrut@dim=\dimen282
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/esvect\esvect.sty
 Package: esvect 
 \symesvector=\mathgroup8
 LaTeX Font Info:    Redeclaring math symbol \fldr on input line 38.
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
-\lst@mode=\count358
-\lst@gtempboxa=\box60
-\lst@token=\toks61
-\lst@length=\count359
-\lst@currlwidth=\dimen277
-\lst@column=\count360
-\lst@pos=\count361
-\lst@lostspace=\dimen278
-\lst@width=\dimen279
-\lst@newlines=\count362
-\lst@lineno=\count363
-\lst@maxwidth=\dimen280
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
+\lst@mode=\count364
+\lst@gtempboxa=\box61
+\lst@token=\toks63
+\lst@length=\count365
+\lst@currlwidth=\dimen283
+\lst@column=\count366
+\lst@pos=\count367
+\lst@lostspace=\dimen284
+\lst@width=\dimen285
+\lst@newlines=\count368
+\lst@lineno=\count369
+\lst@maxwidth=\dimen286
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
-\c@lstnumber=\count364
-\lst@skipnumbers=\count365
-\lst@framebox=\box61
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
+\c@lstnumber=\count370
+\lst@skipnumbers=\count371
+\lst@framebox=\box62
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
 File: listings.cfg 2020/03/24 1.8d listings configuration
 ))
 Package: listings 2020/03/24 1.8d (Carsten Heinz)
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang2.sty
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang2.sty
 File: lstlang2.sty 2020/03/24 1.8d listings language file
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang3.sty
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang3.sty
 File: lstlang3.sty 2020/03/24 1.8d listings language file
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang2.sty
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang2.sty
 File: lstlang2.sty 2020/03/24 1.8d listings language file
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang3.sty
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang3.sty
 File: lstlang3.sty 2020/03/24 1.8d listings language file
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang2.sty
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang2.sty
 File: lstlang2.sty 2020/03/24 1.8d listings language file
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang3.sty
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang3.sty
 File: lstlang3.sty 2020/03/24 1.8d listings language file
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/microtype\microtype.sty
-Package: microtype 2021/12/10 v3.0b Micro-typographical refinements (RS)
-\MT@toks=\toks62
-\MT@count=\count366
-\MT@tempbox=\box62
-LaTeX Info: Redefining \leftprotrusion on input line 1010.
-LaTeX Info: Redefining \rightprotrusion on input line 1018.
-LaTeX Info: Redefining \textls on input line 1173.
-\MT@outer@kern=\dimen281
-LaTeX Info: Redefining \textmicrotypecontext on input line 1759.
-\MT@listname@count=\count367
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/microtype\microtype-pdftex.def
-File: microtype-pdftex.def 2021/12/10 v3.0b Definitions specific to pdftex (RS)
-LaTeX Info: Redefining \lsstyle on input line 897.
-LaTeX Info: Redefining \lslig on input line 897.
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/microtype\microtype.sty
+Package: microtype 2022/06/23 v3.0f Micro-typographical refinements (RS)
+\MT@toks=\toks64
+\MT@tempbox=\box63
+\MT@count=\count372
+LaTeX Info: Redefining \noprotrusionifhmode on input line 1045.
+LaTeX Info: Redefining \leftprotrusion on input line 1046.
+LaTeX Info: Redefining \rightprotrusion on input line 1056.
+LaTeX Info: Redefining \textls on input line 1234.
+\MT@outer@kern=\dimen287
+LaTeX Info: Redefining \textmicrotypecontext on input line 1858.
+\MT@listname@count=\count373
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/microtype\microtype-pdftex.def
+File: microtype-pdftex.def 2022/06/23 v3.0f Definitions specific to pdftex (RS)
+LaTeX Info: Redefining \lsstyle on input line 900.
+LaTeX Info: Redefining \lslig on input line 900.
 \MT@outer@space=\skip262
 )
 Package microtype Info: Loading configuration file microtype.cfg.
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/microtype\microtype.cfg
-File: microtype.cfg 2021/12/10 v3.0b microtype main configuration file (RS)
-))) (layoutsetup.tex (OSTlogo.sty
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/microtype\microtype.cfg
+File: microtype.cfg 2022/06/23 v3.0f microtype main configuration file (RS)
+)) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption.sty
+Package: caption 2022/03/01 v3.6b Customizing captions (AR)
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption3.sty
+Package: caption3 2022/03/17 v2.3b caption3 kernel (AR)
+\caption@tempdima=\dimen288
+\captionmargin=\dimen289
+\caption@leftmargin=\dimen290
+\caption@rightmargin=\dimen291
+\caption@width=\dimen292
+\caption@indent=\dimen293
+\caption@parindent=\dimen294
+\caption@hangindent=\dimen295
+Package caption Info: memoir document class detected.
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption-memoir.sto
+File: caption-memoir.sto 2022/03/02 v2.2b Adaption of the caption package to the memoir document class (AR)
+))
+\c@caption@flags=\count374
+\c@continuedfloat=\count375
+Package caption Info: changepage package is loaded.
+\caption@adjustwidth@hsize=\dimen296
+\caption@adjustwidth@linewidth=\dimen297
+Package caption Info: listings package is loaded.
+)) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/caption\subcaption.sty
+Package: subcaption 2022/01/07 v1.5 Sub-captions (AR)
+\c@subfigure=\count376
+\c@subtable=\count377
+) (layoutsetup.tex (OSTlogo.sty
 Package: OSTlogo 2000/11/06 0.1 OST Logo command
 )
 
@@ -714,141 +770,144 @@ Sidefootvsep and sidefootheight: 13.6pt and 594.32022pt
 ******************************************************
 
 ) (theoremsetup.tex
-\c@currtheoremctr=\count368
-\c@endtheoremctr=\count369
-\c@theorem=\count370
-\c@currexamplectr=\count371
-\c@endexamplectr=\count372
-\c@currremarkctr=\count373
-\c@endremarkctr=\count374
-\c@currcorollaryctr=\count375
-\c@endcorollaryctr=\count376
-\c@currdefinitionctr=\count377
-\c@enddefinitionctr=\count378
-\c@currlemmactr=\count379
-\c@endlemmactr=\count380
-\c@currpropositionctr=\count381
-\c@endpropositionctr=\count382
-\c@currproofctr=\count383
-\c@endproofctr=\count384
+\c@currtheoremctr=\count378
+\c@endtheoremctr=\count379
+\c@theorem=\count380
+\c@currexamplectr=\count381
+\c@endexamplectr=\count382
+\c@currremarkctr=\count383
+\c@endremarkctr=\count384
+\c@currcorollaryctr=\count385
+\c@endcorollaryctr=\count386
+\c@currdefinitionctr=\count387
+\c@enddefinitionctr=\count388
+\c@currlemmactr=\count389
+\c@endlemmactr=\count390
+\c@currpropositionctr=\count391
+\c@endpropositionctr=\count392
+\c@currproofctr=\count393
+\c@endproofctr=\count394
 )
-\c@proof=\count385
- (macrosetup.tex) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
-Package: hyperref 2021-06-07 v7.00m Hypertext links for LaTeX
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
+\c@proof=\count395
+ (macrosetup.tex) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
+Package: hyperref 2022-09-22 v7.00t Hypertext links for LaTeX
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
 Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\pdftexcmds.sty
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\pdftexcmds.sty
 Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\infwarerr.sty
-Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
-)
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/generic/kvsetkeys\kvsetkeys.sty
-Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys\kvdefinekeys.sty
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys\kvdefinekeys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/generic/pdfescape\pdfescape.sty
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/generic/pdfescape\pdfescape.sty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/letltxmacro\letltxmacro.sty
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/letltxmacro\letltxmacro.sty
 Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/auxhook\auxhook.sty
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/auxhook\auxhook.sty
 Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
-Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
+Package: nameref 2022-05-17 v2.50 Cross-referencing by name of section
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/generic/gettitlestring\gettitlestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+))
+\c@section@level=\count396
 )
-\@linkdim=\dimen282
-\Hy@linkcounter=\count386
-\Hy@pagecounter=\count387
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
-File: pd1enc.def 2021-06-07 v7.00m Hyperref: PDFDocEncoding definition (HO)
+\@linkdim=\dimen298
+\Hy@linkcounter=\count397
+\Hy@pagecounter=\count398
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
+File: pd1enc.def 2022-09-22 v7.00t Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref-langpatches.def
-File: hyperref-langpatches.def 2021-06-07 v7.00m Hyperref: patches for babel languages
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/generic/etexcmds\etexcmds.sty
-Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
-\Hy@SavedSpaceFactor=\count388
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
-File: puenc.def 2021-06-07 v7.00m Hyperref: PDF Unicode definition (HO)
+\Hy@SavedSpaceFactor=\count399
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
+File: puenc.def 2022-09-22 v7.00t Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 4073.
-Package hyperref Info: Hyper figures OFF on input line 4192.
-Package hyperref Info: Link nesting OFF on input line 4197.
-Package hyperref Info: Hyper index ON on input line 4200.
-Package hyperref Info: Plain pages OFF on input line 4207.
-Package hyperref Info: Backreferencing OFF on input line 4212.
+Package hyperref Info: Option `colorlinks' set `true' on input line 4045.
+Package hyperref Info: Hyper figures OFF on input line 4162.
+Package hyperref Info: Link nesting OFF on input line 4167.
+Package hyperref Info: Hyper index ON on input line 4170.
+Package hyperref Info: Plain pages OFF on input line 4177.
+Package hyperref Info: Backreferencing OFF on input line 4182.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
-Package hyperref Info: Bookmarks ON on input line 4445.
-\c@Hy@tempcnt=\count389
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
+Package hyperref Info: Bookmarks ON on input line 4410.
+\c@Hy@tempcnt=\count400
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
-LaTeX Info: Redefining \url on input line 4804.
-\XeTeXLinkMargin=\dimen283
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
+LaTeX Info: Redefining \url on input line 4748.
+\XeTeXLinkMargin=\dimen299
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/generic/bigintcalc\bigintcalc.sty
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/generic/bigintcalc\bigintcalc.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
 ))
-\Fld@menulength=\count390
-\Field@Width=\dimen284
-\Fld@charsize=\dimen285
-Package hyperref Info: Hyper figures OFF on input line 6076.
-Package hyperref Info: Link nesting OFF on input line 6081.
-Package hyperref Info: Hyper index ON on input line 6084.
-Package hyperref Info: backreferencing OFF on input line 6091.
-Package hyperref Info: Link coloring ON on input line 6094.
-Package hyperref Info: Link coloring with OCG OFF on input line 6101.
-Package hyperref Info: PDF/A mode OFF on input line 6106.
-LaTeX Info: Redefining \ref on input line 6146.
-LaTeX Info: Redefining \pageref on input line 6150.
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/base\atbegshi-ltx.sty
+\Fld@menulength=\count401
+\Field@Width=\dimen300
+\Fld@charsize=\dimen301
+Package hyperref Info: Hyper figures OFF on input line 6027.
+Package hyperref Info: Link nesting OFF on input line 6032.
+Package hyperref Info: Hyper index ON on input line 6035.
+Package hyperref Info: backreferencing OFF on input line 6042.
+Package hyperref Info: Link coloring ON on input line 6045.
+Package hyperref Info: Link coloring with OCG OFF on input line 6052.
+Package hyperref Info: PDF/A mode OFF on input line 6057.
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/base\atbegshi-ltx.sty
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
 )
-\Hy@abspage=\count391
-\c@Item=\count392
-\c@Hfootnote=\count393
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/memoir\memhfixc.sty
-Package: memhfixc 2022/11/17 v1.20 nameref/hyperref package fixes for memoir class
-\c@memhycontfloat=\count394
-\c@Hpagenote=\count395
+\Hy@abspage=\count402
+\c@Item=\count403
+\c@Hfootnote=\count404
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
-File: hpdftex.def 2021-06-07 v7.00m Hyperref driver for pdfTeX
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/base\atveryend-ltx.sty
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
+File: hpdftex.def 2022-09-22 v7.00t Hyperref driver for pdfTeX
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/base\atveryend-ltx.sty
 Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend package
 with kernel methods
 )
-\Fld@listcount=\count396
-\c@bookmark@seq@number=\count397
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfilecheck.sty
-Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/generic/uniquecounter\uniquecounter.sty
+\Fld@listcount=\count405
+\c@bookmark@seq@number=\count406
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfilecheck.sty
+Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/generic/uniquecounter\uniquecounter.sty
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
-Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 286.
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
 )
 \Hy@SectionHShift=\skip263
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/memoir\memhfixc.sty
+Package: memhfixc 2022/11/17 v1.20 nameref/hyperref package fixes for memoir class
+
+Redoing nameref's sectioning
+Redoing nameref's label
+LaTeX Info: Redefining \nameref on input line 106.
+\c@memhycontfloat=\count407
+\c@Hpagenote=\count408
 )
 LaTeX Font Info:    Trying to load font information for OT1+pplx on input line 86.
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1pplx.fd
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1pplx.fd
 File: ot1pplx.fd 2004/09/06 font definitions for OT1/pplx.
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
-File: l3backend-pdftex.def 2021-10-18 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count398
-\l__pdf_internal_box=\box63
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
+File: l3backend-pdftex.def 2022-09-28 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count409
+\l__pdf_internal_box=\box64
 )
 
 LaTeX Warning: Unused global option(s):
@@ -875,41 +934,38 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 86.
 LaTeX Font Info:    ... okay on input line 86.
 LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 86.
 LaTeX Font Info:    ... okay on input line 86.
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count399
-\scratchdimen=\dimen286
-\scratchbox=\box64
-\nofMPsegments=\count400
-\nofMParguments=\count401
-\everyMPshowfont=\toks63
-\MPscratchCnt=\count402
-\MPscratchDim=\dimen287
-\MPnumerator=\count403
-\makeMPintoPDFobject=\count404
-\everyMPtoPDFconversion=\toks64
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
+\scratchcounter=\count410
+\scratchdimen=\dimen302
+\scratchbox=\box65
+\nofMPsegments=\count411
+\nofMParguments=\count412
+\everyMPshowfont=\toks65
+\MPscratchCnt=\count413
+\MPscratchDim=\dimen303
+\MPnumerator=\count414
+\makeMPintoPDFobject=\count415
+\everyMPtoPDFconversion=\toks66
+) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
-)) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/pdflscape\pdflscape.sty
+)) (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/pdflscape\pdflscape.sty
 Package: pdflscape 2022-10-27 v0.13 Display of landscape pages in PDF
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/pdflscape\pdflscape-nometadata.sty
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/pdflscape\pdflscape-nometadata.sty
 Package: pdflscape-nometadata 2022-10-28 v0.13 Display of landscape pages in PDF (HO)
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/graphics\lscape.sty
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/graphics\lscape.sty
 Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 ))
-\c@lstlisting=\count405
+\c@lstlisting=\count416
 LaTeX Info: Redefining \microtypecontext on input line 86.
 Package microtype Info: Applying patch `item' on input line 86.
 Package microtype Info: Applying patch `toc' on input line 86.
-
-
-Package microtype Warning: Unable to apply patch `eqnum' on input line 86.
-
+Package microtype Info: Applying patch `eqnum' on input line 86.
 Package microtype Info: Applying patch `footnote' on input line 86.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
@@ -921,32 +977,17 @@ LaTeX Info: Redefining \showhyphens on input line 86.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
-(C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-ppl.cfg
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-ppl.cfg
 File: mt-ppl.cfg 2005/11/16 v1.6 microtype config. file: Palatino (RS)
 )
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: hyperref package is loaded.
+Package caption Info: End \AtBeginDocument code.
 Package hyperref Info: Link coloring ON on input line 86.
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
-Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
-Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
-) (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/generic/gettitlestring\gettitlestring.sty
-Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
-)
-\c@section@level=\count406
-LaTeX Info: Redefining \Ref on input line 520.
-)
-Redoing nameref's sectioning
-Redoing nameref's label
-LaTeX Info: Redefining \nameref on input line 86.
-LaTeX Info: Redefining \ref on input line 86.
-LaTeX Info: Redefining \pageref on input line 86.
-LaTeX Info: Redefining \nameref on input line 86.
-(thesis.out) (thesis.out)
 \@outlinefile=\write4
 \openout4 = `thesis.out'.
 
-LaTeX Info: Redefining \Ref on input line 86.
-<ost_logo.pdf, id=131, 337.26pt x 153.57375pt>
+<ost_logo.pdf, id=3, 337.26pt x 153.57375pt>
 File: ost_logo.pdf Graphic file (type pdf)
 <use ost_logo.pdf>
 Package pdftex.def Info: ost_logo.pdf  used on input line 96.
@@ -958,7 +999,7 @@ Package microtype Info: Loading generic protrusion settings for font family
  [1
 
 
-{C:/Users/Anton Jakob/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./ost_logo.pdf>] [2
+{C:/Users/Anton/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./ost_logo.pdf>] [2
 
 ] (chapters/abstract.tex)
 pdfTeX warning (ext4): destination with the same identifier (name{page.i}) has been already used, duplicate ignored
@@ -972,21 +1013,29 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.ii}) has 
 l.103 \cleartorecto
                     [2
 
-] (thesis.toc
-LaTeX Font Info:    Trying to load font information for OML+zplm on input line 3.
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omlzplm.fd
+]
+No file thesis.toc.
+[3] [4
+
+] (chapters/introduction.tex
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `cmtt' (encoding: OT1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+LaTeX Font Info:    Trying to load font information for OML+zplm on input line 10.
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omlzplm.fd
 File: omlzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OML/zplm.
 )
-LaTeX Font Info:    Trying to load font information for OMS+zplm on input line 3.
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omszplm.fd
+LaTeX Font Info:    Trying to load font information for OMS+zplm on input line 10.
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omszplm.fd
 File: omszplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMS/zplm.
 )
-LaTeX Font Info:    Trying to load font information for OMX+zplm on input line 3.
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omxzplm.fd
+LaTeX Font Info:    Trying to load font information for OMX+zplm on input line 10.
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omxzplm.fd
 File: omxzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMX/zplm.
 )
-LaTeX Font Info:    Trying to load font information for OT1+zplm on input line 3.
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1zplm.fd
+LaTeX Font Info:    Trying to load font information for OT1+zplm on input line 10.
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1zplm.fd
 File: ot1zplm.fd 2002/09/08 Fontinst v1.914 font definitions for OT1/zplm.
 )
 Package microtype Info: Loading generic protrusion settings for font family
@@ -994,98 +1043,177 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 11.40997pt on input line 3.
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msa.cfg
+(Font)              scaled to size 11.40997pt on input line 10.
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 8.33606pt on input line 3.
+(Font)              scaled to size 8.33606pt on input line 10.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 6.25204pt on input line 3.
+(Font)              scaled to size 6.25204pt on input line 10.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 11.40997pt on input line 3.
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msb.cfg
+(Font)              scaled to size 11.40997pt on input line 10.
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 8.33606pt on input line 3.
+(Font)              scaled to size 8.33606pt on input line 10.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 6.25204pt on input line 3.
-LaTeX Font Info:    Trying to load font information for U+rsfs on input line 3.
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/jknappen\ursfs.fd
+(Font)              scaled to size 6.25204pt on input line 10.
+LaTeX Font Info:    Trying to load font information for U+rsfs on input line 10.
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/jknappen\ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
-LaTeX Font Info:    Trying to load font information for U+esvect on input line 3.
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/esvect\uesvect.fd
+LaTeX Font Info:    Trying to load font information for U+esvect on input line 10.
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/esvect\uesvect.fd
 File: uesvect.fd 
-) [3])
-Package microtype Info: Character `013' is missing
-(microtype)             in font `OT1/pplx/m/sc/10.95'.
-(microtype)             Ignoring protrusion settings for this character.
- [4] (chapters/introduction.tex
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `cmtt' (encoding: OT1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
- [1
+)
 
+LaTeX Warning: Citation `bringhurst1996ets' on page 1 undefined on input line 32.
+
+[1
 
 ]
+
+LaTeX Warning: Hyper reference `sec:features' on page 2 undefined on input line 53.
+
+
+LaTeX Warning: Reference `sec:features' on page 2 undefined on input line 53.
+
+
+LaTeX Warning: Reference `sec:features' on page 2 undefined on input line 53.
+
 Package hyperref Info: bookmark level for unknown theorem defaults to 0 on input line 73.
 Package hyperref Info: bookmark level for unknown proof defaults to 0 on input line 77.
 Package hyperref Info: bookmark level for unknown proposition defaults to 0 on input line 97.
-) (chapters/Algorithms.tex [2] [3
+) (chapters/data_set.tex
+Package microtype Info: Character `013' is missing
+(microtype)             in font `OT1/pplx/m/sc/10.95'.
+(microtype)             Ignoring protrusion settings for this character.
+ [2]
 
-]
+LaTeX Warning: Citation `LPW' on page 3 undefined on input line 6.
+
+<plots/eye_dataset/eye1.png, id=76, 642.4pt x 481.8pt>
+File: plots/eye_dataset/eye1.png Graphic file (type png)
+<use plots/eye_dataset/eye1.png>
+Package pdftex.def Info: plots/eye_dataset/eye1.png  used on input line 15.
+(pdftex.def)             Requested size: 99.63033pt x 74.72234pt.
+<plots/eye_dataset/eye2.png, id=77, 142.5325pt x 106.3975pt>
+File: plots/eye_dataset/eye2.png Graphic file (type png)
+<use plots/eye_dataset/eye2.png>
+Package pdftex.def Info: plots/eye_dataset/eye2.png  used on input line 21.
+(pdftex.def)             Requested size: 99.63033pt x 74.37221pt.
+<plots/eye_dataset/eye3.png, id=79, 642.4pt x 481.8pt>
+File: plots/eye_dataset/eye3.png Graphic file (type png)
+<use plots/eye_dataset/eye3.png>
+Package pdftex.def Info: plots/eye_dataset/eye3.png  used on input line 27.
+(pdftex.def)             Requested size: 99.63033pt x 74.72234pt.
+) (chapters/Algorithms.tex [3
+
+ <./plots/eye_dataset/eye1.png> <./plots/eye_dataset/eye2.png> <./plots/eye_dataset/eye3.png>] [4
+
+] [5]
 LaTeX Font Info:    Font shape `OT1/cmss/m/it' in size <10.95> not available
 (Font)              Font shape `OT1/cmss/m/sl' tried instead on input line 59.
-) (rules.tex [4]
-\c@currRulectr=\count407
-\c@endRulectr=\count408
+) (rules.tex [6]
+\c@currRulectr=\count417
+\c@endRulectr=\count418
 LaTeX Font Info:    Trying to load font information for TS1+pplx on input line 18.
- (C:\Users\Anton Jakob\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1pplx.fd
+ (C:\Users\Anton\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1pplx.fd
 File: ts1pplx.fd 2004/09/06 font definitions for TS1/pplx.
 )
 Package hyperref Info: bookmark level for unknown Rule defaults to 0 on input line 21.
- [5
+ [7
 
-] [6] [7] [8]
+] [8]
+
+LaTeX Warning: Reference `rule:non-defining-has-comma' on page 9 undefined on input line 132.
+
+
+LaTeX Warning: Reference `rule:defining-without-comma' on page 9 undefined on input line 133.
+
+
+LaTeX Warning: Reference `rule:no-comma-before-that' on page 9 undefined on input line 154.
+
+[9]
+
+LaTeX Warning: Reference `rule:no-comma-before-that' on page 10 undefined on input line 192.
+
+[10]
+
+LaTeX Warning: Reference `tab:things-you-dont-say' on page 11 undefined on input line 253.
+
+
 Overfull \hbox (4.25926pt too wide) in paragraph at lines 264--278
  [][] 
  []
 
-) (typography.tex [9] [10
+) (typography.tex [11] [12
 
-] [11] [12]
+]
+
+LaTeX Warning: Reference `sec:list' on page 13 undefined on input line 42.
+
+[13]
+
+LaTeX Warning: Reference `rule:no-manual-spacing' on page 14 undefined on input line 68.
+
+[14]
 Underfull \hbox (badness 2460) detected at line 114
 \OT1/pplx/m/n/10.95 Prof. Dr. A. Steger is a member of CADMO. If you
  []
 
-[13]
+[15]
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10.95> not available
 (Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 218.
- [14]) (sections.tex [15] [16
+ [16]) (sections.tex [17] [18
 
-]) (chapters/appendix.tex [17] [18
+]) (chapters/appendix.tex [19] [20
 
-]) [19] [20
+]) [21] [22
 
 ] (thesis.bbl
 bibitemlist
+
+Underfull \hbox (badness 7012) in paragraph at lines 9--15
+[]\OT1/pplx/m/n/10.95 (+20) Tonsen Marc, Zhang Xu-cong, Sug-ano Yusuke, and Bulling
+ []
+
+
+Underfull \hbox (badness 4242) in paragraph at lines 9--15
+\OT1/pplx/m/n/10.95 (+20) An-dreas.  La-belled pupils in the wild (lpw): Pupil de-tec-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 9--15
+\OT1/pplx/m/n/10.95 (+20) tion in un-con-strained en-vi-ron-ments.  [][]$\OT1/cmtt/m/n/10.95 https : / / www . mpi-[]inf .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 9--15
+\OT1/cmtt/m/n/10.95 mpg . de / departments / computer-[]vision-[]and-[]machine-[]learning /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 9--15
+\OT1/cmtt/m/n/10.95 research / gaze-[]based-[]human-[]computer-[]interaction /
+ []
+
 )
 
 pdfTeX warning: pdflatex (file ./declaration-originality.pdf): PDF inclusion: found PDF version <1.6>, but at most version <1.5> allowed
-<declaration-originality.pdf, id=360, 597.55246pt x 845.07718pt>
+<declaration-originality.pdf, id=240, 597.55246pt x 845.07718pt>
 File: declaration-originality.pdf Graphic file (type pdf)
 <use declaration-originality.pdf>
-Package pdftex.def Info: declaration-originality.pdf  used on input line 123.
+Package pdftex.def Info: declaration-originality.pdf  used on input line 124.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 
 
 pdfTeX warning: pdflatex (file ./declaration-originality.pdf): PDF inclusion: found PDF version <1.6>, but at most version <1.5> allowed
 File: declaration-originality.pdf Graphic file (type pdf)
 <use declaration-originality.pdf>
-Package pdftex.def Info: declaration-originality.pdf  used on input line 123.
+Package pdftex.def Info: declaration-originality.pdf  used on input line 124.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 
 
@@ -1093,31 +1221,31 @@ pdfTeX warning: pdflatex (file ./declaration-originality.pdf): PDF inclusion: fo
 
 
 pdfTeX warning: pdflatex (file ./declaration-originality.pdf): PDF inclusion: found PDF version <1.6>, but at most version <1.5> allowed
-<declaration-originality.pdf, id=363, page=1, 597.55246pt x 845.07718pt>
+<declaration-originality.pdf, id=243, page=1, 597.55246pt x 845.07718pt>
 File: declaration-originality.pdf Graphic file (type pdf)
 <use declaration-originality.pdf, page 1>
-Package pdftex.def Info: declaration-originality.pdf , page1 used on input line 123.
+Package pdftex.def Info: declaration-originality.pdf , page1 used on input line 124.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 File: declaration-originality.pdf Graphic file (type pdf)
 <use declaration-originality.pdf, page 1>
-Package pdftex.def Info: declaration-originality.pdf , page1 used on input line 123.
+Package pdftex.def Info: declaration-originality.pdf , page1 used on input line 124.
 (pdftex.def)             Requested size: 597.57834pt x 845.1138pt.
-[21
+[23
 
 ]
 File: declaration-originality.pdf Graphic file (type pdf)
 <use declaration-originality.pdf, page 1>
-Package pdftex.def Info: declaration-originality.pdf , page1 used on input line 123.
+Package pdftex.def Info: declaration-originality.pdf , page1 used on input line 124.
 (pdftex.def)             Requested size: 597.57834pt x 845.1138pt.
 File: declaration-originality.pdf Graphic file (type pdf)
 <use declaration-originality.pdf, page 1>
-Package pdftex.def Info: declaration-originality.pdf , page1 used on input line 123.
+Package pdftex.def Info: declaration-originality.pdf , page1 used on input line 124.
 (pdftex.def)             Requested size: 597.57834pt x 845.1138pt.
 File: declaration-originality.pdf Graphic file (type pdf)
 <use declaration-originality.pdf, page 1>
-Package pdftex.def Info: declaration-originality.pdf , page1 used on input line 123.
+Package pdftex.def Info: declaration-originality.pdf , page1 used on input line 124.
 (pdftex.def)             Requested size: 597.57834pt x 845.1138pt.
- [22 <./declaration-originality.pdf>]
+ [24 <./declaration-originality.pdf>]
 \tf@thm=\write5
 \openout5 = `thesis.thm'.
 
@@ -1125,21 +1253,33 @@ Package pdftex.def Info: declaration-originality.pdf , page1 used on input line 
 \openout6 = `thesis.toc'.
 
  (thesis.aux)
-Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 5FFBC931AE401A25F9916E651F222EF1;4492.
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `thesis.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `thesis.out':
+(rerunfilecheck)             Before: <no file>
+(rerunfilecheck)             After:  ED3C0B0C51DBECBF0BAC395C175573BC;3417.
  ) 
 Here is how much of TeX's memory you used:
- 23065 strings out of 478659
- 362919 string characters out of 2843040
- 759471 words of memory out of 3000000
- 40244 multiletter control sequences out of 15000+600000
- 452451 words of font info for 369 fonts, out of 8000000 for 9000
+ 24665 strings out of 475385
+ 393674 string characters out of 2776907
+ 825495 words of memory out of 3000000
+ 45086 multiletter control sequences out of 15000+600000
+ 518480 words of font info for 373 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,17n,125p,1115b,1896s stack positions out of 5000i,500n,10000p,200000b,80000s
-{C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmitt10.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss10.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss12.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss9.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssi10.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/public/mathpazo/fplmri.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/public/fpl/fplrc8a.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplb8a.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplr8a.pfb><C:/Users/Anton Jakob/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on thesis.pdf (28 pages, 1090353 bytes).
+ 75i,17n,125p,1109b,1898s stack positions out of 10000i,1000n,20000p,200000b,80000s
+{C:/Users/Anton/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:/Users/Anton/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Anton/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmitt10.pfb><C:/Users/Anton/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Anton/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Anton/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss10.pfb><C:/Users/Anton/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss12.pfb><C:/Users/Anton/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss9.pfb><C:/Users/Anton/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><C:/Users/Anton/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssi10.pfb><C:/Users/Anton/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Anton/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/Anton/AppData/Local/Programs/MiKTeX/fonts/type1/public/mathpazo/fplmri.pfb><C:/Users/Anton/AppData/Local/Programs/MiKTeX/fonts/type1/public/fpl/fplrc8a.pfb><C:/Users/Anton/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/Anton/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplb8a.pfb><C:/Users/Anton/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplr8a.pfb><C:/Users/Anton/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplri8a.pfb>
+Output written on thesis.pdf (30 pages, 1864656 bytes).
 PDF statistics:
- 492 PDF objects out of 1000 (max. 8388607)
- 116 named destinations out of 1000 (max. 500000)
- 99098 words of extra memory for PDF output out of 106986 (max. 10000000)
+ 378 PDF objects out of 1000 (max. 8388607)
+ 124 named destinations out of 1000 (max. 500000)
+ 98857 words of extra memory for PDF output out of 106986 (max. 10000000)
 

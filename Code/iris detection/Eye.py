@@ -85,7 +85,6 @@ class Eye:
         # Coords = (x,y,w,h, border)
         #print('set_ellipse', ellipse)
         #print('with coords', coords)
-        if ellipse is None:
             
         y_off = coords[1]-110
         x_off = coords[0]-110

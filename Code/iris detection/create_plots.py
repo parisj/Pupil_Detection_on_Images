@@ -23,7 +23,7 @@ def plot_ellipse(image, ellipse):
 
     return True
     
-def plot_histogram(image, roi, threshhold = None  ):
+def plot_histogram(image, roi, peak_threshold ):
     if len(image.shape) > 2:
         image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     #clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
@@ -39,7 +39,7 @@ def plot_histogram(image, roi, threshhold = None  ):
 
     # Create a mask for the intensity range in the image
     mask = np.zeros_like(image, dtype=np.uint8)
-    mask[(image >= intensity_range[0]) & (image <= intensity_range[1])] = 255
+
 
     # Color the original image with the mask (highlight the intensity range)
     colored_image = cv2.merge((image, image, image))
@@ -84,10 +84,61 @@ def plot_histogram(image, roi, threshhold = None  ):
 
     # Adjust the layout and display the plot
     plt.tight_layout()
+    
     plt.show()
+    fig.savefig('Latex/thesis/plots/histogram_with_roi.png')
+    
+def plot_canny(img):
+    img_copy = img.copy()
+    img_copy = cv2.GaussianBlur(img_copy, (5,5), 0)
+    img_copy = cv2.Canny(img_copy, 50, 150)
+    cv2.imshow('canny', img_copy)
+    cv2.waitKey(0)
+    
+def plot_clahe(img):
+    img_copy = img.copy()
+    img_clahe = img.copy()
+    clahe = cv2.createCLAHE(clipLimit=1.0, tileGridSize=(11,11))
+    img_clahe = clahe.apply(img_clahe)
+
+    gridsize = (2,3)
+    fig = plt.figure(figsize=(9,6))
+    ax1 = plt.subplot2grid(gridsize,(0,0))
+    ax2 = plt.subplot2grid(gridsize,(0,1), colspan=2, rowspan = 1)
+    ax3 = plt.subplot2grid(gridsize,(1,0))
+    ax4 = plt.subplot2grid(gridsize,(1,1), colspan= 2, rowspan = 1)
+ 
+    ax1.set_title('Original Image', fontsize= 10)
+    ax3.set_title('CLAHE Image',fontsize= 10)
+    ax2.set_title('Histogram Original Image',fontsize= 10)
+    ax4.set_title('Histogram CLAHE Image',fontsize= 10)
+
+    ax1.imshow(img_copy, cmap='gray')
+    ax3.imshow(img_clahe, cmap='gray')
+    sns.histplot(img_copy.flatten(), element='bars', bins=256, color='black', alpha=0.8, edgecolor=None, label='Original Image', ax= ax2)
+    sns.histplot(img_clahe.flatten(), element='bars', bins=256, color='black', alpha=0.8, edgecolor=None, label='Original Image', ax= ax4)
+    
+    ax1.set_axis_off() 
+    ax3.set_axis_off()
+    
+    axes = [ax2,ax4]
+    for ax in axes:
+        ax.tick_params(axis='both', which='major', labelsize=8)
+        ax.set_ylim([0,6000])
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+        ax.set_xlabel('Intensity', fontsize= 8)
+        ax.set_ylabel('Count Pixels', fontsize= 8)
+    plt.tight_layout()
+    
+    plt.show()
+    
+    
     
 if __name__ == '__main__':
     test = cv2.imread('test.jpg')
+    roi = cv2.imread('test_roi.png')
+    
     test = cv2.cvtColor(test, cv2.COLOR_BGR2GRAY)
     #cv2.imshow('teest,', test) 
     mask = np.zeros_like(test, dtype=np.uint8)
@@ -96,7 +147,7 @@ if __name__ == '__main__':
     colored_image = cv2.merge((test, test, test))
     colored_image[mask == 255] = (0, 255, 0)
     #cv2.imshow('colored_image', colored_image)
-
-    plot_histogram(test)
+    #plot_clahe(test)
+    #plot_histogram(test, roi, 0)
     #cv2.waitKey(0)
-   
+    plot_canny(test)

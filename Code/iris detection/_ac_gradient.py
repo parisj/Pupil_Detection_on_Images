@@ -149,9 +149,9 @@ class active_contour:
         Calculates the gradient of the image
         '''
         img_copy =img.copy()
-        img_copy = cv2.GaussianBlur(img_copy, (91, 91), sigmaX=0, sigmaY=0)
-        sx = cv2.Sobel(img_copy, cv2.CV_64F, 1, 0, ksize=5)
-        sy = cv2.Sobel(img_copy, cv2.CV_64F, 0, 1, ksize=5)
+        #img_copy = cv2.GaussianBlur(img_copy, (91, 91), sigmaX=0, sigmaY=0)
+        sx = cv2.Sobel(img_copy, cv2.CV_64F, 1, 0, ksize=3)
+        sy = cv2.Sobel(img_copy, cv2.CV_64F, 0, 1, ksize=3)
         
         # Calculate Gradient Mag and direction
         mag = np.sqrt(sx**2 + sy**2)
@@ -185,8 +185,11 @@ class active_contour:
         # Convert HSV to BGR for display
         bgr = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
 
-        cv2.imshow('mag', mag_blur)
+        cv2.imshow('mag', mag_blur*255)
         cv2.imshow('direction', bgr)
+        cv2.imwrite('Latex/thesis/plots/eye_dataset/mag.png', mag_blur*255)
+        cv2.imwrite('Latex/thesis/plots/eye_dataset/direction.png', bgr)
+        cv2.imwrite('Latex/thesis/plots/eye_dataset/roi..png', img)
         self.set_gradient(mag_blur)
         self.set_direction(direction)
         return mag_blur, direction
@@ -313,6 +316,7 @@ class active_contour:
         return optimized_params[:2], optimized_params[2:4], optimized_params[4]
     
     
+
     
 '''
 ------------------------------------------------
@@ -375,4 +379,9 @@ if __name__ == '__main__':
     
     cv2.ellipse(image_copy, optimized_center, optimized_axis, optimized_angle, 0, 360, (0, 255, 0), 1)
     cv2.imshow('image', image_copy)
+    cv2.waitKey(0)
+    img_plot = cv2.imread('test_roi.png')
+    img_plot = cv2.cvtColor(img_plot, cv2.COLOR_BGR2GRAY)
+    
+    contour._gradient(img_plot)
     cv2.waitKey(0)

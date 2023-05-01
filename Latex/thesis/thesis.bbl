@@ -13,4 +13,11 @@ Tonsen Marc, Zhang Xucong, Sugano Yusuke, and Bulling Andreas.
   \url{https://www.mpi-inf.mpg.de/departments/computer-vision-and-machine-learning/research/gaze-based-human-computer-interaction/labelled-pupils-in-the-wild-lpw}.
 \newblock Accessed: 28.04.2023.
 
+\bibitem{clahe}
+OpenCV.
+\newblock Contrast limited adaptive histogram equalization.
+\newblock
+  \url{https://docs.opencv.org/3.1.0/d5/daf/tutorial_py_histogram_equalization.html}.
+\newblock Accessed: 28.04.2023.
+
 \end{thebibliography}

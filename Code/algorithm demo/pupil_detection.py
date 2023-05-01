@@ -126,64 +126,63 @@ class pupil:
             
             
 if __name__ == '__main__':
-    list= pd.read_csv("path_files_MMU_IRIS_DATABASE.csv")
-    subset = []
-    for i, row in list.iterrows(): 
-        subset.append(row[0])
-        
-    for i in range(1,50):
-        
-        #create instance of pupil
-        pupil_test = pupil(subset[i])
-        
-        # Load and preprocess image
-        pupil_test.load_image()
-        pupil_test.preprocess_image((15,15), 5,visual=False)
-        
-        # use canny and hough circle to find center and radius of the pupil
-        pupil_test.canny(visual=True, th1=35,th2=40)
-        pupil_test.hough_circle(visual=True, dp=2, r_max= 30, r_min=10)
-        
-        
-        # get radius of the pupil
-        radius = pupil_test._radius
-        center = pupil_test._center
-        try:
-            region = pupil_test.extract_ROI(center, radius, visual=True)
-            
-        except:
-            print('no center, no radius was found')
-            
-        # preprocess image differently to achieve higher accuracy on the iris
-        ROI = region.copy()
-        cv2.GaussianBlur(ROI, (15,15),5)
-        ROI = cv2.Canny(ROI,50,60,2 ) 
-
-        cv2.imshow("ROI", ROI)
-        cv2.waitKey(0)
-        
-        circles = cv2.HoughCircles(ROI, cv2.HOUGH_GRADIENT,dp = 2,minDist=50 ,param1=40, param2=100,maxRadius=int(radius*3), minRadius= int(radius*1.5))
-        if circles is not None:
-            
-            circles = np.round(circles[0, :]).astype("int")
-            for (x,y,r) in circles:
-                    
-                    #if ((x - self._center[0])**2 + (y - self._center[1])**2 < ( (self._radius/9)**2)):
-                        
-                         
-                cv2.circle(region, (x,y),0,(0,0,255),4)
-                cv2.circle(region,(x,y),r,(0,0,255),1)
-                cv2.imshow("region",region)
-                cv2.waitKey(0)
-        
-        #pupil_test.preprocess_image((9,9), 10,visual=False)
-        #pupil_test.canny(20,30, visual=True)
-        
-        
-        # detect irlis, use the radius of the pupil to calculate the min and max radius 
-        # average diameter pupil = 2-9 mm 12/9, 12/2
-        # average diameter iris = 12 mm 
-        
-        #pupil_test.hough_circle(visual=False, dp=2, r_max=int(radius*3),r_min=int(radius*(11/9)))
+    # lad images  
+    #create instance of pupil
     
-                                    
+    pupil_test = pupil('test.jpg')
+    
+    # Load and preprocess image
+    pupil_test.load_image()
+    imgx = cv2.Sobel(pupil_test.get_img(), cv2.CV_64F, 1, 0, ksize=5)
+    imgy = cv2.Sobel(pupil_test.get_img(), cv2.CV_64F, 0, 1, ksize=5)
+    mag = np.hypot(imgx, imgy)
+    orientation = np.arctan2(imgy, imgx)*180/pi +180
+    
+    pupil_test.preprocess_image((15,15), 5,visual=False)
+    
+    # use canny and hough circle to find center and radius of the pupil
+    pupil_test.canny(visual=True, th1=35,th2=40)
+    pupil_test.hough_circle(visual=True, dp=2, r_max= 30, r_min=10)
+    
+    
+    # get radius of the pupil
+    radius = pupil_test._radius
+    center = pupil_test._center
+    try:
+        region = pupil_test.extract_ROI(center, radius, visual=True)
+        
+    except:
+        print('no center, no radius was found')
+        
+    # preprocess image differently to achieve higher accuracy on the iris
+    ROI = region.copy()
+    cv2.GaussianBlur(ROI, (15,15),5)
+    ROI = cv2.Canny(ROI,50,60,2 ) 
+    cv2.imshow("ROI", ROI)
+    cv2.waitKey(0)
+    
+    circles = cv2.HoughCircles(ROI, cv2.HOUGH_GRADIENT,dp = 2,minDist=50 ,param1=40, param2=100,maxRadius=int(radius*3), minRadius= int(radius*1.5))
+    if circles is not None:
+        
+        circles = np.round(circles[0, :]).astype("int")
+        for (x,y,r) in circles:
+                
+                #if ((x - self._center[0])**2 + (y - self._center[1])**2 < ( (self._radius/9)**2)):
+                    
+                     
+            cv2.circle(region, (x,y),0,(0,0,255),4)
+            cv2.circle(region,(x,y),r,(0,0,255),1)
+            cv2.imshow("region",region)
+            cv2.waitKey(0)
+    
+    #pupil_test.preprocess_image((9,9), 10,visual=False)
+    #pupil_test.canny(20,30, visual=True)
+    
+    
+    # detect irlis, use the radius of the pupil to calculate the min and max radius 
+    # average diameter pupil = 2-9 mm 12/9, 12/2
+    # average diameter iris = 12 mm 
+    
+    #pupil_test.hough_circle(visual=False, dp=2, r_max=int(radius*3),r_min=int(radius*(11/9)))
+
+                                

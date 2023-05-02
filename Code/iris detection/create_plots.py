@@ -90,9 +90,14 @@ def plot_histogram(image, roi, peak_threshold ):
     
 def plot_canny(img):
     img_copy = img.copy()
+    img_orig = img.copy()
     img_copy = cv2.GaussianBlur(img_copy, (5,5), 0)
-    img_copy = cv2.Canny(img_copy, 50, 150)
+    img_copy = cv2.Canny(img_copy, 20, 60)
     cv2.imshow('canny', img_copy)
+    cv2.imshow('orig', img_orig)
+    
+    cv2.imwrite('Latex/thesis/plots/canny_eyelids.png', img_copy)
+    cv2.imwrite('Latex/thesis/plots/orig_canny_eyelids.png', img_orig)
     cv2.waitKey(0)
     
 def plot_clahe(img):
@@ -136,11 +141,12 @@ def plot_clahe(img):
     
     
 if __name__ == '__main__':
-    test = cv2.imread('test.jpg')
+    test = cv2.imread('test_frame_eyelids.png')
     roi = cv2.imread('test_roi.png')
     
     test = cv2.cvtColor(test, cv2.COLOR_BGR2GRAY)
     #cv2.imshow('teest,', test) 
+    test = cv2.resize(test, (round(test.shape[1]/2), round(test.shape[0]/2)), interpolation = cv2.INTER_LINEAR)
     mask = np.zeros_like(test, dtype=np.uint8)
     mask[(test >=  100)] = 255
     # Color the original image with the mask (highlight the intensity range)

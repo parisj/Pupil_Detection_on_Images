@@ -107,7 +107,7 @@ Adding the neighbors from $N_4(P)$ and $N_D(P)$ results in the 8-neighborhood $N
     \end{figure}
 
 
-\paragraph*{Adjacency} Mainly there are three types of adjacent pixels in a 2D image. Let $V$ be the set of intensity values used to define adjacency. Depending on the intensity range of the image, it's possible to define different subsets of $V$, containing the intensity values that are considered as adjacent in the neighborhood. In a binary image $V$ is often defined as $V$ = $\{1\}$, where $0$ stands for background and $1$ for foreground (This can also be considered a binary mask). In a grayscale image $V$ can be defined as any subeset of the intensity range. In this thesis the intensity range is $V$ = $\{0,1,2,...,255\}$.
+\paragraph*{Adjacency} Mainly there are three types of adjacent pixels in a 2D image. Let $V$ be the set of intensity values used to define adjacency. Depending on the intensity range of the image, it's possible to define different subsets of $V$, containing the intensity values that are considered as adjacent in the neighborhood. In a binary image $V$ is often defined as $V$ = $\{1\}$, where $0$ stands for background and $1$ for foreground (This can also be considered a binary mask). In a grayscale image $V$ can be defined as any subset of the intensity range. In this thesis the intensity range is $V$ = $\{0,1,2,...,255\}$.
 
 To keep it simple, the following explanations will be based on a binary image with $V$ = $\{1\}$. Let define $P$ as a pixel at location $(x,y)$ and $Q$ as a pixel at location $(x',y')$. $P$ and $Q$ are considered adjacent if $Q$ is in the neighborhood of $P$ and $f(Q)$ is in $V$. These are the three adjacency types:
 
@@ -232,7 +232,7 @@ The outer boundary of a region $R$ is the set of pixels not in $R$ that are adja
             \draw [thick] (M-1-1.north west) rectangle (M-7-7.south east);
         \end{tikzpicture}
         
-        \caption{outer boundary (8-adjaency)}
+        \caption{outer boundary (8-adjacent)}
         \label{fig:boundary}
     \end{subfigure}%
     \caption{Region and outer border.}
@@ -240,7 +240,7 @@ The outer boundary of a region $R$ is the set of pixels not in $R$ that are adja
 \end{figure}
 \subsection{Preprocessing}
 To be able to compare the different approaches, it is important to define the used algorithms that lead to the wanted result. An image taken has to be preprocessed first. The idea behind this step is to create a common ground for narrowing the deviation of the images down, so that the algorithms are able to recreate the same result over span of different images.
-\subsubsection{Convertign to grayscale}
+\subsubsection{Converting to grayscale}
 As already presented in the previous chapter, the only colorful part of the eye is the iris. But the color itself is of no interest for the detection. Therefore the frames are first converted to grayscale. This is done by converting the colors into a gray intensity value. During this chapter the grayscale images have certain properties: 
 
 \begin{table}[h]
@@ -335,6 +335,8 @@ These are the parameters used for the CLAHE plots
 \end{python}
 
 \subsection{Edge Detection}
+The main goal behind edge detection is to find edges in the image. An edge is defined as a region that has a high contrast to its surrounding pixels, in other words a rapidly changing intensity in a small area. The edge detection is useful to filter the image for possible pupil contours. The edge detection analysis the image based on the change of intensity. Therefore a gradient calculation is used. There are different methods to calculate the gradient of an image. One of the most popular methods is the Sobel operator that makes use of the first differential of the image. The laplacian operator is another method that uses the second differential of the image. In this thesis the Sobel operator is used to calculate the gradient of the image. 
+After calculating the gradient Canny edge detection is used to refine the edges. Canny edge detection is a multi step algorithm that uses a hysteresis thresholding to filter the edges. The result of the edge detection is a on pixel thick binary edge map.  All edges are now possible candidates for the pupil contour. 
 \subsubsection{Sobel Operators}
 The Sobel Operators are used is a common algorithm for edge detection. It is a gradient calculation that uses a 3x3 differential kernel to calculate the gradient of the image. The Sobel gradient is calculated in x and y direction. The gradient in x and y direction are calculated by convolving the image with two different kernels. The image with gray values is defined as $f(x,y)$ and the kernels are defined as $k_x$ and $k_y$. Therefore the gradient is calculated as follows:
 \begin{equation}
@@ -589,3 +591,43 @@ The equation for thining then becomes:
     A \otimes   B = A - (A \circledast B)
 \end{equation}
 Where $\otimes$ is the thinning operator, $\circledast$ is the dilation operator.
+
+\paragraph{Results}
+In a frame where the pupil region clearly can be distinceted from the rest, the Canny edge detector can be used to find the pupil region. but as soon as more noise to the pupil is added, the hysteresis thresholding becomes more tricky and the detection accuracy decreases immensely. Also is it not possible to differentiate between the eye leashes, eye brows and the pupil. Therefore by using only the Canny edge detector. The pupil edges can not be found reliable and the algorithm itself is not adaptable to a great varriety of environments. 
+
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}{.5\textwidth}
+      \centering
+      \includegraphics[width=.9\linewidth]{plots/orig_canny.png}
+      \caption{Original image, scaling 0.5}
+      \label{fig:orig_canny}
+    \end{subfigure}%
+    \begin{subfigure}{.5\textwidth}
+      \centering
+      \includegraphics[width=.9\linewidth]{plots/canny.png}
+      \caption{Clear pupil region, Canny edge detection}
+      \label{fig:canny_region_clear}
+    \end{subfigure}
+    \caption{Canny edge detection on a clear pupil region}
+    \label{fig:canny_clear}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}{.5\textwidth}
+      \centering
+      \includegraphics[width=.9\linewidth]{plots/orig_canny_eyelids.png}
+      \caption{Original image, scaling 0.5}
+      \label{fig:orig_canny_lids}
+    \end{subfigure}%
+    \begin{subfigure}{.5\textwidth}
+      \centering
+      \includegraphics[width=.9\linewidth]{plots/canny_eyelids.png}
+      \caption{Weak pupil region, Canny edge detection}
+      \label{fig:canny_eyelid}
+    \end{subfigure}
+    \caption{Canny Edge detection on a frame with weak pupil region}
+    \label{fig:canny_eyelid}
+\end{figure}

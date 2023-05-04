@@ -35,8 +35,7 @@ class ransac:
     def get_points_contour(self):
         return self.points_contour
     
-    
-       
+    # Convert mask into points (contour)    
     def init_points_contour(self):
         mask = self.get_mask()
         
@@ -52,6 +51,7 @@ class ransac:
         #print (f'contour: {contour[0]}')
         return True 
     
+    #Calculate the area of the ellipse
     def calc_area(self, params):
         return np.pi * params[2] * params[3]
     
@@ -101,72 +101,61 @@ class ransac:
         e = (x,y,a,b,theta)
         return e, best_inliers, best_area
     
-@njit(nogil=True)
+#@njit(nogil=True)
 def distance(point, params,threshold):
-   # x, y = point
-   # xc, yc, a, b, theta = params
-   # 
-   # A = (a**2) * (np.sin(theta)**2) + (b**2) * (np.cos(theta)**2)
-   # B = 2 * (b**2 - a**2) * np.sin(theta) * np.cos(theta)
-   # C = (a**2) * (np.cos(theta)**2) + (b**2) * (np.sin(theta)**2)
-   # D = -2 * A * xc - B * yc
-   # E = -2 * C * yc - B * xc
-   # F = A * xc**2 + B * xc * yc + C * yc**2 - a**2 * b**2
-   # 
-   # ellipse_val = A * x**2 + B * x * y + C * y**2 + D * x + E * y + F
-   # 
-   # 
-   #  # Compute the distance between the point and the center of the ellipse
-   # dist_to_center = norm(point - center)
+    #x, y = point
+    #xc, yc, a, b, theta = params
+    #
+    #A = (a**2) * (np.sin(theta)**2) + (b**2) * (np.cos(theta)**2)
+    #B = 2 * (b**2 - a**2) * np.sin(theta) * np.cos(theta)
+    #C = (a**2) * (np.cos(theta)**2) + (b**2) * (np.sin(theta)**2)
+    #D = -2 * A * xc - B * yc
+    #E = -2 * C * yc - B * xc
+    #F = A * xc**2 + B * xc * yc + C * yc**2 - a**2 * b**2
+    #
+    #ellipse_val = A * x**2 + B * x * y + C * y**2 + D * x + E * y + F
+    #print(f'ellipse_val: {ellipse_val}')
 #
-   # # Find the closest point on the ellipse boundary to the given point
-   # angle = np.arctan2(y - yc, x -xc)
-   # closest_point_on_boundary = center + np.array([axes[0] * np.cos(angle), axes[1] * np.sin(angle)])
-   # 
-   # # Compute the distance between the closest point on the boundary and the center of the ellipse
-   # dist_to_boundary = norm(closest_point_on_boundary - center)
+    # # Compute the distance between the point and the center of the ellipse
+    #print(f'dist_to_center: {dist_to_center}')
+#   # # Find the closest point on the ellipse boundary to the given point
+    #
+    ## Compute the distance between the closest point on the boundary and the center of the ellipse
 #
-   # # Check if the point is inside the ellipse
-   # if dist_to_center < dist_to_boundary:
-   #     return True
-   # else:
-   #     return False
-   
-    # Unpack the ellipse parameters
+#   # # Check if the point is inside the ellipse
+    #if np.abs(ellipse_val) <= threshold:
+    #    return True
+    #elif dist_to_center < 1 
+    # True
+    #else:
+    #    return 10
+       # Unpack the ellipse parameters
     xc, yc, a, b, angle = params
     
-    # Convert the angle to radians
-    angle_rad = np.deg2rad(angle)
+    #coordination transformation 
+    #new center
+    xr = point[0]- xc
+    yr = point[1]- yc
     
-    # Compute the rotation matrix
-    c, s = np.cos(angle_rad), np.sin(angle_rad)
-    rot_matrix = np.array([[c, -s], [s, c]])
+    #rotate over new center 
+    x0 = np.cos(angle) * xr + np.sin(angle) * yr
+    y0 = -np.sin(angle) * xr + np.cos(angle) * yr
+    ellipse_val = ((x0 / a) ** 2 + (y0 / b) ** 2)-1
     
-    # Transform the point and the ellipse to a coordinate system where the ellipse is centered
-    # and has axes aligned with the x and y axes
-    point_centered = point - np.array([xc, yc])
-    point_transformed = rot_matrix @ point_centered
-    a_transformed = a
-    b_transformed = b
-    ellipse_centered = (0, 0, a_transformed, b_transformed, 0)
-    
-    # Compute the distance to the center
-    center_dist = np.linalg.norm(point_transformed)
-    
-    # Compute the distance to the boundary
-    boundary_dist = ((point_transformed[0] / a_transformed) ** 2 +
-                     (point_transformed[1] / b_transformed) ** 2) ** 0.5
-    
-    # Check if the point is on, inside or outside the ellipse
-    if (boundary_dist <1+ threshold/2 and boundary_dist> 1-threshold):
+    if np.abs(ellipse_val) < threshold:
+        print(f'ellipse_val: {ellipse_val}')
+        print(f'point: {point}')
+        print(f'threshold: {threshold}')
         return 0
-
+    elif ellipse_val < 1: 
+        return ellipse_val
     else:
-        return np.abs(1-boundary_dist)
+        return 10
     
 #@njit(nogil=True)
 def evaluate(points, params, threshold, area, best_area, best_inliers, best_ellipse):
     # Find the inliers
+    #print(f'points: {points}, params: {params}, threshold: {threshold}, area: {area}, best_area: {best_area}')
     inliers = np.zeros((0, 2), dtype=np.int32)     # initialize best_inliers to an empty numpy array
     for point in points:
         dist = distance(point, params, threshold)
@@ -177,13 +166,13 @@ def evaluate(points, params, threshold, area, best_area, best_inliers, best_elli
         best_inliers =inliers
         best_ellipse = params
         best_area = area
-    params[4] = params[4] * 180 / np.pi
     return best_ellipse, best_inliers, best_area
 
 
 if __name__ == '__main__':
     mask = np.zeros((200,200),dtype = np.uint8)
-    mask = cv2.ellipse(mask,(100,100),(50,25),20,0,360,255,1)
+    #mask = cv2.cvtColor(mask,cv2.COLOR_GRAY2BGR)
+    mask = cv2.ellipse(mask,(100,100),(50,25),20,0,360,(255,0,0),1)
     cv2.imshow('mask',mask)
     
     rans = ransac(mask, 500 ,0.0001 )
@@ -192,6 +181,8 @@ if __name__ == '__main__':
     print(f'lenght of best_inliers: {len(b)}')
     print(f'leng points_contour: {len(rans.get_points_contour())}')
     test = np.zeros((200,200),dtype = np.uint8)
-    mask = cv2.ellipse(mask, (a[0],a[1]), (a[2],a[3]), a[4],0,360,200,1)
+    mask = cv2.cvtColor(mask,cv2.COLOR_GRAY2BGR)
+
+    mask = cv2.ellipse(mask, (a[0],a[1]), (a[2],a[3]), a[4],0,360,(0,255,0),1)
     cv2.imshow('test',mask)
     cv2.waitKey(0)

@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 from skimage.measure import EllipseModel
 import exceptions
-from numba import njit
+#from numba import njit
 
 class ransac:
     def __init__(self, mask, iterations, threshold):
@@ -80,10 +80,17 @@ class ransac:
             #print(f'points[idx,:].shape: {points[idx,:].shape}')
             if not ellipse_fit.estimate(points[idx,:]):
                 continue
+            
+            
             params = np.array([ellipse_fit.params])[0]
+            
+            mask_eval = np.zeros((200,200),dtype = np.uint8)
+            mask_eval = cv2.cvtColor(mask_eval, cv2.COLOR_GRAY2BGR)
+            mask_eval = cv2.ellipse(mask_eval, (round(params[0]),round(params[1])),(round(params[2]),round(params[3])),round(params[4]),0,360,(0,255,0),1)
+            mask_eval = cv2.ellipse(mask_eval,(100,100),(50,25),20,0,360,(255,0,0),1)
             area = self.calc_area(params)
             #print(f'points: {points}, params: {params}, threshold: {threshold}, area: {area}, best_area: {best_area}')
-            best_ellipse, best_inliers, best_area = evaluate(points, params, threshold, area, best_area, best_inliers,best_ellipse)
+            best_ellipse, best_inliers, best_area = evaluate(points, params, threshold, area, best_area, best_inliers,best_ellipse, points[idx,:])
 
             
         return best_ellipse, best_inliers, best_area
@@ -130,22 +137,25 @@ def distance(point, params,threshold):
     #else:
     #    return 10
        # Unpack the ellipse parameters
-    xc, yc, a, b, angle = params
+    yc, xc, a, b, angle = params
     
     #coordination transformation 
     #new center
     xr = point[0]- xc
+    print(f'xr: {xr}')
+    print(f'yc: {yc}')
     yr = point[1]- yc
     
     #rotate over new center 
     x0 = np.cos(angle) * xr + np.sin(angle) * yr
     y0 = -np.sin(angle) * xr + np.cos(angle) * yr
-    ellipse_val = ((x0 / a) ** 2 + (y0 / b) ** 2)-1
+    print(f'x0: {x0}')
+    ellipse_val = ((x0 / a) ** 2 + (y0 / b) ** 2)
     
-    if np.abs(ellipse_val) < threshold:
+    if np.abs(ellipse_val)-1 < threshold:
         print(f'ellipse_val: {ellipse_val}')
         print(f'point: {point}')
-        print(f'threshold: {threshold}')
+        #print(f'threshold: {threshold}')
         return 0
     elif ellipse_val < 1: 
         return ellipse_val
@@ -153,7 +163,16 @@ def distance(point, params,threshold):
         return 10
     
 #@njit(nogil=True)
-def evaluate(points, params, threshold, area, best_area, best_inliers, best_ellipse):
+def evaluate(points, params, threshold, area, best_area, best_inliers, best_ellipse, pointfit):
+    #mask_eval = np.zeros((200,200),dtype = np.uint8)
+    #mask_eval = cv2.cvtColor(mask_eval, cv2.COLOR_GRAY2BGR)
+    #mask_eval = cv2.ellipse(mask_eval, (round(params[0]),round(params[1])),(round(params[2]),round(params[3])),round(params[4]),0,360,(0,255,0),1)
+    #mask_eval = cv2.ellipse(mask_eval,(100,100),(50,25),20,0,360,(255,0,0),1)
+    
+    for p in pointfit: 
+        mask_eval = cv2.circle(mask_eval,(p[0],p[1]),1, (0,255,255), 2)
+    cv2.imshow('mask_eval',mask_eval)
+    cv2.waitKey(1)
     # Find the inliers
     #print(f'points: {points}, params: {params}, threshold: {threshold}, area: {area}, best_area: {best_area}')
     inliers = np.zeros((0, 2), dtype=np.int32)     # initialize best_inliers to an empty numpy array
@@ -175,9 +194,9 @@ if __name__ == '__main__':
     mask = cv2.ellipse(mask,(100,100),(50,25),20,0,360,(255,0,0),1)
     cv2.imshow('mask',mask)
     
-    rans = ransac(mask, 500 ,0.0001 )
+    rans = ransac(mask, 140 ,0.0001 )
     a,b,c = rans.ransac_start()
-    print(f'best_ellipse: {a} best_inliers: {b} best_area: {c}')
+    #print(f'best_ellipse: {a} best_inliers: {b} best_area: {c}')
     print(f'lenght of best_inliers: {len(b)}')
     print(f'leng points_contour: {len(rans.get_points_contour())}')
     test = np.zeros((200,200),dtype = np.uint8)

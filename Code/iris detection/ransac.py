@@ -3,7 +3,6 @@ import cv2
 from skimage.measure import EllipseModel
 import exceptions
 from scipy import optimize
-#from numba import njit
 
 class ransac:
     def __init__(self, mask, iterations, threshold):
@@ -63,6 +62,7 @@ class ransac:
     
     def fit(self):
         best_inliers = np.empty((0, 2), dtype=np.int32)
+        best_border = np.empty((0, 2), dtype=np.int32)
 
 
         best_ellipse = None
@@ -84,6 +84,7 @@ class ransac:
             #if not ellipse_fit.estimate(np.flip(points[idx,:])):
             #   continue
             params = cv2.fitEllipse(points[idx,:])
+            
             #print(f'get_params: {params}')
             if params is None:
                 continue
@@ -93,14 +94,15 @@ class ransac:
 
             area = self.calc_area(params)
             #print(f'points: {points}, params: {params}, threshold: {threshold}, area: {area}, best_area: {best_area}')
-            best_ellipse, best_inliers, best_area = evaluate(points, params, threshold, area, best_area, best_inliers,best_ellipse, points[idx,:])
+            best_ellipse, best_inliers, best_area, best_border = evaluate(points, params, threshold, area, best_area,
+                                                             best_inliers,best_border,best_ellipse)
 
             
-        return best_ellipse, best_inliers, best_area
+        return best_ellipse, best_inliers, best_area, best_border
 
     def ransac_start(self):
         self.init_points_contour()
-        best_ellipse, best_inliers, best_area = self.fit()
+        best_ellipse, best_inliers, best_area, best_border = self.fit()
         
         center, axis, theta = best_ellipse
         x,y = center
@@ -111,57 +113,13 @@ class ransac:
         b = round(b)
     
         e = (x,y,a,b,theta)
-        return e, best_inliers, best_area
-    
-    
-    
-def plot_points_and_circle(params,pointfit):
+        return e, best_inliers, best_area, best_border
+
+
             
-    mask_eval = np.zeros((200,200),dtype = np.uint8)
-    mask_eval = cv2.cvtColor(mask_eval, cv2.COLOR_GRAY2BGR)
-    mask_eval = cv2.ellipse(mask_eval, (round(params[0][1]),round(params[0][0])),(round(params[1][0]/2),round(params[1][1]/2)),round(params[2]),0,360,(0,255,0),1)
-    mask_eval = cv2.ellipse(mask_eval,(100,100),(50,25),20,0,360,(255,0,0),1)
-    for p in pointfit: 
-        mask_eval = cv2.circle(mask_eval,(p[0],p[1]),1, (0,255,255), 2)
-    cv2.imshow('mask_eval',mask_eval)
-    key = cv2.waitKey(1)
-
-    if key == ord('q'):  # Press 'q' to exit
-        cv2.destroyAllWindows()
-
-#@njit(nogil=True)
-def distance(point, params,threshold):
-    #x, y = point
-    #xc, yc, a, b, theta = params
-    #
-    #A = (a**2) * (np.sin(theta)**2) + (b**2) * (np.cos(theta)**2)
-    #B = 2 * (b**2 - a**2) * np.sin(theta) * np.cos(theta)
-    #C = (a**2) * (np.cos(theta)**2) + (b**2) * (np.sin(theta)**2)
-    #D = -2 * A * xc - B * yc
-    #E = -2 * C * yc - B * xc
-    #F = A * xc**2 + B * xc * yc + C * yc**2 - a**2 * b**2
-    #
-    #ellipse_val = A * x**2 + B * x * y + C * y**2 + D * x + E * y + F
-    #print(f'ellipse_val: {ellipse_val}')
-#
-    # # Compute the distance between the point and the center of the ellipse
-    #print(f'dist_to_center: {dist_to_center}')
-#   # # Find the closest point on the ellipse boundary to the given point
-    #
-    ## Compute the distance between the closest point on the boundary and the center of the ellipse
-#
-#   # # Check if the point is inside the ellipse
-    #if np.abs(ellipse_val) <= threshold:
-    #    return True
-    #elif dist_to_center < 1 
-    # True
-    #else:
-    #    return 10
-       # Unpack the ellipse parameters
-    pass
     
-    
-def boundary_dist(phi, point, params):
+
+def boundary_dist(phi, point, params, opti=True):
     #print(f'point boundary dist: {point}')
     #print(f'params boundary dist: {params}')
     #print(f'phi boundary dist: {phi}')
@@ -177,45 +135,121 @@ def boundary_dist(phi, point, params):
     x0 =xc + a * np.cos(angle) * np.cos(phi) - b * np.sin(angle) * np.sin(phi)
     y0 =yc + a * np.sin(angle) * np.cos(phi) + b * np.cos(angle) * np.sin(phi)
     #print(f'x0: {x0}')
-    return  (point[0]-x0)**2 + (point[1]-y0)**2
+    x_error = point[0] - x0
+    y_error = point[1] - y0
+    dist = np.sqrt(x_error**2 + y_error**2)
+    
+    if opti == False:
+        return x_error, y_error
+    
+    return dist
+
 
 
 def dist_boundary(point, params, threshold):
     center, axis, angle = params
     xc, yc = center
     a, b = axis
-    phi = np.arctan2(point[1]-yc, point[0]-xc)
-    #print(f'phi: {phi}')
-    phi_o, _ = optimize.leastsq(boundary_dist,phi, args=(point,params))
-    #print(f'phi_o: {phi_o}')
-    distance = boundary_dist(phi_o,point, params)
-    #print(f'distance: {distance}')
     
-    if distance < threshold:
+    if a < b: 
+        c = a
+        b = a
+        a = c
+    #phi = np.arctan2(point[1]-yc, point[0]-xc)
+    #print(f'phi: {phi}')
+    #phi_o, _ = optimize.leastsq(boundary_dist,phi, args=(point,params))
+    #print(f'phi_o: {phi_o}')
+    
+    #x_error,y_error = boundary_dist(phi_o,point, params, opti= False)
+    
+    #print(f'distance: {distance}')
+    #distance = np.sqrt(x_error**2 + y_error**2)
+    dist = is_inside_ellipse(point, params)
+    print(f'dist: {dist}')
+    print(f'is around: {dist is np.around(2*a,decimals=1)}')
+    if dist is np.around(a, decimals=2):
         return 0
-    elif distance < 1:
-        return 0
-
-    else :
-        return 10
-
+    
+    elif dist < a:
+        return 1
+    
+    else: 
+        return 2
+    
+def plot_points(xc,yc,a,b,angle, point, rot_point):
+    
+    mask = np.zeros((200,200), dtype=np.uint8)
+    mask = cv2.cvtColor(mask, cv2.COLOR_GRAY2BGR)
+    mask = cv2.ellipse(mask, (round(yc),round(xc)), (round(a / 2),round(b / 2)), angle, 0, 360, (255,0,0), 1)
+    mask = cv2.ellipse(mask, (0 + 100,0 + 100),(round(a / 2),round(b / 2)),0 , 0, 360, (0,255,255), 1)
+    mask = cv2.circle(mask, (round(rot_point[0]) + 100,round(rot_point[1]) + 100), 3, (0,150,0), 1)
+    mask = cv2.circle(mask, (point[0],point[1]), 3, (0,0,255), -1)
+    mask = cv2.ellipse(mask,(100,100), (50,25), 20, 0, 360, (255,255,255), 1)
+    mask = cv2.circle(mask, (round(rot_point[0])+ 100, round(rot_point[1]) + 100), 3, (0,150,0), 1)
+    
+    cv2.imshow('mask', mask)
+    cv2.waitKey(0)
+    
+    
+def is_inside_ellipse(point,params):
+    
+    xc,yc = params[0]
+    a,b = params[1]
+    print(f'a: {a} b:{b}')
+    if b > a: 
+        c = a
+        b = a
+        a = c
+    angle = params[2]
+    
+    xp = point[0]
+    yp = point[1]
+    
+    xn = xp-xc
+    yn = yp-yc
+    
+    
+    #[x'] = [c, -s] [x]
+    #[y'] = [s,  c] [y]
+    
+    x_rot = xn*np.cos(angle) - yn*np.sin(angle)
+    y_rot = xn*np.sin(angle) + yn*np.cos(angle)
+    
+    plot_points(xc,yc,a,b,angle,point,(x_rot,y_rot))
+    foci = np.sqrt((a/2)**2 - (b/2)**2)
+    print(f'foci: {foci}')
+    foci = np.array([-foci,foci])
+    dist = np.sqrt((x_rot-foci[0])**2 + y_rot**2) + np.sqrt((x_rot-foci[1])**2 + y_rot**2)
+    return dist
 
 #@njit(nogil=True)
-def evaluate(points, params, threshold, area, best_area, best_inliers, best_ellipse, pointfit):
+def evaluate(points, params, threshold, area, best_area, best_inliers,best_border, best_ellipse):
 
     # Find the inliers
     #print(f'points: {points}, params: {params}, threshold: {threshold}, area: {area}, best_area: {best_area}')
-    inliers = np.zeros((0, 2), dtype=np.int32)     # initialize best_inliers to an empty numpy array
+    inliers = np.zeros((0, 2), dtype=np.int32) 
+    border = np.zeros((0,2), dtype=np.int32)# initialize best_inliers to an empty numpy array
     for point in points:
         dist = dist_boundary(point, params, threshold)
-        if dist < threshold:
-            inliers = np.vstack((inliers,  point))
-                     
-    if inliers.shape[0] > best_inliers.shape[0]:
-        best_inliers =inliers
-        best_ellipse = params
-        best_area = area
-    return best_ellipse, best_inliers, best_area
+        #print(f'dist: {dist}')
+        if dist == 0:
+            border = np.vstack((border,  point))
+        
+        elif dist == 1:
+            inliers = np.vstack((inliers,point))
+                  
+        else:
+            continue   
+                 
+    if inliers.shape[0] >= best_inliers.shape[0]:
+        if border.shape[0] >= best_border.shape[0]:
+            
+            best_inliers = inliers
+            best_border = border
+            best_ellipse = params
+            best_area = area
+
+    return best_ellipse, best_inliers, best_area, best_border
 
 
 if __name__ == '__main__':
@@ -224,14 +258,15 @@ if __name__ == '__main__':
     mask = cv2.ellipse(mask,(100,100),(50,25),20,0,360,(255,0,0),1)
     cv2.imshow('mask',mask)
     
-    rans = ransac(mask, 150 ,0.001 )
-    a,b,c = rans.ransac_start()
-    print(f'best_ellipse: {a} best_inliers: {b} best_area: {c}')
+    rans = ransac(mask, 110 ,0.01 )
+    a,b,c,d = rans.ransac_start()
+    print(f'best_ellipse: {a} best_inliers: {b} best_area: {c} best_border: {d}')
     print(f'lenght of best_inliers: {len(b)}')
     print(f'leng points_contour: {len(rans.get_points_contour())}')
+    print(f'lenght of best_border: {len(d)}')
     test = np.zeros((200,200),dtype = np.uint8)
     mask = cv2.cvtColor(mask,cv2.COLOR_GRAY2BGR)
 
-    mask = cv2.ellipse(mask, (a[0],a[1]), (round(a[2]/2),round(a[3]/2)), a[4],0,360,(0,255,0),1)
+    mask = cv2.ellipse(mask, (a[1],a[0]), (round(a[2]/2),round(a[3]/2)), a[4],0,360,(0,255,0),1)
     cv2.imshow('test',mask)
     cv2.waitKey(0)

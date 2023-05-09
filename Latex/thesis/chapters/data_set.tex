@@ -70,7 +70,7 @@ The goal of the data set was to record samples of participants under conditions 
     \end{table}
 
     \subsection{Ground truth annotation}
-    In many cases the pupil area has a clear boundary an can be annotated easily. But in some difficult scenarios it was done manually. Because the participants followed a red fall with their eyes, there was additional information that was used to create the labels. 
+    In many cases the pupil area has a clear boundary the center can be annotated easily. One or two points inside the pupil were manualy selected and used as seed points. From these point area with the same intensity value are extracted and used for annotation.  But in some difficult scenarios this method was not possibl because of strong noise over the pupil. In this case the additional information gained from the participants following a red fall with their eyes was used to create the labels. The frames then were manually annotated and this data was then used as calibration data to cross reference the center of the pupil with the position of the red ball. 
     
     The complete data set has labels for the center of the pupil for every frame.
     Given the ground truth annotation, it is possible to evaluate algorithms and compare them to each other.

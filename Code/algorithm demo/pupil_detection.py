@@ -45,6 +45,9 @@ class pupil:
     def set_img(self,img):
         self._img = img
         
+    def get_img(self):
+        return self._img
+        
     def set_gray(self, img):
         self._gray = img
     
@@ -136,7 +139,7 @@ if __name__ == '__main__':
     imgx = cv2.Sobel(pupil_test.get_img(), cv2.CV_64F, 1, 0, ksize=5)
     imgy = cv2.Sobel(pupil_test.get_img(), cv2.CV_64F, 0, 1, ksize=5)
     mag = np.hypot(imgx, imgy)
-    orientation = np.arctan2(imgy, imgx)*180/pi +180
+    orientation = np.arctan2(imgy, imgx)*180/np.pi +180
     
     pupil_test.preprocess_image((15,15), 5,visual=False)
     

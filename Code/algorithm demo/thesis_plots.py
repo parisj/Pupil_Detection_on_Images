@@ -53,7 +53,28 @@ def plot_intensity (image, row):
     plt.tight_layout()
     plt.show()
 
-img = load_image('test.jpg', gray=True)
-row = extract_row(img, 310)
 
-plot_intensity(img, 310)
+
+img = cv2.imread('Latex/thesis/plots/orig_canny_eyelids.png')
+img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+img = cv2.resize(img, fx = 0.5, fy = 0.5, dsize=(0,0))
+
+img_copy = img.copy()
+
+
+
+for i in range(0,15):
+    ret, img_copy = cv2.threshold(img.copy(), 65+i*6, 255, cv2.THRESH_BINARY_INV)
+    cv2.imshow('img'+str(i), img_copy)
+    cv2.imwrite('Latex/thesis/plots/thresholding/th'+str(i)+'.jpg', img_copy)
+    print(65+6*i)
+
+print(f'img.shape: {img}')
+cv2.imshow('img', img)
+cv2.waitKey(0)
+cv2.imwrite('Latex/thesis/plots/thresholding/thresholded_eyelid.jpg', img)
+
+
+#plot_intensity(img, 310)
+
+#row = extract_row(img, 310)

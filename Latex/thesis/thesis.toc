@@ -1,0 +1,75 @@
+\changetocdepth {2}
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{Contents}{iii}{section*.1}%
+\contentsline {chapter}{\chapternumberline {1}Introduction}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Features}{1}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Extra package includes}{1}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}Layout setup}{2}{subsection.1.1.2}%
+\contentsline {subsection}{\numberline {1.1.3}Theorem setup}{2}{subsection.1.1.3}%
+\contentsline {subsection}{\numberline {1.1.4}Macro setup}{2}{subsection.1.1.4}%
+\contentsline {chapter}{\chapternumberline {2}Data Set}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Labelled Pupils in the Wild (LPW)}{3}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Description}{3}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Procedure}{3}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}Ground truth annotation}{4}{subsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.1.4}Folder structure}{4}{subsection.2.1.4}%
+\contentsline {section}{\numberline {2.2}Eye characteristics}{5}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Anatomy of the eye}{5}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Image characteristics}{6}{subsection.2.2.2}%
+\contentsline {subsubsection}{Histogram}{6}{section*.6}%
+\contentsline {subsubsection}{Gradients}{7}{section*.9}%
+\contentsline {subsubsection}{Noise}{9}{section*.11}%
+\contentsline {chapter}{\chapternumberline {3}Theory}{11}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Algorithms}{11}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Fundamental notation}{11}{subsection.3.1.1}%
+\contentsline {subsubsection}{Relationship between pixels}{12}{section*.13}%
+\contentsline {paragraph}{Neighborhood}{12}{section*.14}%
+\contentsline {paragraph}{Connectivity}{13}{section*.18}%
+\contentsline {paragraph}{Region}{13}{section*.19}%
+\contentsline {paragraph}{Boundary}{14}{section*.20}%
+\contentsline {subsection}{\numberline {3.1.2}Preprocessing}{14}{subsection.3.1.2}%
+\contentsline {subsubsection}{Converting to grayscale}{14}{section*.22}%
+\contentsline {subsubsection}{Histogram equalisation}{15}{section*.25}%
+\contentsline {subsection}{\numberline {3.1.3}Edge Detection}{16}{subsection.3.1.3}%
+\contentsline {subsubsection}{Sobel Operators}{17}{section*.27}%
+\contentsline {subsubsection}{Canny Edge Detection}{18}{section*.28}%
+\contentsline {paragraph}{Results}{20}{section*.32}%
+\contentsline {subsection}{\numberline {3.1.4}Thresholding and Ellipse fitting}{21}{subsection.3.1.4}%
+\contentsline {subsubsection}{Thresholding}{21}{section*.35}%
+\contentsline {subsubsection}{Ellipse fitting}{22}{section*.38}%
+\contentsline {subsubsection}{Contours}{24}{section*.39}%
+\contentsline {paragraph}{Circularity / Compactness}{24}{section*.40}%
+\contentsline {paragraph}{Similarity }{25}{section*.41}%
+\contentsline {paragraph}{Area}{25}{section*.42}%
+\contentsline {chapter}{\chapternumberline {4}Theory}{27}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Algorithms}{27}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Preprocessing}{27}{subsection.4.1.1}%
+\contentsline {subsubsection}{Histogram matching}{27}{section*.43}%
+\contentsline {section}{\numberline {4.2}Gaussian blur}{27}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Definition RANSAC}{28}{subsection.4.2.1}%
+\contentsline {section}{\numberline {4.3}Canny Edge Detection}{28}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Definition Canny Edge Detection}{28}{subsection.4.3.1}%
+\contentsline {section}{\numberline {4.4}Active Contur}{28}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Definition Active Countur}{28}{subsection.4.4.1}%
+\contentsline {subsubsection}{Example Subsubsection}{28}{section*.44}%
+\contentsline {paragraph}{Example Paragraph}{28}{section*.45}%
+\contentsline {subparagraph}{Example Subparagraph}{28}{section*.46}%
+\contentsline {chapter}{\chapternumberline {5}Writing scientific texts in English}{29}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Basic writing rules}{29}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Being nice to the reader}{29}{section.5.2}%
+\contentsline {section}{\numberline {5.3}A few important grammar rules}{30}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Things you (usually) don't say in English}{33}{section.5.4}%
+\contentsline {chapter}{\chapternumberline {6}Typography}{35}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Punctuation}{35}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Spacing}{36}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Choice of `fonts'}{37}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Displayed equations}{37}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Floats}{38}{section.6.5}%
+\contentsline {chapter}{\chapternumberline {7}Example Chapter}{41}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Example Section}{41}{section.7.1}%
+\contentsline {subsection}{\numberline {7.1.1}Example Subsection}{41}{subsection.7.1.1}%
+\contentsline {subsubsection}{Example Subsubsection}{41}{section*.48}%
+\contentsline {paragraph}{Example Paragraph}{41}{section*.49}%
+\contentsline {subparagraph}{Example Subparagraph}{41}{section*.50}%
+\contentsline {appendix}{\chapternumberline {A}Dummy Appendix}{43}{appendix.A}%
+\contentsline {chapter}{Bibliography}{45}{appendix*.51}%

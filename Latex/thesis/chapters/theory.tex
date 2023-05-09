@@ -1,6 +1,6 @@
 \chapter{Theory}
 \section{Algorithms}
-This chapter will take a look at commonly used algorithms in image processing for edge detection, identifying areas of interest and applying them onto pupil detection. At first the algorithms will be discussed and analyzed on possible use cases, individual strengths and weaknesses. To show the nature of the algorithm, the same preprocessed images from the LPW data set are used and therefore it is possible to showcase the results and compare them. 
+This chapter will take a look at commonly used algorithms in image processing for edge detection, identifying areas of interest and applying them onto pupil detection. At first the algorithms will be discussed and analyzed on possible use cases, individual strengths and weaknesses. To show the nature of the algorithm, the same preprocessed images from the LPW data set are used and therefore it is possible to showcase the results and compare them. The general approach for pupil detection, even tough different algorithms are use, can be summarized by finding the region of interest (ROI), then find pupil edges and finally extract the pupil as ellipse. Depending on the algorithm, the steps can sometimes be extended or even combined. This chapter will therefore also discuss the possible combinations of algorithms. 
 
 \subsection{Fundamental notation}\label{subsec:funda}
 Thru out this thesis the following notation is used to descripe the algorithms.
@@ -631,3 +631,201 @@ In a frame where the pupil region clearly can be distinceted from the rest, the 
     \caption{Canny Edge detection on a frame with weak pupil region}
     \label{fig:canny_eyelid}
 \end{figure}
+
+\subsection{Thresholding and Ellipse fitting}
+\subsubsection{Thresholding}
+In Thresholding the characteristic of the pupil is used, that it is the darkest part of the eye as seen in \ref{fig:hist1} . Here it is important to find a certain thresholding value to only extract the pupil. Considering the best scenario that the pupil is not affected by too much noise: no eyelash, no reflection. This method can be reliable to find the pupil region. This process shows to be less computation expensive and finds the pupil fast. 
+
+The most difficult part is to find a fitting threshold value. This could be done by using the histogram of the frame. When inspecting the histogram, one could consider the lowest peak in the histogram as the given center value for thresholding. But this is not always the case. There is also the possibility for adaptive thresholding for example otsu thresholding. but throughout the work with thresholding otsu was also tested but was found to be less reliable than the histogram approach itself. 
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}{.5\textwidth}
+      \centering
+      \includegraphics[width=.9\linewidth]{plots/orig_canny.png}
+      \caption{Original frame}
+      \label{fig:th_orig}
+    \end{subfigure}%
+    \begin{subfigure}{.5\textwidth}
+      \centering
+      \includegraphics[width=.9\linewidth]{plots/thresholded.jpg}
+      \caption{thresholded frame}
+      \label{fig:th_thres}
+    \end{subfigure}
+    \caption{Original and thresholded frame}
+    \label{fig:simple_thresh}
+\end{figure}
+in \ref{fig:simple_thresh} it can be seen that the thresholding is extremely volatile to reflections, eyelashes and other noise. This is why thresholding only has a good performance in a strictly defined environment with almost no noise. 
+
+To showcase the volatility and the dependency on the threshold value, in \ref{fig:thresholded_images} a series of the same frame is shown with different threshold values (Th). It can be seen that the threshold value has to be chosen very carefully. If the value is chosen to low, the pupil region is not found. If the value is chosen to high, the much information is extracted and the pupil region can not be differentiated from the rest. 
+
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tabular}{cccc}
+    \begin{subfigure}{0.2\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{plots/thresholding/thresholded_eyelid.jpg}
+    \caption{Original}
+    \end{subfigure} &
+    \begin{subfigure}{0.2\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{plots/thresholding/th1}
+    \caption{Th = 65}
+    \end{subfigure} &
+    \begin{subfigure}{0.2\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{plots/thresholding/th2}
+    \caption{Th = 71}
+    \end{subfigure} &
+    \begin{subfigure}{0.2\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{plots/thresholding/th3}
+    \caption{Th = 77}
+    \end{subfigure} \\
+    \begin{subfigure}{0.2\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{plots/thresholding/th4}
+    \caption{Th = 83}
+    \end{subfigure} &
+    \begin{subfigure}{0.2\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{plots/thresholding/th5}
+    \caption{Th = 89}
+    \end{subfigure} &
+    \begin{subfigure}{0.2\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{plots/thresholding/th6}
+    \caption{Th = 95}
+    \end{subfigure} &
+    \begin{subfigure}{0.2\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{plots/thresholding/th7}
+    \caption{Th = 101}
+    \end{subfigure} \\
+    \begin{subfigure}{0.2\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{plots/thresholding/th8}
+    \caption{Th = 107}
+    \end{subfigure} &
+    \begin{subfigure}{0.2\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{plots/thresholding/th9}
+    \caption{Th = 113}
+    \end{subfigure} &
+    \begin{subfigure}{0.2\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{plots/thresholding/th10}
+    \caption{Th = 119}
+    \end{subfigure} &
+    \begin{subfigure}{0.2\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{plots/thresholding/th11}
+    \caption{Th = 125}
+    \end{subfigure} \\
+    \begin{subfigure}{0.2\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{plots/thresholding/th12}
+    \caption{Th = 131}
+    \end{subfigure} &
+    \begin{subfigure}{0.2\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{plots/thresholding/th13}
+    \caption{Th = 137}
+    \end{subfigure} &
+    \begin{subfigure}{0.2\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{plots/thresholding/th14}
+    \caption{Th = 143}
+    \end{subfigure} &
+    \begin{subfigure}{0.2\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{plots/thresholding/th15}
+    \caption{Th = 149}
+    \end{subfigure} \\
+    \end{tabular}
+    \caption{Thresholded images}
+    \label{fig:thresholded_images}
+    \end{figure}
+
+    \subsubsection{Ellipse fitting}
+    Ellipse fitting is based on finding a contour and fit an ellipse to it. The accuracy of the ellipse fit is strongly dependent on the quality of the contour extracted. The goal is to find the pupil as a connected region and than use ellipse fit to reconstruct the pupil as an ellipse. This involves solving equations with an approximation algorithm. For example least squares fitting. The least squares fitting is a method to find the best possible fit based on a set of data points. In this case points on the contour. The least squares fitting then calculated the distance from the possible ellipse curve to all points and minimizes the distance to all points. This is done by solving the following equations: 
+
+
+ The general equation for an ellipse with center $(x_c, y_c)$, major axis $a$ and minor axis $b$ is:
+\begin{equation}
+    \frac{(x-x_c)^2}{a^2} + \frac{(y-y_c)^2}{b^2} = 1 
+\end{equation}
+
+
+
+To find all the values there is a need for at least 5 points on the contour of an possible ellipse. 
+\begin{equation}
+    J(a, b, x_c, y_c) = \sum_{i=1}^n \left(\frac{(x_i-x_c)^2}{a^2} + \frac{(y_i-y_c)^2}{b^2} - 1\right)^2
+\end{equation}
+
+where $n$ is the number of data points. The goal is to find the values of $a$, $b$, $x_c$, and $y_c$ that minimize this cost function.
+
+We can use calculus to find the values of $a$, $b$, $x_c$, and $y_c$ that minimize $J$. The partial derivatives of $J$ with respect to $a$, $b$, $x_c$, and $y_c$ are:
+\begin{equation}
+\frac{\partial J}{\partial a} = 4\sum_{i=1}^n \frac{(x_i-x_c)^2}{a^3}\left(\frac{(x_i-x_c)^2}{a^2} + \frac{(y_i-y_c)^2}{b^2} - 1\right)
+\end{equation}
+
+
+\begin{equation}
+    \frac{\partial J}{\partial b} = 4\sum_{i=1}^n \frac{(y_i-y_c)^2}{b^3}\left(\frac{(x_i-x_c)^2}{a^2} + \frac{(y_i-y_c)^2}{b^2} - 1\right)
+\end{equation}
+
+\begin{equation}
+\frac{\partial J}{\partial x_c} = -8\sum_{i=1}^n \frac{x_i-x_c}{a^2}\left(\frac{(x_i-x_c)^2}{a^2} + \frac{(y_i-y_c)^2}{b^2} - 1\right)
+\end{equation}
+
+\begin{equation}
+    \frac{\partial J}{\partial y_c} = -8\sum_{i=1}^n \frac{y_i-y_c}{b^2}\left(\frac{(x_i-x_c)^2}{a^2} + \frac{(y_i-y_c)^2}{b^2} - 1\right)
+\end{equation}
+
+
+We can set these partial derivatives to zero and solve for $a$, $b$, $x_c$, and $y_c$ to find the values that minimize $J$. This can be done using numerical methods such as Newton's method or gradient descent.
+
+Once we have the values of $a$, $b$, $x_c$, and $y_c$, we can use the equation for an ellipse to draw the fitted ellipse on the data points.
+
+Least square ellipse fitting is commonly used in image processing, computer vision, and pattern recognition to extract features from objects that can be approximated by ellipses, such as eyes, faces, or particles. When solving for the five different parameters, using the conic way described as: 
+\begin{equation}
+    Ax^2+Bxy+Cy^2+Dx+Ey+F=0
+\end{equation}
+    defining an ellipse if this condition is satisfied:
+\begin{equation}
+    B^2-4AC < 0
+\end{equation}
+or if using the parametric was described as: 
+\begin{equation}
+    (x-h)^2/a^2 + (y-k)^2/b^2 = 1
+\end{equation}
+the solution the the least square problem becomes a non linear problem and needs some sort of approximation. Depending on the kind of approximation different ellipses will be calculated. Also important to keep in mind, the ellipses are multiplied with an rotation matrix $R$ to fit the ellipse also to rotated ellipses. 
+\begin{equation}
+    R = \begin{bmatrix}
+        \cos(\theta) & -\sin(\theta) \\
+        \sin(\theta) & \cos(\theta) \\
+    \end{bmatrix}
+\end{equation}
+    
+\subsubsection{Contours}
+    When working with thresholds the contour is of interests. The contour is defined as the outer boundary of the threshold binary matrix and is the foundation for the ellipse fit method. 
+    Here it is not given to extract one single contour and therefore the contours need to be filtered based on which contour represents the pupil the best. 
+    Mainly three criteria are used. 
+    
+    \paragraph{Circularity / Compactness}
+    \begin{equation}
+        \frac{4\pi\mathsf{A} }{\oint_{\partial S} dS}
+    \end{equation}
+    Where $\mathsf{A} $ is the Area of the contour, and it is devided by the integral over the outer boundary of the contour also known as the permitter of the contour.
+
+    \paragraph{Similarity }
+    The for the similarity the OpenCV library is used. This methods compares a given shape with another. As base for the comparison a simple ellipse is taken and then compared.
+
+    \paragraph{Area}
+    The Area of the contour should be maximal to find the greatest pupil area and filter out smaller area contours. 
+
+   Each algorithm that returns a list of contours needs them to be checked with these four conditions and in the best case scenario only the contour of the pupil survives. This is then the contour on which a ellipse will be fitted. 
+
+   

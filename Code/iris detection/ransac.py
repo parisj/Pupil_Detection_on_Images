@@ -89,7 +89,7 @@ class ransac:
                 continue
             #print(f'params: {params}')
 
-            #plot_points(params[0][0],params[0][1], params[1][0], params[1][1], params[2],points[idx,:])
+            plot_points_and_circle(params,points[idx,:])
 
             area = self.calc_area(params)
             #print(f'points: {points}, params: {params}, threshold: {threshold}, area: {area}, best_area: {best_area}')
@@ -177,12 +177,29 @@ def evaluate(points, params, threshold, area, best_area, best_inliers,best_borde
 
     return best_ellipse, best_inliers, best_area, best_border
 
+
+def plot_points_and_circle(params,points):
+    center, axis, angle = params
+    xc, yc = center
+    a, b = axis
+    mask = np.zeros((200,200), dtype=np.uint8)
+    mask = cv2.cvtColor(mask, cv2.COLOR_GRAY2BGR)
+    mask = cv2.ellipse(mask, (round(xc),round(yc)), (round(a / 2),round(b / 2)), angle, 0, 360, (255,0,0), 1)
+    for p in points:
+        mask = cv2.circle(mask, (p[0],p[1]), 1, (0,0,255), 1)
     
-def plot_points(xc,yc,a,b,angle, points_idx,name, contours):
+    cv2.imshow('mask', mask)
+    cv2.waitKey(1)
+
+
+def plot_points(xc,yc,a,b,angle, point, rot_point):
     
     mask = np.zeros((200,200), dtype=np.uint8)
     mask = cv2.cvtColor(mask, cv2.COLOR_GRAY2BGR)
     mask = cv2.ellipse(mask, (round(xc),round(yc)), (round(a / 2),round(b / 2)), angle, 0, 360, (255,0,0), 1)
+    mask = cv2.ellipse(mask, (0 + 100,0 + 100),(round(a / 2),round(b / 2)),0 , 0, 360, (0,255,255), 1)
+    mask = cv2.circle(mask, (round(rot_point[0]) + 100,round(rot_point[1]) + 100), 3, (0,150,0), 1)
+    mask = cv2.circle(mask, (point[0],point[1]), 3, (0,0,255), -1)
     mask = cv2.ellipse(mask,(100,100), (50,25), 20, 0, 360, (255,255,255), 1)
     cv2.drawContours(mask, contours, -1, (255,0,0), 1)
 
@@ -199,7 +216,7 @@ if __name__ == '__main__':
     mask = cv2.ellipse(mask,(100,100),(50,25),50,0,360,(255,0,0),1)
     cv2.imshow('mask',mask)
     
-    rans = ransac(mask, 15, 0.07)
+    rans = ransac(mask, 300 , 0.1)
     a,b,c,d = rans.ransac_start()
     print(f'best_ellipse: {a} best_inliers: {b} best_area: {c} best_border: {d}')
     print(f'leng points_contour: {len(rans.get_points_contour())}')

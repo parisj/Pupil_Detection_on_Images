@@ -189,7 +189,7 @@ class ACWE:
             self.set_mask(mask)
             
             self.smoothing(iterations_smoothing)
-            self.callback()
+            #self.callback()
             
     def start(self, center, radius, image, iterations_smoothing, iterations_ACWE, lambda1, lambda2, convergence_threshold):
 
@@ -215,7 +215,7 @@ class ACWE:
         cv2.circle(overlay, (self.get_center_start()[1],self.get_center_start()[0]), 2, (0, 0, 255), -1)
         filename = f'Latex/thesis/plots/acwe/iteration_{self.iterations_safe}.png'
         cv2.imshow('Result', overlay)
-        cv2.imwrite(filename, overlay)
+        #cv2.imwrite(filename, overlay)
         cv2.waitKey(1)
         self.iterations_safe += 1
 

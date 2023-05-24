@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 import matplotlib.pyplot as plt 
 from concurrent.futures import ThreadPoolExecutor
-from numba import njit
+#from numba import njit
 import exceptions
 
 
@@ -83,7 +83,9 @@ class HaarFeature:
 
             response_image_color = cv2.applyColorMap(normalized_response, colormap)
             #cv2.imshow('Response Image', response_image_color)
-            
+            #cv2.imwrite('Latex/thesis/plots/results/originalbest.png', self.image)
+            #cv2.circle(response_image_color, position_pupil, 4, (255,0,0), -1)
+            #cv2.imwrite('Latex/thesis/plots/results/responsehaarbest.png', response_image_color)
         #extract ROI
         roi, roi_coords = self.extract_roi(position_pupil, 110)
         
@@ -130,7 +132,7 @@ boosting performance
 
 '''
 
-@njit
+#@njit
 def process_radius(args):
     r, eye_integral, padding, img_shape, response_img = args
     #Setup for comparing the sums and get the right coordinates

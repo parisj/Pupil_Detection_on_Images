@@ -55,10 +55,9 @@ def best_ellipse(roi):
     #print('Start calc Roi')
    
     #cv2.waitKey(0)
-    roi = cv2.GaussianBlur(roi, (5,5),0)
     # Get the contours of the ROI
     contours, _ = cv2.findContours(roi, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
+    plot_contours(roi, contours)
     # Find the contour with the largest area
     max_similarity = 10
     max_circularity = 0
@@ -89,6 +88,30 @@ def best_ellipse(roi):
 
     return  best_ellipse
 
+
+def plot_contours(image, contours):
+    # Create a copy of the image
+    image_copy = image.copy()
+
+    # Draw all contours on the image
+    cv2.drawContours(image_copy, contours, -1, (0, 255, 0), 2)
+
+    # Convert BGR image to RGB for Matplotlib
+    image_rgb = cv2.cvtColor(image_copy, cv2.COLOR_BGR2RGB)
+
+    # Create a figure and axes
+    fig, ax = plt.subplots()
+
+    # Display the image
+    ax.imshow(image_rgb)
+
+    # Set axis ticks to empty
+    ax.set_xticks([])
+    ax.set_yticks([])
+
+    # Show the plot
+    plt.show()
+
 def is_contour_ellipse(gray_roi, contour, max_area):
     
     
@@ -111,7 +134,7 @@ def is_contour_ellipse(gray_roi, contour, max_area):
     circularity = (4*np.pi * area) / (arclen * arclen)
     #print('similarity',similarity, 'circularity', circularity)
     
-    if similarity <= 0.3 and circularity >= 0.6 and max_area < area :
+    if similarity <= 0.8 and circularity >= 0.2 and max_area < area :
         cv2.fillPoly(contourMask, [poly], 255)
         #cv2.imshow('contourMaks accepted', contourMask)
         #cv2.waitKey(0)
@@ -124,3 +147,23 @@ def is_contour_ellipse(gray_roi, contour, max_area):
   
    
     return  False,contourMask,None, 10, 10
+
+if __name__ == '__main__':
+    test = cv2.imread('Latex/thesis/plots/results/roi_text_resutls.png')
+    final = test.copy()
+    test = cv2.cvtColor(test, cv2.COLOR_BGR2GRAY) 
+    cv2.imshow('test', test)
+    test = cv2.GaussianBlur(test, (21,21),0)
+
+    ret, roi_thresh = cv2.threshold(test, 60, 255, cv2.THRESH_BINARY_INV)
+    cv2.imwrite('Latex/thesis/plots/results/roi_binary_ellipse.png', roi_thresh)
+
+    cv2.imshow('roi_thresh', roi_thresh)
+    ellipse = best_ellipse(roi_thresh)
+    test = cv2.cvtColor(test, cv2.COLOR_GRAY2BGR) 
+
+    cv2.ellipse(final, ellipse, (0,0,255), 1)
+    cv2.imshow('test_1', final)
+    cv2.imwrite('Latex/thesis/plots/results/roi_result_binary_ellipse.png', final)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()

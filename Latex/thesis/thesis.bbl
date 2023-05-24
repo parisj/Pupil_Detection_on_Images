@@ -1,18 +1,49 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
-\bibitem{LPW}
-Tonsen Marc, Zhang Xucong, Sugano Yusuke, and Bulling Andreas.
-\newblock Labelled pupils in the wild (lpw): Pupil detection in unconstrained
-  environments.
-\newblock
-  \url{https://www.mpi-inf.mpg.de/departments/computer-vision-and-machine-learning/research/gaze-based-human-computer-interaction/labelled-pupils-in-the-wild-lpw}.
-\newblock Accessed: 28.04.2023.
+\bibitem{zhang_max-planck-institut_nodate}
+Xucong Zhang, Yusuke Sugano, and Andreas Bulling.
+\newblock Max-planck-institut für informatik: Labelled pupils in the wild
+  ({LPW}).
 
-\bibitem{clahe}
-OpenCV.
-\newblock Contrast limited adaptive histogram equalization.
-\newblock
-  \url{https://docs.opencv.org/3.1.0/d5/daf/tutorial_py_histogram_equalization.html}.
-\newblock Accessed: 28.04.2023.
+\bibitem{gonzalez_bilinear_nodate}
+Rafael~C. Gonzalez and Richard~E. Woods.
+\newblock Bilinear interpolation.
+\newblock In {\em Digital Image Processing}, page~77. 4 edition.
+
+\bibitem{noauthor_opencv_nodate}
+{OpenCV}: Histograms, histogram equalization.
+
+\bibitem{gonzalez_sharpening_nodate}
+Rafael~C. Gonzalez and Richard~E. Woods.
+\newblock Sharpening (highpass) spatial filters.
+\newblock In {\em Digital Image Processing}, page 175. 4 edition.
+
+\bibitem{gonzalez_canny_nodate}
+Rafael~C. Gonzalez and Richard~E. Woods.
+\newblock Canny edge detection.
+\newblock In {\em Digital Image Processing}, page 732. 4 edition.
+
+\bibitem{viola_rapid_nodate}
+Paul Viola and Michael Jones.
+\newblock Rapid object detection using a boosted cascade of simple features.
+
+\bibitem{swirski_robust_2012}
+Lech Swirski, Andreas Bulling, and Neil Dodgson.
+\newblock Robust real-time pupil tracking in highly off-axis images.
+\newblock pages 173--176.
+
+\bibitem{derpanis_overview_nodate}
+Konstantinos~G Derpanis.
+\newblock Overview of the {RANSAC} algorithm.
+
+\bibitem{vondracek_image_2018}
+Adam Vondráček.
+\newblock Image segmentation using a morphological operator for
+  curvature-driven motion.
+
+\bibitem{kass_snakes_1988}
+Michael Kass, Andrew Witkin, and Demetri Terzopoulos.
+\newblock Snakes: Active contour models.
+\newblock 1(4):321--331.
 
 \end{thebibliography}

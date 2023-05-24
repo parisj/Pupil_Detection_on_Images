@@ -7,8 +7,8 @@ import exceptions
 class ransac:
     def __init__(self, mask, iterations, threshold):
         self.mask = mask
-        print(f'mask: {mask}')
-        print(f'mask.shape: {mask.shape}')
+        #print(f'mask: {mask}')
+        #print(f'mask.shape: {mask.shape}')
         self.iterations = iterations
         self.threshold = threshold
         self.points_contour = None
@@ -77,7 +77,7 @@ class ransac:
         contour = self.get_mask()
         for i in range (self.get_iterations()):
             # Select 5 random points from the contour
-            idx = np.random.choice(len(points), 9, replace = False)
+            idx = np.random.choice(len(points), 5, replace = False)
             points_idx = points[idx,:]
             points_idx[:, 0], points_idx[:, 1] = points_idx[:, 1], points_idx[:, 0].copy()
             
@@ -85,11 +85,11 @@ class ransac:
             #plot_points(params[0][0],params[0][1],params[1][0],params[1][1], params[2],points[idx,:],'test1', contour)
 
             #print(f'get_params: {params}')
-            if params is None:
+            if params is None :
                 continue
             #print(f'params: {params}')
 
-            plot_points_and_circle(params,points[idx,:])
+            plot_points_and_circle(params,points[idx,:], self.get_mask())
 
             area = self.calc_area(params)
             #print(f'points: {points}, params: {params}, threshold: {threshold}, area: {area}, best_area: {best_area}')
@@ -131,16 +131,17 @@ def distance_to_ellipse_eigen(x, y, h, k, a, b, theta):
     eigenvalues, eigenvectors = np.linalg.eig(ellipse_matrix)
 
     # The semi-major and semi-minor axes of the ellipse in the rotated coordinate system are given by the square roots of the eigenvalues
-    a_eigen = np.sqrt(np.max(eigenvalues))
-    b_eigen = np.sqrt(np.min(eigenvalues))
-
+    a_eigen = round(np.sqrt(np.max(eigenvalues)))
+    b_eigen = round(np.sqrt(np.min(eigenvalues)))
+    if a_eigen == 0 or b_eigen == 0:
+        return 100
     # The rotation matrix is given by the eigenvectors
     R = eigenvectors
     #print(f'x: {x}, y: {y}, h: {h}, k: {k}, a: {a}, b: {b}, theta: {theta}, a_eigen: {a_eigen}, b_eigen: {b_eigen}, R: {R}')
     # Translate and rotate the point to the new coordinate system
     point = np.dot(R.T, np.array([x - h, y - k]))
     # Calculate the distance to the ellipse in the new coordinate system
-    r = np.hypot(point[0] / a_eigen, point[1] / b_eigen)
+    r = np.hypot(round(point[0]) / a_eigen, round(point[1]) / b_eigen)
     distance = r - 1  # Subtract 1 because the ellipse in the new coordinate system has a radius of 1
     #print(distance)
     return distance
@@ -151,24 +152,26 @@ def evaluate(points, params, threshold, area, best_area, best_inliers,best_borde
     center, axis, angle = params
     xc, yc = center
     a, b = axis
+    
+        
     # Find the inliers
     #print(f'points: {points}, params: {params}, threshold: {threshold}, area: {area}, best_area: {best_area}')
     inliers = np.zeros((0, 2), dtype=np.int32) 
     border = np.zeros((0,2), dtype=np.int32)# initialize best_inliers to an empty numpy array
     for point in points:
-        dist= distance_to_ellipse_eigen(point[0],point[1],xc,yc,a,b,angle)
+        dist= distance_to_ellipse_eigen(point[0],point[1],xc,yc,round(a/2),round(b/2),angle)
 
         #print(f'dist: {dist}')
         if np.isclose(dist, 0, atol=threshold):
             border = np.vstack((border,  point))
         
-        elif dist < 0 or np.isclose(dist, 0, atol=threshold):
+        if dist < 0 :
             inliers = np.vstack((inliers,point))
                   
         else:
             continue   
                  
-    if inliers.shape[0] >= best_inliers.shape[0]:
+    if inliers.shape[0] >= best_inliers.shape[0] and border.shape[0] >= best_border.shape[0]:
             
         best_inliers = inliers
         best_border = border
@@ -178,11 +181,11 @@ def evaluate(points, params, threshold, area, best_area, best_inliers,best_borde
     return best_ellipse, best_inliers, best_area, best_border
 
 
-def plot_points_and_circle(params,points):
+def plot_points_and_circle(params,points, original_mask):
     center, axis, angle = params
     xc, yc = center
     a, b = axis
-    mask = np.zeros((200,200), dtype=np.uint8)
+    mask = np.zeros((400,680), dtype=np.uint8)
     mask = cv2.cvtColor(mask, cv2.COLOR_GRAY2BGR)
     mask = cv2.ellipse(mask, (round(xc),round(yc)), (round(a / 2),round(b / 2)), angle, 0, 360, (255,0,0), 1)
     for p in points:

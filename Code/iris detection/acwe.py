@@ -213,9 +213,9 @@ class ACWE:
         cv2.drawContours(overlay, contours, -1, color, 1)
         cv2.circle(overlay, self.get_center_start(), 2, (0, 255, 0), -1)
         cv2.circle(overlay, (self.get_center_start()[1],self.get_center_start()[0]), 2, (0, 0, 255), -1)
-        filename = f'Latex/thesis/plots/acwe/iteration_{self.iterations_safe}.png'
+        filename = f'Latex/thesis/plots/acwe/iterationplot_{self.iterations_safe}.png'
         cv2.imshow('Result', overlay)
-        #cv2.imwrite(filename, overlay)
+        cv2.imwrite(filename, overlay)
         cv2.waitKey(1)
         self.iterations_safe += 1
 
@@ -229,6 +229,7 @@ class ACWE:
         # Draw the ellipse on the image
         cv2.ellipse(image_copy, ellipse, color, 1)
         cv2.imshow('Result', image_copy)
+        cv2.imwrite('Latex/thesis/plots/acwe/resultabstract.png', image_copy)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
         
@@ -246,26 +247,32 @@ class ACWE:
             return False
         # Find the contour with the largest area (in case there are multiple contours)
         largest_contour = max(contours, key=cv2.contourArea)
-        print(f'Largest contour: {len(largest_contour)}')
-        print(f'Largest contour: {largest_contour}')
+        #print(f'Largest contour: {len(largest_contour)}')
+        #print(f'Largest contour: {largest_contour}')
         if len(largest_contour) < 5:
             return False
+        image = self.get_image().copy()
+        #cv2.drawContours(image, [largest_contour], -1, (0, 255, 0), 2)
+        #cv2.imshow('Result contour', image)
+        #cv2.waitKey(0)
         # Fit an ellipse to the largest contour
-        rans = ransac(largest_contour, 50, 0.07)
+        rans = ransac(largest_contour, 350, 0.05)
         a,b,c,d = rans.ransac_start()
-        print(f'best_ellipse: {a} best_inliers: {b} best_area: {c} best_border: {d}')
-        
+        #print(f'best_ellipse: {a} best_inliers: {b} best_area: {c} best_border: {d}')
+        print(f'leng points_contour: {len(rans.get_points_contour())}')
+        print(f'lenght of best_inliers: {len(b)}')
+        print(f'lenght of best_border: {len(d)}')
         self.set_result_ellipse(a)
 
         return True
         
 if __name__ == '__main__':
-    image = cv2.imread('test_roi2.png')
+    image = cv2.imread('Latex/thesis/plots/results/originalbestabstract.png')
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    center = (image.shape[0]//2, image.shape[1]//2)
+    center = (87, 369)
     radius = 10
     acwe = ACWE()
-    acwe.start(center, radius, image, 3, 100, 1, 0.1, 0.005)
+    acwe.start(center, radius, image, 3, 10000, 1, 0.1, 0.00005)
     acwe.result()
     acwe.plot_ellipse()
     cv2.destroyAllWindows()

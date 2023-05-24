@@ -170,6 +170,6 @@ def main_Haar_image():
     cv2.waitKey(0)
     
 if __name__ == '__main__':
-    main_detection('E:/data_set/LPW/4/2.avi,E:/data_set/LPW/4/2.txt')
+    main_detection('D:/data_set/LPW/8/2.avi,D:/data_set/LPW/8/2.txt')
 
     cv2.waitKey(0)

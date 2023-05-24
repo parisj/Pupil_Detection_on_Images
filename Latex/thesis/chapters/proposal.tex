@@ -1,0 +1,10 @@
+\chapter{Proposal}
+\label{chap:proposal}
+\section{Proposed Algorithm}
+After intensive research and analysis, the algorithm proposed for pupil detection consist of the following steps: 
+\begin{enumerate}
+    \item \textbf{Preprocessing:} The image is converted to grayscale and then histogram equalization method CLAHE is used to improve the contrast of the image.
+    \item \textbf{Haar-like features:} From the image the feature vector is calculated using the Haar-like feature for pupil detection proposed by \cite{HaarLikeFeatures}. The feature vector is then used to find the strongest repsonse in the image. This point is considered to be inside the pupil area. 
+    \item \textbf{ACWE} The active contour without edges algorithm is applied to the image with the point returned by the Haar-like features as center of the initial contour. Returns the contour of the pupil.
+    \item \textbf{RANSAC} The RANSAC algorithm is applied to the mask returned by the ACWE algorithm. Iterates over the mask contour and fits a circle to a random subset of the contour points. Returns the circle with the highest number of inliers.
+\end{enumerate}

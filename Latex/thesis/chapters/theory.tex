@@ -263,8 +263,8 @@ As already presented in the previous chapter, the only colorful part of the eye 
     \end{minipage}\hfill
 \end{table}
 
-It is important to note that these resolutions are resolutions are congruent with the resolutions used in the LPW paper \cite{LPW}. This is important for the comparison of the results.
-When scaling an image there is always an image interpolation done to find the best approximation for the new intensity value $I$. The interpolation used in this thesis is the bilinear interpolation.\cite{bilinearinter} This is a linear interpolation in the x and y axis of the intensity values and solves equation \ref{eq:bilinear}. let $Q_{11}=(x_1,y_1)$, $Q_{12}=(x_1,y_2)$, $Q_{21}=(x_2,y_1)$ and $Q_{22}(x_2,y_2)$ be the four surrounding points. The intensity value $I$ at $(x,y)$ is then calculated by equation \ref{eq:bilinear}. The point P at $(x,y)$ is the point of interest. 
+It is important to note that these resolutions are resolutions are congruent with the resolutions used in the LPW paper \cite{zhang_max-planck-institut_nodate}. This is important for the comparison of the results.
+When scaling an image there is always an image interpolation done to find the best approximation for the new intensity value $I$. The interpolation used in this thesis is the bilinear interpolation.\cite{gonzalez_bilinear_nodate} This is a linear interpolation in the x and y axis of the intensity values and solves equation \ref{eq:bilinear}. let $Q_{11}=(x_1,y_1)$, $Q_{12}=(x_1,y_2)$, $Q_{21}=(x_2,y_1)$ and $Q_{22}(x_2,y_2)$ be the four surrounding points. The intensity value $I$ at $(x,y)$ is then calculated by equation \ref{eq:bilinear}. The point P at $(x,y)$ is the point of interest. 
 
 \begin{figure}[h]
     \centering
@@ -318,8 +318,8 @@ When scaling an image there is always an image interpolation done to find the be
 \end{minipage}
 
 
-\subsubsection{Histogram equalisation}
-Another important aspect of preprocessing the frames is using Histogram equalization. This has the effect of increasing the contrast of the image. For this task Contras Limited Adaptive Histogram Equalization (CLAHE)\cite{clahe} is used. CLAHE is an Histogram Equalization method that has the benefit that it is adaptive to the local contrast of the image. This is very useful if the contrast of the image is not uniform. By using Histogram Equalization on the frames, noise is added to the image. This can be dealt with by using a low pass filter, like an Gaussian filter for example.
+\subsubsection{Histogram equalisation \cite{noauthor_opencv_nodate}}
+Another important aspect of preprocessing the frames is using Histogram equalization. This has the effect of increasing the contrast of the image. For this task Contras Limited Adaptive Histogram Equalization (CLAHE) is used. CLAHE is an Histogram Equalization method that has the benefit that it is adaptive to the local contrast of the image. This is very useful if the contrast of the image is not uniform. By using Histogram Equalization on the frames, noise is added to the image. This can be dealt with by using a low pass filter, like an Gaussian filter for example.
 
  Using a normal Histogram Equalization would lead to a loss of information in the region around the pupil and the iris. This is due to the fact that the contrast in this region is already very high. The CLAHE method splits the image into smaller blocks called "tiles"  and calculates the histogram on each block individualy and therefore does not lead to the same lose of important information at the pupil region. The CLAHE method is applied to the frames after they are converted to grayscale. The result of this step is shown in figure \ref{fig:clahe}. 
 
@@ -336,8 +336,8 @@ These are the parameters used for the CLAHE plots
 
 \subsection{Edge Detection}
 The main goal behind edge detection is to find edges in the image. An edge is defined as a region that has a high contrast to its surrounding pixels, in other words a rapidly changing intensity in a small area. The edge detection is useful to filter the image for possible pupil contours. The edge detection analysis the image based on the change of intensity. Therefore a gradient calculation is used. There are different methods to calculate the gradient of an image. One of the most popular methods is the Sobel operator that makes use of the first differential of the image. The laplacian operator is another method that uses the second differential of the image. In this thesis the Sobel operator is used to calculate the gradient of the image. 
-After calculating the gradient Canny edge detection is used to refine the edges. Canny edge detection is a multi step algorithm that uses a hysteresis thresholding to filter the edges. The result of the edge detection is a on pixel thick binary edge map.  All edges are now possible candidates for the pupil contour. 
-\subsubsection{Sobel Operators}
+After calculating the gradient Canny edge detection is used to refine the edges. Canny edge detection is a multi step algorithm that uses a hysteresis thresholding to filter the edges. The result of the edge detection is a one pixel thick binary edge map.  All edges are now possible candidates for the pupil contour. 
+\subsubsection{Sobel Operators \cite{gonzalez_sharpening_nodate}}
 The Sobel Operators are used is a common algorithm for edge detection. It is a gradient calculation that uses a 3x3 differential kernel to calculate the gradient of the image. The Sobel gradient is calculated in x and y direction. The gradient in x and y direction are calculated by convolving the image with two different kernels. The image with gray values is defined as $f(x,y)$ and the kernels are defined as $k_x$ and $k_y$. Therefore the gradient is calculated as follows:
 \begin{equation}
     \nabla f = \begin{bmatrix}
@@ -394,9 +394,9 @@ The Sobel Operators are used is a common algorithm for edge detection. It is a g
     \end{equation}
     The result of the convolution can be seen in figure \ref{fig:gradient} in chapter two. 
 
-    \subsubsection{Canny Edge Detection} 
+    \subsubsection{Canny Edge Detection \cite{gonzalez_canny_nodate}} 
     The Canny Edge Detection is used to recieve single edge points form the gradient magnitude image.  
-    This algorithm can summarized in four steps\cite{canny_edge}: 
+    This algorithm can summarized in four steps: 
     \begin{enumerate}
         \item Noise reduction, smoothing the image with a Gaussian filter
         \item Compute the gradient magnitude and direction
@@ -632,8 +632,8 @@ In a frame where the pupil region clearly can be distinceted from the rest, the 
     \label{fig:canny_eyelid}
 \end{figure}
 
-\subsection{Haar like feature detection}
-\subsubsection{Concept}
+\subsection{Haar like feature detection \cite{viola_rapid_nodate}}
+\subsubsection{Concept }
 Haar like features is based on the observation that object have a certain local intensity variation in an image and this fact can be useful to identify objects. Haar like features makes use of this and divides the image into rectangular regions and then calculates the difference between the sum of the pixels in the white and gray regions, show in figure \ref{fig:haar_features}. This is done for all possible rectangular positions in the image. The result is a feature vector that is used to classify the image and give insight about the position of the object. In theory the feature is convolved with the image to calculate the feature vector but to make the detection faster, the integral image is calculated once and then used to calculate the feature vector at each possible position in the image.
  This leads to an easy calculation of the feature vector than now only needs four values to be calculated. 
 The properties of the different features bring different abilities to detect specific local intensity patterns that are an indicator for a certain object or image region property. 
@@ -698,8 +698,8 @@ To get a better understanding of the different features and their characteristic
 
 The key concept to keep in mind is, that the features generate a response based on the difference of the sum of the pixels in the white and gray regions and therefore are able to detect local intensity patterns. The response of each feature also depends on the size of the feature and stands in relation to the size of the object that is to be detected. The result of the Haar-like features provides information about the presence or absence of a certain pattern that is reflected in the structure of the feature used. Because an object can have more than one fitting feature, the features are often used in a cascade of classifiers. The first classifier is a very simple classifier that is able to detect a lot of features. The following classifiers are more complex and are only used if the previous classifier was able to detect a certain feature. This leads to a very fast detection of the object. This safes computational resources and time. Often Machine learning is involved to classify if an object is present or not, based on the feature vectors. 
 
-\subsubsection{Haar-Like Feature for pupil detection}
-One very useful feature for finding a point in the pupil is given by a feature described in the paper \cite{pupil_haar}. This feature is constructed differently but used the same way as the other features to calculate an feature vector or response map. 
+\subsubsection{Haar-Like Feature for pupil detection \cite{swirski_robust_2012}}
+One very useful feature for finding a point in the pupil is given by a feature described in the paper . This feature is constructed differently but used the same way as the other features to calculate an feature vector or response map. 
 \begin{figure}
     \centering
     \begin{tikzpicture}[scale=0.5]
@@ -753,7 +753,7 @@ The most difficult part is to find a fitting threshold value. This could be done
 \end{figure}
 in \ref{fig:simple_thresh} it can be seen that the thresholding is extremely volatile to reflections, eyelashes and other noise. This is why thresholding only has a good performance in a strictly defined environment with almost no noise. 
 
-To showcase the volatility and the dependency on the threshold value, in \ref{fig:thresholded_images} a series of the same frame is shown with different threshold values (Th). It can be seen that the threshold value has to be chosen very carefully. If the value is chosen to low, the pupil region is not found. If the value is chosen to high, the much information is extracted and the pupil region can not be differentiated from the rest. 
+To showcase the volatility and the dependency on the threshold value, in figure \ref{fig:thresholded_images} a series of the same frame is shown with different threshold values (Th). It can be seen that the threshold value has to be chosen very carefully. If the value is chosen to low, the pupil region is not found. If the value is chosen to high, too much information is extracted and the pupil region can not be differentiated from the rest. 
 
 
 \begin{figure}[htbp]
@@ -845,7 +845,7 @@ To showcase the volatility and the dependency on the threshold value, in \ref{fi
     \end{figure}
 
     \subsubsection{Ellipse fitting}
-    Ellipse fitting is based on finding a contour and fit an ellipse to it. The accuracy of the ellipse fit is strongly dependent on the quality of the contour extracted. The goal is to find the pupil as a connected region and than use ellipse fit to reconstruct the pupil as an ellipse. This involves solving equations with an approximation algorithm. For example least squares fitting. The least squares fitting is a method to find the best possible fit based on a set of data points. In this case points on the contour. The least squares fitting then calculated the distance from the possible ellipse curve to all points and minimizes the distance to all points. This is done by solving the following equations: 
+    Ellipse fitting is based on finding a contour and then fit an ellipse to it. The accuracy of the ellipse fit is strongly dependent on the quality of the contour extracted. The goal is to find the pupil as a connected region and than use ellipse fit to reconstruct the pupil as an ellipse. This involves solving equations with an approximation algorithm. For example least squares fitting. The least squares fitting is a method to find the best possible fit based on a set of data points. In this case points on the contour. The least squares fitting calculates the distance from the possible ellipse curve to all points on the contour and minimizes the distance to all points by finding changing the ellipse parameters. This is done by solving the following equations: 
 
 
  The general equation for an ellipse with center $(x_c, y_c)$, major axis $a$ and minor axis $b$ is:
@@ -924,8 +924,8 @@ the solution the the least square problem becomes a non linear problem and needs
 
    Each algorithm that returns a list of contours needs them to be checked with these four conditions and in the best case scenario only the contour of the pupil survives. This is then the contour on which a ellipse will be fitted. 
 
-
-\subsection{Random Sample Consensus (RANSAC)}
+\newpage
+\subsection{Random Sample Consensus (RANSAC) \cite{derpanis_overview_nodate}}
 The Random Sample Consensus (RANSAC) algorithm is an iterative method that is used to estimate the parameters for a known problem. For ellipse fitting a contour or a set of possible points inside or on the contour $C$ is the input. The algorithm then randomly selects a subset $S_c$ of 5 random selected points in $C$. 
 These 5 points are then used to fit an ellipse as described in the section Ellipse Fitting.
 
@@ -1039,11 +1039,11 @@ Where p = is the probability of finding the best ellipse and w is the ratio of i
     n = \frac{\log(1-0.99)}{\log(1-0.90^5)} =  5.158
 \end{equation}
 So the number of iterations to find the best ellipse with the most inliers is 6. But it is important to keep in mind that this is only true if inliers are the sum of border and inliers. Otherwise the number of iterations needs to increase because the ratio inliers to outliers changes drastically. 
+\newpage
+\subsection{Active Contouring \cite{vondracek_image_2018}}
+Active contour segmentation is a method that is used to find the boundary curve of an object given that the object exists. There a many different approaches in active contouring but in this thesis two variants will be discussed. The first one being the classic snakes approach (Kass et al., 1988) \cite{kass_snakes_1988} with a simple energy function and the other variant being the active contouring without edges (ACWE)  based on level sets. In both cases a initial contour is set and through iterative changes tries to find the boundary curve of an object. Each iteration the contour is changed by a small amount and then evaluated with an energy function. The energy function is a measurement of how well the contour is fitting to the edge of the object and in both cases the energy function is minimized.
 
-\subsection{Active Contouring}
-Active contour segmentation is a method that is used to find the boundary curve of an object given that the object exists. There a many different approaches in active contouring but in this thesis two variants will be discussed. The first one being the classic classical snakes approach (Kass et al., 1988) with a simple energy function and the other variant being the active contouring without edges (ACWE) based on level sets. In both cases a initial contour is set and through iterative changes tries to find the boundary curve of an object. Each iteration the contour is changed by a small amount and then evaluated with an energy function. The energy function is a measurement of how well the contour is fitting to the edge of the object and in both cases the energy function is minimized.
-
-Let $C(q): [0, 1] \rightarrow \mathbb{R}^2$ be a parametrized planar curve and let $I : [0, a] \times [0, b] \rightarrow \mathbb{R}^+$ be a given image used to detect the object boundaries with active contouring. The classical snakes approach (Kass et al., 1988) \ref{KASS} associates the curve $C$ with an energy given in \refeq{acgd}
+Let $C(q): [0, 1] \rightarrow \mathbb{R}^2$ be a parametrized planar curve and let $I : [0, a] \times [0, b] \rightarrow \mathbb{R}^+$ be a given image used to detect the object boundaries with active contouring. The classical snakes approach (Kass et al., 1988) \cite{kass_snakes_1988} associates the curve $C$ with an energy given in \refeq{acgd}
 But the most basic description for the energy minimization can be summarized in $E_{int}$ and $E_{ext}$ 
 \begin{equation}
     E = E_{int} + E_{ext}
@@ -1074,7 +1074,7 @@ Where $C'(q)$ calculate the length of the curve and $C''(q)$ calculates the curv
 
 Because the classic snakes implementation searches for the best boundary curve that localy minimizes the energy function, the initial contour need to be initialized close to the best solution. Otherwise the algorithm will converge to a local minimum and not the global minimum. The classic snakes approach searches for the minimal with PDEs that is solved using the steepest descent method which brings performance issues and is prone to terminate early if a local minimum is found. 
 
-\subsubsection{Active Contouring without Edges (ACWE)}
+\subsubsection{Active Contouring without Edges (ACWE) \cite{vondracek_image_2018}}
 In ACWE the same principle is used to find the best object boundary. But in this case the energy function is minimized using level sets and morphological operations to solve the PDEs. \ref{muniz} The morphological operation use four different structuring elements. 
 
 \begin{figure}[ht]
@@ -1184,6 +1184,7 @@ The external force is the same as in the classical snakes method but in GAC it i
     \nabla g(I) \cdot \nabla u
 \end{equation}
 The change in the level set function $u$ is only applied to the points where $g(I) > T$ where $T$ is a defined threshold to control the velocity and the characteristic that the curve moves faster in areas where the gradient is low. This leads to an algorithm that moves faster in a region with the same intensity and slower in regions with a high gradient. 
+
 The external force or the attracting force is calculated for each point $p$ in the binary mask from the before modified level set function $u$ and evaluated with the following equation:
 \begin{equation}
     p = \begin{cases}
@@ -1193,25 +1194,30 @@ The external force or the attracting force is calculated for each point $p$ in t
     \label{eq:externalforce}
 \end{equation}
 \paragraph{Summary}
-To conclude, the equation \refeq{eq:deform} describes the deformation of $u$, the binary level set function. and is the main equation for Geodesic Active Contours (GAC). 
+To conclude, the equation \refeq{eq:externalforce} describes the deformation of $u$, the binary level set function. and is the main equation for Geodesic Active Contours (GAC). 
 
 \subsubsection{Convert GAC to ACWE}
 The GAC only inspects places where the curve could move iteratively and this is the main difference to ACWE. ACWE also known as Chan-Vese algorithm takes the complete image into consideration to evaluate the boundary or the curvature flow of the level set. 
 Let $c_i$ the the mean intensity of an subset $Oomega$ of the image $I$ and let $c_1$ be the mean intensity inside the curve or level set $u$ defined as $\Omega_1$ and $c_2$ the mean intensity outside level set $u$ defined as $\Omega_2$. 
 \begin{equation}
     c_{i}= \frac{ \int_{\Omega_{i}} I(x) \,dx}{\int_{\Omega_{i}} \, dx }
+    \label{eq:meanintensity}
 \end{equation}
-Then the external force function $F(c_1,c_2,C)$ can be defined as equation \refeq{eq_curvatureflow} where the first two terms $\mu \cdot \text{length}(u) + \nu \cdot |\text{inside}(u)|$ are the same as in the GAC The third and fourth terms sort of calculate the unscaled intensity variance in the different subsets $\Omega_1$ and $\Omega_2$. 
+Then the external force function $F(c_1,c_2,C)$ is defined as
 \begin{equation}
     \begin{split}
     F(c_1, c_2, C) = & \mu \cdot \text{length}(u) + \nu \cdot |\text{inside}(u)| \\
     & + \lambda_1 \cdot \int_{\Omega_1} (I(x) - c_1)^2 \, dx \\
     & + \lambda_2 \cdot \int_{\Omega_2} (I(x) - c_2)^2 \, dx
     \end{split}
-    \label{curvatureflow}
+    \label{eq:curvatureflow}
     \end{equation}
 
-Only difference now between the GAC and the ACWE is the external force that is calculated different. In GAC the external force is calculated with $\nabla g(I) \cdot \nabla u$ and considering if a point is inside or outside the curve based on a threshold as seen in equation \refeq{eq:externalforce}. In ACWE the external force is calculated with the mean intensity of the subsets $\Omega_1$ and $\Omega_2$ and the intensity of the image $I(x)$ as seen in equation \refeq{eq_curvatureflow}. Translating onto an discrete grid the equation can be written as: 
+where the first two terms $\mu \cdot \text{length}(u) + \nu \cdot |\text{inside}(u)|$ are the same as in the GAC The third and fourth terms sort of calculate the unscaled intensity variance in the different subsets $\Omega_1$ and $\Omega_2$. 
+
+The only difference now between GAC and the ACWE is that the external forceis is calculated differently. In GAC the external force is calculated with $\nabla g(I) \cdot \nabla u$ and based on a threshold decides if a point is inside or outside the curve, as seen in equation \refeq{eq:externalforce}. 
+
+In ACWE the external force is calculated with the mean intensity of the subsets $\Omega_1$ and $\Omega_2$ and the intensity of the image $I(x)$ as seen in equation \refeq{eq:curvatureflow}. Converting the equation onto an discrete grid it can be written as: 
 \begin{equation}
    \xi  = \underbrace{\lambda_{1} \cdot | \nabla u_{mask}| \cdot (I(x)-c_{1})^{2}}_{Inside}-\underbrace{\lambda_{2} \cdot|\nabla u_{mask}| \cdot (I(x)-c_{2})^{2}}_{outside}
 \end{equation} 
@@ -1224,7 +1230,9 @@ $\xi$ is then used to calculate the new level set function $u$ with the followin
         \end{cases}
 \end{equation}
 The Gradient of the mask will only be nonzero at the contour of the mask. 
-Now $I(x)$ is subtracted by the mean and each point on the contour will have two values, their inside and outside Intensities. By subtracting the mean intensity from the pixel intensities on the boundary of u, multiplying it with $\lambda_i$ and subtracting the outside term from the inside term an relationship between the inside and outside intensities is created and can be tuned with the sensitivity parameters $\lambda_i$ . This relationship is then used to calculate the new level set function $u$ and the process is repeated until the level set function converges. In a case where the function reaches the object boundary the inside and outside intensities will be the same and the curve will not move anymore. 
+Now $I(x)$ is subtracted by the mean and each point on the contour will have two values, their inside and outside weighted intensities. By subtracting the mean intensity from the pixel intensities on the boundary of u, multiplying it with $\lambda_i$ and subtracting the outside term from the inside term an relationship between the inside and outside intensities is created and can be tuned with the sensitivity parameters $\lambda_i$ . 
+
+This relationship is then used to calculate the new level set function $u$ and the process is repeated until the level set function converges. In a case where the function reaches the object boundary the inside and outside intensities will be the same and the curve will not move anymore and the equation goes to zero. 
 Here is an example of the evolution the the level set u when the ACWE algorithm is used with a given starting point inside the pupil. 
 \begin{figure}[h]
     \centering
@@ -1267,151 +1275,81 @@ Here is an example of the evolution the the level set u when the ACWE algorithm 
     \label{fig:iterations_acwe}
 \end{figure}
 
+\newpage
 \subsubsection{Active contouring with ellipse parameters}
-A different approach is to use the let an ellipse grow and modify it's parameters based on the gradient information. By sampling an amount of equally spaced points on the ellipse and evaluate an energy function based on the image intensity gradient and the normal vector of the ellipse at those points. The energy function can be described as the scalar product of the gradient and the normal vector of the ellipse curve. 
+A different approach is to let an ellipse grow and modify its parameters based on the gradient information. By sampling an amount of equally spaced points on the ellipse and evaluate an energy function based on the image intensity gradient and the normal vector of the ellipse at those points. The energy function can be described as the scalar product of the gradient and the normal vector of the ellipse curve. 
 \begin{equation}
-    E = -\sum_{i=0}^{N-1} \nabla I \cdot \vec{n}
+    E = -\sum_{i=0}^{N-1} \nabla I(p_i) \cdot \vec{n(p_i)}
 \end{equation} 
-this converts the problem into a minimization problem. The energy function still needs a term to make sure that the curve grows and does not get stuck at a local minimum. Here it is not possible to use the morphological operators because the shape of the ellipse is not given as a level set. Instead is based on only the five ellipse parameter: center, axis, angle. 
-
+Where $p_i$ is a point on the ellipse and $\vec{n(p_i)}$ is the normal vector of the ellipse at that point. $\nabla I(p_i)$ is the gradient of the image at that point. The energy function is minimized by changing the ellipse parameters
 \begin{figure}[h]
-\centering
-\begin{tikzpicture}[scale=0.7, transform shape]
-    \def\a{3} % semi-major axis
-    \def\b{2} % semi-minor axis
-    \def\scale{1} % scale for normal and gradient vectors
-
-    % Draw ellipse
-    \draw (0,0) ellipse (\a cm and \b cm );
+    \centering
+    \begin{tikzpicture}[scale=0.6, transform shape]
+        \def\a{3} % semi-major axis
+        \def\b{2} % semi-minor axis
+        \def\scale{1} % scale for normal and gradient vectors
     
-    % Draw 10 points and corresponding vectors
-    \foreach \i in {1,2,...,10} {
-        \pgfmathsetmacro{\angle}{\i*36}
-        \pgfmathsetmacro{\xcoord}{\a*cos(\angle)}
-        \pgfmathsetmacro{\ycoord}{\b*sin(\angle)}
-        \coordinate (p\i) at (\xcoord,\ycoord);
-        \fill (p\i) circle (1.5pt);
+        % Draw ellipse
+        \draw (0,0) ellipse (\a cm and \b cm );
+        
+        % Draw 10 points and corresponding vectors
+        \foreach \i in {1,2,...,10} {
+            \pgfmathsetmacro{\angle}{\i*36}
+            \pgfmathsetmacro{\xcoord}{\a*cos(\angle)}
+            \pgfmathsetmacro{\ycoord}{\b*sin(\angle)}
+            \coordinate (p\i) at (\xcoord,\ycoord);
+            \fill (p\i) circle (1.5pt);
+    
+            % Normal vector
+            \draw[->, blue, thick] (p\i) -- ++({\xcoord/\a^2*1.5*\scale},{\ycoord/\b^2*1.5*\scale});
+    
+            % Dummy gradient vector
+            \draw[->, red, thick] (p\i) -- ++({\scale*cos(\angle+\i*0.5)},{\scale*sin(\angle+45+\i*0.5)});
+        }
+    \end{tikzpicture}
+    \label{fig:normalgradientellipse}
+    \caption{Ellipse with normal vector (blue) and gradient vectors (red)}
+    
+    \end{figure}
+This converts the problem into a minimization problem. The energy function still needs a term to make sure that the curve grows and does not get stuck at a local minimum. Here it is not possible to use the morphological operators because the shape of the ellipse is not given as a level set. Instead the ellipse is based on only the five ellipse parameter: center$(x,y)$, axis: $(a,b)$ , angle $\theta$. 
 
-        % Normal vector
-        \draw[->, blue, thick] (p\i) -- ++({\xcoord/\a^2*1.5*\scale},{\ycoord/\b^2*1.5*\scale});
-
-        % Dummy gradient vector
-        \draw[->, red, thick] (p\i) -- ++({\scale*cos(\angle+\i*0.5)},{\scale*sin(\angle+45+\i*0.5)});
-    }
-\end{tikzpicture}
-\label{fig:normalgradientellipse}
-\caption{Ellipse with normal vector (blue) and gradient vectors (red)}
-
-\end{figure}
 The energy function is the lowest when at each point the gradient vector and normal vector  point in the same direction. The gradient vector consists of the magnitude of the gradient and the orientation. Whereas the normal vector is normalized and points in the direction of the normal of the ellipse at that point. 
 
-The problem with this approach is overlapping with the classical active contouring.  The initial contour needs to be close to the optimal solution. Otherwise the algorithm stops at an local minimum and convergence to the optimal solution is not guaranteed. Because it is an minimization with five parameters it is a very complex problem and the algorithm needs to be run multiple times to find the best local solution. Also the image needs strong preprocessing and the algorithm is very sensitive to noise. Therefore it is a must to first apply a low pass filter onto the image. But because of blurring the image gradients and directions aren't as accurate as the could be and struggles with reflections and other noise. Here is an example with the convergence to an local minimum. The initial ellipse is nowhere near to the optimal solution and the algorithm converges to an local minimum. 
+The problem with this approach is overlapping with the classical active contouring. The initial contour needs to be close to the optimal solution. Otherwise the algorithm stops at an local minimum and convergence to the optimal solution is not guaranteed. Because it is an minimization with five parameters it is a very complex problem and the algorithm needs to be run multiple times to find the best local solution. 
+
+For this approach, the image needs preprocessing and the algorithm is very sensitive to noise. Therefore it is a must to first apply a low pass filter onto the image. But because of blurring the image gradients and directions aren't as accurate as the could be and struggles with reflections and other noise.
+
+Here is an example with the convergence to an local minimum. The initial ellipse is nowhere near to the optimal solution and the algorithm converges to an local minimum. 
 
 \begin{figure}[h]
     \centering
-    \begin{subfigure}{0.5\textwidth}
+    \begin{tabular}{cc}
         \centering
-        \includegraphics[width=0.7\linewidth]{plots/eye_dataset/roi.png}
-        \caption{ROI}
-    \end{subfigure}%
-    \hfill
-    \begin{subfigure}{0.5\textwidth}
-        \centering
-        \includegraphics[width=0.7\linewidth]{plots/eye_dataset/mag.png}
-        \caption{Gradient Magnitude}
-    \end{subfigure}%
-    \hfill
-    \begin{subfigure}{0.5\textwidth}
-        \centering
-        \includegraphics[width=0.7\linewidth]{plots/eye_dataset/direction.png}
-        \caption{Gradient Direction}
-    \end{subfigure}%
-    \hfill
-    \begin{subfigure}{0.5\textwidth}
-        \centering
-        \includegraphics[width=0.7\linewidth]{plots/eye_dataset/result.png}
-        \caption{Result}
-    \end{subfigure}
+        \begin{subfigure}{0.3\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{plots/eye_dataset/roi.png}
+            \caption{ROI}
+        \end{subfigure} &
+        \begin{subfigure}{0.3\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{plots/eye_dataset/mag.png}
+            \caption{Gradient Magnitude}
+        \end{subfigure} \\
+        \begin{subfigure}{0.3\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{plots/eye_dataset/direction.png}
+            \caption{Gradient Direction}
+        \end{subfigure}   &
+        \begin{subfigure}{0.3\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{plots/eye_dataset/result.png}
+            \caption{Result}
+        \end{subfigure}
+
+    \end{tabular}
     \caption{Convergence to local minimum}
     \label{fig:ac_ellipse_gradient}
-\end{figure}
+    \end{figure}
+
 The problem with expanding the energy function with more terms is, that the algorithm gets more complex. For example when the size is used as a reward for the energy function (the bigger the better), it is not given anymore to stop at the boundary of the object. The parameters have to be chosen smart and carefully to make sure that the algorithm still converges to the optimal solution. 
-
-\section{Results}
-In this chapter some of the algorithm in the theory chapter are combined, tested and evaluated. The goal is to find the most robust combination of algorithms to detect the pupil even in a very demanding data set like the LPW. The LPW data set is already discussed in its chapter and will not be discussed here again. In general the evaluation can be split up into two part. The first part is localization of the pupil and second part is finding the pupil ellipse. The importance of the localization is that with the information of the location of the pupil it is possible to create a region of interest (ROI). This has the benefit that in the second part the image size is already decreased and additional noise can be even more limited. Also the computational effort is reduced because the image size is smaller. Important to note is, that all algorithms make the basic assumption, that the pupil is always visible. So blinking is not counted as a failure and excluded of the evaluation if possible. For detecting blinking, other algorithms need to be used to preprocess every frame and detect if the eye is closed or not. 
-
-
-\subsection{Localization}
-For the localization mainly thresholding, edge detection and haar-like features were implemented and can now be evaluated. To make thresholding more flexible a semi adaptive algorithm was created to choose the best fitting threshold value. The histogram is used to determine the highest peak in the low intensity range. This value is then used to threshold the image. 
-\begin{equation}
-    t = \text{argmax} \{h(i) | i \in [0,255]\}
-\end{equation}
-With $h(i)$ being the histogram of the image. The threshold value is then used to calculate a range for using double thresholding to extract the pupil. The image is modified by setting all values below and above the threshold value to 0. 
-\begin{equation}
-    f(x,y)= \begin{cases}
-        0 &iff \quad I(x,y) < t-35 \quad \text{or} \quad I(x,y) > t+25 \\
-        I(x,y) &otherwise
-    \end{cases}
-\end{equation}
-\subsubsection{Thresholding}
-Whereas the under limit of the threshold is set lower than the higher limit. This derives from testing and can be concluded, that the probability that the pixels with lower intensity values belongs to the pupil is higher than the probability that the pixels with higher intensity values belong to the pupil. In a environment with almost no noise and most important no reflections this approach works very well. But as also already mentioned in the theory section, reflections lead to a less higher peak in the histogram and the possibility exist that the threshold value has no peak in the lower values range and therefore leads to a faulty result that can not be used to create an ROI or use it with edge detection to find the boundary of the pupil. Also it is important to note that with this thresholding approach the mask created is not a binary mask but a mask with values between $[t-35, t+25]$. But the possibility to use the binary mask still exist and the all contours found in this threshold range are evaluated by their circularity and similarity to an ellipse. The best fitting contour is then used to create the ROI or ellipse fit directly to find the ellipse parameters. 
-[RESULTS]
-This method works in a environment with almost no noise flawless, it is has benefit to reach the goal in almost realtime but in with the LPW data set it is keen to strugle with most of the conditions and is therefore not usefull for the LPW data set.
-
-\subsubsection{Edge detection}
-Edge detection is strongly effected by noise and therefore the preprocessing is key for useful results. Every frame undergoes the same preprocessing as in the other algorithms but a gaussian blur is used additionally to smooth fast changing intensity regions out.  Even though the gaussian blur is used, there is still information missing that is covered by noise. The edges are detected but the same problem as with thresholding arises here. By using Sobel and than the Canny edge detection the results are useful in a environment with almost no noise but as already said, LPW is known for its noise and reflections. Canny edge detection needs two threshold parameters to work properly and also here arises the problem that these parameters need to be adaptive to the environment which can be tricky. 
-[RESULTS]
-
-\subsubsection{Haar-like features}
-The Haar-like feature is the approach that is proposed by this thesis to find the region of interest. It has the best detection rate of all approaches tested on the LPW data set and is therefore the best approach to find the ROI. The Haar-like feature is constructed as described in the theory part and is shown in \ref{fig:haar_pupil}. 
-The calculation of the feature vector is done by using the integral image and is done 3 times with variating Radius $r$ all feature vectors are then compared and the location of the highest response is returned as a point that lies on the pupil. 
-
-\begin{figure}[h]
-    \centering
-    \begin{subfigure}{0.5\textwidth}
-        \centering
-        \includegraphics[width=0.9\linewidth]{plots/results/originalbest.png}
-        \caption{Original Frame}
-    \end{subfigure}%
-    \hfill
-    \begin{subfigure}{0.5\textwidth}
-        \centering
-        \includegraphics[width=0.9\linewidth]{plots/results/responsehaarbest.png}
-        \caption{feature vector, blue is the best response}
-    \end{subfigure}%
- 
-    \caption{Feature vector for pupil detection}
-    \label{fig:limit_haar}
-\end{figure}
-
-The stronges response lies then within the pupil and the location is then used to create a ROI. In this case a ROI of $110 x 110$ was the norm but depending on the rescaling of the frames this can be adapted. Important to note is, that the returned point in the pupil is not given to be in the center. This in an important fact when choosing the size of the ROI that is created. 
-But this approach is still not perfect and even though it can handle noise really good, there are limits to the amount of noise until the algorithm fails. Also the algorithm is not able to detect the pupil when the eye is closed.
-
-\begin{figure}[h]
-    \centering
-    \begin{subfigure}{0.5\textwidth}
-        \centering
-        \includegraphics[width=0.9\linewidth]{plots/results/originalworst.png}
-        \caption{Extreme noise example}
-    \end{subfigure}%
-    \hfill
-    \begin{subfigure}{0.5\textwidth}
-        \centering
-        \includegraphics[width=0.9\linewidth]{plots/results/responsehaarworst.png}
-        \caption{feature vector result with best response}
-    \end{subfigure}%
- 
-    \caption{Limits to the Haar-like feature approach}
-    \label{fig:limit_haar}
-\end{figure}
-The problem with the LPW data set is, that it is so versatile and the conditions change during the recording. This makes it hard to find an approach that can adapt to all the conditions and still perform well in a given time interval. The implementation can still be improved and sped up, in the Haar-like feature the following libraries were used to speed up the algorithm: 
-
-\begin{python}
-from concurrent.futures import ThreadPoolExecutor
-from numba import njit
-    \end{python}
-ThreadPool Executor makes it possible to use multithreading and njit compiles the sliding window over the integral image of the Haar-like feature to machine code for more efficient calculation.
-
-\subsection{Ellipse parameter estimation}
-In the second part of an pupil detection algorithm it is necessary to make use of the informations from the first part and build on this foundation and find the five ellipse parameter: center: $(x,y)$, axis: (major, minor) and angle. The LPW has labels for the center only of the pupil and therefore only the center can be used to evaluate the performance of the algorithms. A second evaluation has to be done manually by inspecting the fit of the ellipse to the pupil. This is hard to evaluate with numerical methods and the result needs therefore to be taken with a grain of salt. In this section 4 different algorithms will be discussed and evaluated: The OpenCV ellipse fit based on contours (binary thresholding), ACWE with OpenCV Ellipse fit, ACWE combined with RANSAC, and Canny edge detection with OpenCV Ellipse fit. 
 

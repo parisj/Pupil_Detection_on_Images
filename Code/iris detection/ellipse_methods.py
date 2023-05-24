@@ -146,14 +146,14 @@ def main_detection(path):
         evaluation_obj.add_frame(BOOL_PUPIL,label_center ,pupil_obj.get_center(), roi_coords )
         #cp.plot_ellipse(roi, pupil)
 
-        #observer.plot_pupil(pupil_obj)
+        observer.plot_pupil(pupil_obj)
         #observer.plot_imgs('original')
         
         key = cv2.waitKey(1)
         if key == ord('q'):  # Press 'q' to exit
             break
         
-    evaluation_obj.create_log()
+    evaluation_obj.qreate_log()
     
 def main_Haar_image():
     frame = cv2.imread('eye_img_22.png', cv2.IMREAD_GRAYSCALE)
@@ -170,6 +170,6 @@ def main_Haar_image():
     cv2.waitKey(0)
     
 if __name__ == '__main__':
-    main_detection('D:/data_set/LPW/10/1.avi,D:/data_set/LPW/10/1.txt')
+    main_detection('D:/data_set/LPW/2/4.avi,D:/data_set/LPW/2/4.txt')
 
     cv2.waitKey(0)

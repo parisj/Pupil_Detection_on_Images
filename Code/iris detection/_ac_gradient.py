@@ -99,7 +99,7 @@ class active_contour:
     # Create points_ellipse
     def _init_circle(self, center, axis, angle, image_shape, num_points= 20):
         t = np.linspace(0, 2*np.pi, num_points)
-        x =  round(axis[0]/2) * np.cos(t)
+        x = round(axis[0]/2) * np.cos(t)
         y = round(axis[1]/2) * np.sin(t)
         
         grad_x_normal = -round(axis[0]/2) * np.sin(t) 
@@ -149,7 +149,7 @@ class active_contour:
         Calculates the gradient of the image
         '''
         img_copy =img.copy()
-        #img_copy = cv2.GaussianBlur(img_copy, (91, 91), sigmaX=0, sigmaY=0)
+        img_copy = cv2.GaussianBlur(img_copy, (91, 91), sigmaX=0, sigmaY=0)
         sx = cv2.Sobel(img_copy, cv2.CV_64F, 1, 0, ksize=3)
         sy = cv2.Sobel(img_copy, cv2.CV_64F, 0, 1, ksize=3)
         
@@ -379,6 +379,7 @@ if __name__ == '__main__':
     
     cv2.ellipse(image_copy, optimized_center, optimized_axis, optimized_angle, 0, 360, (0, 255, 0), 1)
     cv2.imshow('image', image_copy)
+    cv2.imwrite('Latex/thesis/plots/eye_dataset/result.png', image_copy)
     cv2.waitKey(0)
     img_plot = cv2.imread('test_roi.png')
     img_plot = cv2.cvtColor(img_plot, cv2.COLOR_BGR2GRAY)

@@ -12,6 +12,7 @@ class ransac:
         self.iterations = iterations
         self.threshold = threshold
         self.points_contour = None
+        self.test_mask = np.zeros((220,220), dtype=np.uint8)
     
     # Getter and Setter
         
@@ -71,7 +72,8 @@ class ransac:
         best_inliers = np.empty((0, 2), dtype=np.int32)
         best_border = np.empty((0, 2), dtype=np.int32)
         best_ellipse = None
-        best_area = 0
+        best_area = 1000000
+        best_distance = 1000000
         points = np.array(self.get_points_contour())
         threshold = self.get_threshold()
         contour = self.get_mask()
@@ -93,8 +95,8 @@ class ransac:
 
             area = self.calc_area(params)
             #print(f'points: {points}, params: {params}, threshold: {threshold}, area: {area}, best_area: {best_area}')
-            best_ellipse, best_inliers, best_area, best_border = evaluate(points, params, threshold, area, best_area,
-                                                             best_inliers,best_border,best_ellipse)
+            best_ellipse, best_inliers, best_area, best_border, best_distance = evaluate(points, params, threshold, area, best_area,
+                                                             best_inliers,best_border,best_ellipse, best_distance)
 
             
         return best_ellipse, best_inliers, best_area, best_border
@@ -129,7 +131,8 @@ def distance_to_ellipse_eigen(x, y, h, k, a, b, theta):
 
     # Compute the eigenvalues and eigenvectors of the ellipse matrix
     eigenvalues, eigenvectors = np.linalg.eig(ellipse_matrix)
-
+    if np.isnan(np.sqrt(np.max(eigenvalues))) or np.isnan(np.sqrt(np.min(eigenvalues))):
+        return 100
     # The semi-major and semi-minor axes of the ellipse in the rotated coordinate system are given by the square roots of the eigenvalues
     a_eigen = round(np.sqrt(np.max(eigenvalues)))
     b_eigen = round(np.sqrt(np.min(eigenvalues)))
@@ -147,12 +150,12 @@ def distance_to_ellipse_eigen(x, y, h, k, a, b, theta):
     return distance
 
 #@njit(nogil=True)
-def evaluate(points, params, threshold, area, best_area, best_inliers,best_border, best_ellipse):
+def evaluate(points, params, threshold, area, best_area, best_inliers,best_border, best_ellipse, best_distance):
     
     center, axis, angle = params
     xc, yc = center
     a, b = axis
-    
+    total_distance = 0
         
     # Find the inliers
     #print(f'points: {points}, params: {params}, threshold: {threshold}, area: {area}, best_area: {best_area}')
@@ -160,39 +163,50 @@ def evaluate(points, params, threshold, area, best_area, best_inliers,best_borde
     border = np.zeros((0,2), dtype=np.int32)# initialize best_inliers to an empty numpy array
     for point in points:
         dist= distance_to_ellipse_eigen(point[0],point[1],xc,yc,round(a/2),round(b/2),angle)
-
+        total_distance += np.abs(dist)**2/points.shape[0]
         #print(f'dist: {dist}')
         if np.isclose(dist, 0, atol=threshold):
             border = np.vstack((border,  point))
         
-        if dist < 0 :
+        if dist < 0 or np.isclose(dist, 0, atol=threshold) :
             inliers = np.vstack((inliers,point))
                   
         else:
             continue   
-                 
-    if inliers.shape[0] >= best_inliers.shape[0] and border.shape[0] >= best_border.shape[0]:
-            
+    BOOL_AREA =  area < best_area
+    BOOL_DISTANCE =  total_distance < best_distance
+    BOOL_INLIERS = inliers.shape[0] >=best_inliers.shape[0]
+    
+    if BOOL_INLIERS and BOOL_DISTANCE:
+
+
         best_inliers = inliers
         best_border = border
         best_ellipse = params
         best_area = area
+        best_distance = total_distance
+        print('found better ellipse')
+    return best_ellipse, best_inliers, best_area, best_border, best_distance
 
-    return best_ellipse, best_inliers, best_area, best_border
 
-
-def plot_points_and_circle(params,points, original_mask):
+def plot_points_and_circle(params,points, contour):
     center, axis, angle = params
     xc, yc = center
     a, b = axis
-    mask = np.zeros((400,680), dtype=np.uint8)
+    mask = np.zeros((220,220), dtype=np.uint8)
     mask = cv2.cvtColor(mask, cv2.COLOR_GRAY2BGR)
+    cv2.drawContours(mask, contour, -1, (0,255,0), 1)
+
+
     mask = cv2.ellipse(mask, (round(xc),round(yc)), (round(a / 2),round(b / 2)), angle, 0, 360, (255,0,0), 1)
     for p in points:
         mask = cv2.circle(mask, (p[0],p[1]), 1, (0,0,255), 1)
     
     cv2.imshow('mask', mask)
     cv2.waitKey(1)
+
+
+        
 
 
 def plot_points(xc,yc,a,b,angle, point, rot_point):

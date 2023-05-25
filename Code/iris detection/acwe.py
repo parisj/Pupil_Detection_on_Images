@@ -101,7 +101,7 @@ class ACWE:
         return True
     
     
-    #Page 19 pf the paper, c1 is the mean intensity inside the contour
+    #Page 19 of the paper, c1 is the mean intensity inside the contour
     def calc_c1(self):
         '''
         c1 = integral of Intensity inside the contour/area inside the contour
@@ -256,7 +256,7 @@ class ACWE:
         #cv2.imshow('Result contour', image)
         #cv2.waitKey(0)
         # Fit an ellipse to the largest contour
-        rans = ransac(largest_contour, 350, 0.05)
+        rans = ransac(largest_contour, 400, 0.1)
         a,b,c,d = rans.ransac_start()
         #print(f'best_ellipse: {a} best_inliers: {b} best_area: {c} best_border: {d}')
         print(f'leng points_contour: {len(rans.get_points_contour())}')

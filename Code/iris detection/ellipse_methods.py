@@ -152,8 +152,7 @@ def main_detection(path):
         key = cv2.waitKey(1)
         if key == ord('q'):  # Press 'q' to exit
             break
-        
-    evaluation_obj.qreate_log()
+    evaluation_obj.create_log()
     
 def main_Haar_image():
     frame = cv2.imread('eye_img_22.png', cv2.IMREAD_GRAYSCALE)
@@ -170,6 +169,6 @@ def main_Haar_image():
     cv2.waitKey(0)
     
 if __name__ == '__main__':
-    main_detection('D:/data_set/LPW/8/2.avi,D:/data_set/LPW/8/2.txt')
+    main_detection('E:/data_set/LPW/13/1.avi,E:/data_set/LPW/13/1.txt')
 
     cv2.waitKey(0)

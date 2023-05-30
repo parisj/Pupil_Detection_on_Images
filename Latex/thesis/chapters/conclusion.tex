@@ -1,3 +1,11 @@
 \chapter{Conclusion}
 \label{chap:conclusion}
 \section{Summary}
+\label{sec:summary}
+The Results show that finding an robust and efficient combination of algorithms is a challenging task and furthermore that the proposed algorithm is not able to solve this task in real time. The proposed Algorithm presents a valid combination but still has weaknesses and needs adaption to the specific use cases. The parameters need to be tuned on each data set repeatedly and can not be seen as just working. The goal of the thesis was to evaluated and compare different algorithms and show their limitations. This goal was achieved and an overview of different approaches was given. The proposed algorithm itself can not be regarded as a solution that outperforms every method in every use case.
+
+Although the combination of Haar-like features, ACWE and RANSAC is able to perform well in even difficult conditions there is still room for improvement and further research. Especially the Haar-like feature detection stood out with an exceptional reliability for finding points inside the pupil and is considered as the best method to gain information about the location of the pupil.
+
+The estimation of the pupil boundary with the proposed algorithm is valid but not perfect. The ellipse fit can still be improved by further tuning the parameters of the individual algorithms. The performance can be increased by implementing the code into C++ and using more multithreading and parallelization. It is unknown if the proposed algorithm is able to run in real time but there is a high chance that it is possible with further improvements. The quality of the estimation is sufficient to be used as a starting point for train a highly reliable AI-based eye Tracker or Iris recognition systems as well as gaze tracing.  
+
+The code published on Github can be used as a starting point to build more complex task on.  

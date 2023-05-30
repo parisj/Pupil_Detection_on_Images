@@ -102,22 +102,20 @@ class ACWE:
     
     
     #Page 19 of the paper, c1 is the mean intensity inside the contour
-    def calc_c1(self):
+    def calc_c1(self, mask, intensity):
         '''
         c1 = integral of Intensity inside the contour/area inside the contour
         '''
-        mask = self.get_mask()
-        intensity = self.get_intensity()
+ 
+
         return (intensity*mask).sum()/float((mask).sum()+1e-16)    
     
     #Page 19 of the paper, c2 is the mean intensity outside the contour
 
-    def calc_c2(self):
+    def calc_c2(self, mask, intensity):
         '''
         c2 = integral of Intensity outside the contour/area outside the contour
-        '''
-        mask = self.get_mask()
-        intensity = self.get_intensity()        
+        '''       
         return (intensity*(1-mask)).sum()/float((1-mask).sum()+1e-16)
     
     # Balloon force
@@ -160,7 +158,10 @@ class ACWE:
 
     def _ACWE(self, iterations_smoothing, iterations_ACWE):
         prev_mask = None
-        
+        l_1 = self.get_lambda1()
+        l_2 = self.get_lambda2()
+        intensity = self.get_intensity()
+
         for _ in range(iterations_ACWE):
             if prev_mask is not None:
                 mask_difference = np.abs(self.get_mask() - prev_mask).sum()
@@ -173,11 +174,9 @@ class ACWE:
 
             prev_mask = self.get_mask().copy()
             mask = self.get_mask()
-            intensity = self.get_intensity()
-            c1 = self.calc_c1()
-            c2 = self.calc_c2()
-            l_1 = self.get_lambda1()
-            l_2 = self.get_lambda2()
+            c1 = self.calc_c1(mask, intensity)
+            c2 = self.calc_c2(mask, intensity)
+
             
             dm = np.gradient(mask)
             abs_dm = np.abs(dm).sum(0)
@@ -204,9 +203,10 @@ class ACWE:
     def callback(self):
         mask = self.get_mask().copy()
         image = self.get_image().copy()
-        color = (255, 0, 0)
-        alpha = 0.2
+        color = (0, 0, 255)
+        alpha = 0.3
         contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        print(f'contours active: {contours}')
         filled_mask = np.zeros_like(image)
         cv2.drawContours(filled_mask, contours, -1, color, cv2.FILLED)
         overlay = cv2.addWeighted(image, 1, filled_mask, alpha, 0)
@@ -215,7 +215,7 @@ class ACWE:
         cv2.circle(overlay, (self.get_center_start()[1],self.get_center_start()[0]), 2, (0, 0, 255), -1)
         filename = f'Latex/thesis/plots/acwe/iterationplot_{self.iterations_safe}.png'
         cv2.imshow('Result', overlay)
-        cv2.imwrite(filename, overlay)
+        #cv2.imwrite(filename, overlay)
         cv2.waitKey(1)
         self.iterations_safe += 1
 
@@ -229,7 +229,7 @@ class ACWE:
         # Draw the ellipse on the image
         cv2.ellipse(image_copy, ellipse, color, 1)
         cv2.imshow('Result', image_copy)
-        cv2.imwrite('Latex/thesis/plots/acwe/resultabstract.png', image_copy)
+        #cv2.imwrite('Latex/thesis/plots/acwe/resultabstract_roi.png', image_copy)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
         
@@ -242,7 +242,7 @@ class ACWE:
 
 
         # Find the contours in the mask
-        contours, _ = cv2.findContours(eroded_mask.astype(np.uint8), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        contours, _ = cv2.findContours(eroded_mask.astype(np.uint8), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
         if contours is None or len(contours) == 0:
             return False
         # Find the contour with the largest area (in case there are multiple contours)
@@ -256,12 +256,14 @@ class ACWE:
         #cv2.imshow('Result contour', image)
         #cv2.waitKey(0)
         # Fit an ellipse to the largest contour
-        rans = ransac(largest_contour, 400, 0.1)
-        a,b,c,d = rans.ransac_start()
-        #print(f'best_ellipse: {a} best_inliers: {b} best_area: {c} best_border: {d}')
-        print(f'leng points_contour: {len(rans.get_points_contour())}')
-        print(f'lenght of best_inliers: {len(b)}')
-        print(f'lenght of best_border: {len(d)}')
+        #a = cv2.fitEllipse(largest_contour)
+        rans = ransac(largest_contour, 300, 0.02)
+        a,b,c,d,stat = rans.ransac_start()
+        ##print(f'best_ellipse: {a} best_inliers: {b} best_area: {c} best_border: {d}')
+        #print(f'leng points_contour: {len(rans.get_points_contour())}')
+        #print(f'lenght of best_inliers: {len(b)}')
+        #print(f'lenght of best_border: {len(d)}')
+        #print(f'best stat: {stat}')
         self.set_result_ellipse(a)
 
         return True
@@ -269,10 +271,10 @@ class ACWE:
 if __name__ == '__main__':
     image = cv2.imread('Latex/thesis/plots/results/originalbestabstract.png')
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    center = (87, 369)
+    center = (90, 370)
     radius = 10
     acwe = ACWE()
-    acwe.start(center, radius, image, 3, 10000, 1, 0.1, 0.00005)
+    acwe.start(center, radius, image, 3, 10000, 1.2, 0.1, 0.00005)
     acwe.result()
     acwe.plot_ellipse()
     cv2.destroyAllWindows()

@@ -20,12 +20,13 @@ class Evaluation:
         self._header = ['frame number', 'data set label center', 'measured center','data set center inside Roi', 'euclidean distance label - measured', 'x_error', 'y_error']
         self._df = pd.DataFrame(columns = self._header)
      
-    def create_log(self):
+    def create_log(self, scaling):
 
         total_lines = len(self._label_centers)
         
         # iterate over all center labels and append the measured center if it exists
         for i, label in enumerate(self._label_centers):
+            label = (round(scaling* label[0]), round(scaling* label[1]))
             inside_roi = self.pupil_in_roi(self._coords_roi[i], label)
             # if  measurement was possible
             if self._center[i] != 'None':
@@ -40,7 +41,7 @@ class Evaluation:
             new_row = [i,label, self._center[i], inside_roi, error, x_error, y_error]
             self._df.loc[len(self._df)] = new_row
             
-        self._df.to_excel(self._path_file + self._name_file + '.xlsx', index = False)
+        self._df.to_excel(self._path_file + self._name_file +'_s_'+str(int(scaling*100)) +'.xlsx', index = False)
     
 
      #Calculate the euclidean distance between the label and the measured center
@@ -79,8 +80,8 @@ class Evaluation:
         x2 = coords[1][0]
         y1 = coords[0][1]
         y2 = coords[1][1]
-        x = label[0]
-        y = label[1]
+        x = 0.5 *label[0]
+        y = 0.5 *label[1]
         
         return (x1 < x < x2 and y1 < y < y2)
     

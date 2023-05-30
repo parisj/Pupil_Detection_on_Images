@@ -141,8 +141,8 @@ def process_radius(args):
     min_radius_response = np.inf
     min_radius_position = (0, 0)
     # calculate the response, but not on the entire Image, only a subset of it (range(r,..., #Skip  ))
-    for y in range(r, img_shape[0] - r, 4):
-        for x in range(r, img_shape[1] - r, 4):
+    for y in range(r, img_shape[0] - r, 3):
+        for x in range(r, img_shape[1] - r, 3):
             x_hat = x + padding
             y_hat = y + padding
             # (i) Calculate sum_inner 

@@ -69,6 +69,8 @@ class ImageObserver:
         result = cv2.ellipse(image, pupil_center,pupil_axis, pupil_angle, 0,360,(0,255,0),1)
 
         cv2.imshow('result ellipse', result)
+
+
         return True
 
     def plot_imgs(self, img_type):

@@ -94,13 +94,14 @@ def threshold_ellipse(roi, intensity):
 
     return thresholded
 
-def main_detection(path):    
+def main_detection(path, scaling = 1):    
     video_file, txt_file = split_path(path)
                
     pupil_obj, iris_obj, observer, evaluation_obj, name = setup(video_file)
     
     #Load frame by frame to process
     for frame, label_center in get_video_frame(video_file=video_file, txt_file=txt_file):
+        frame=cv2.resize(frame.copy(),(int(frame.shape[1]*scaling),int(frame.shape[0]*scaling)), interpolation=cv2.INTER_LINEAR)
 
         pupil_obj.set_img(frame.copy())
 
@@ -120,11 +121,11 @@ def main_detection(path):
         #cv2.rectangle(frame,xy_1, xy_2, (255,255,50), 1 )
         #cv2.imshow('result', frame)
         #cv2.imshow('roi', roi)
-        
+ 
         center = (coords[1]-roi_coords[0][1], coords[0]-roi_coords[0][0])
         radius = 10
         acwe = ACWE()
-        acwe.start(center, radius, roi, 4, 1000, 1.2, 0.3, 0.003)
+        acwe.start(center, radius, roi, 3, 1000, 1.2, 0.1, 0.003)
         BOOL_PUPIL = acwe.result()
         ellipse = acwe.get_result_ellipse()
         #acwe.plot_ellipse()
@@ -133,7 +134,7 @@ def main_detection(path):
         
         
         if BOOL_PUPIL is True:
-            pupil_obj.set_ellipse(ellipse, coords)
+            pupil_obj.set_ellipse(ellipse, roi_coords, roi.shape)
 
         else:
             filename = name+'_'+str(label_center[0])+'_'+str(label_center[1])+'.png'
@@ -152,7 +153,7 @@ def main_detection(path):
         key = cv2.waitKey(1)
         if key == ord('q'):  # Press 'q' to exit
             break
-    evaluation_obj.create_log()
+    evaluation_obj.create_log(scaling)
     
 def main_Haar_image():
     frame = cv2.imread('eye_img_22.png', cv2.IMREAD_GRAYSCALE)
@@ -169,6 +170,6 @@ def main_Haar_image():
     cv2.waitKey(0)
     
 if __name__ == '__main__':
-    main_detection('E:/data_set/LPW/13/1.avi,E:/data_set/LPW/13/1.txt')
+    main_detection('D:/data_set/LPW/1/1.avi,D:/data_set/LPW/1/1.txt', scaling = 1)
 
     cv2.waitKey(0)

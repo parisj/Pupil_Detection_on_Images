@@ -3,8 +3,8 @@
 \section{Proposed Algorithm}
 After intensive research and analysis, the algorithm proposed for pupil detection consist of the following steps: 
 \begin{enumerate}
-    \item \textbf{Preprocessing:} The image is converted to grayscale and then histogram equalization method CLAHE is used to improve the contrast of the image.
-    \item \textbf{Haar-like features:} From the image the response matrix is calculated using the Haar-like feature for pupil detection proposed by \ref{subsec:haar}. The response matrix is then used to find the strongest repsonse in the image. This point is considered to be inside the pupil area. 
-    \item \textbf{ACWE} The active contour without edges algorithm is applied to the image with the point returned by the Haar-like features as center of the initial contour. Returns the contour of the pupil.
-    \item \textbf{RANSAC} The RANSAC algorithm is applied to the mask returned by the ACWE algorithm. Iterates over the mask contour and fits a circle to a random subset of the contour points. Returns the circle with the best fit.
+    \item \textbf{Preprocessing:} The image is converted to grayscale, and then the histogram equalization method CLAHE is used to improve the image's contrast.
+    \item \textbf{Haar-like features:} From the image the response matrix is calculated using the Haar-like feature for pupil detection proposed by \ref{subsec:haar}. The response matrix is then used to find the strongest response in the image, and this point is considered to be inside the pupil area. 
+    \item \textbf{ACWE} The active contour without edges algorithm is applied to the image with the point returned by the Haar-like feature detection as center of the initial contour. ACWE then returns the contour of the pupil.
+    \item \textbf{RANSAC} The RANSAC algorithm is applied to the mask returned by the ACWE algorithm. Iterates over the mask contour and fits a circle to a random subset of the contour points. RANSAC returns the circle with the best fit.
 \end{enumerate}

@@ -393,7 +393,7 @@ The Sobel Operators \cite{gonzalez_sharpening_nodate} is commonly used for edge 
         \begin{subfigure}{.33\textwidth}
           \centering
           \includegraphics[width=.9\linewidth]{plots/eye_dataset/sx.png}
-          \caption{Gradient in x\textbf{$G_{x}$}}
+          \caption{Gradient in x \textbf{$G_{x}$}}
           \label{fig:sx}
         \end{subfigure}%
         \begin{subfigure}{.33\textwidth}
@@ -420,7 +420,7 @@ The Sobel Operators \cite{gonzalez_sharpening_nodate} is commonly used for edge 
         \end{figure}
     Important to note is that figure \ref{fig:mag} and figure \ref{fig:orientation} are the results of a strong gaussian blurred initial image. 
     \subsubsection{Canny Edge Detection } 
-    The Canny Edge Detection \cite{gonzalez_canny_nodate}calculates a single edge points from the gradient vector image.  
+    The Canny Edge Detection \cite{gonzalez_canny_nodate} calculates a single edge points from the gradient vector image.  
     Canny edge detection can summarized in four steps: 
     \begin{enumerate}
         \item Noise reduction, smoothing the image with a Gaussian filter
@@ -757,7 +757,7 @@ The total size of the feature is $6rx6r$ whereas the center is of the size $2rx2
 \subsubsection{Thresholding}
 In thresholding pupil's characteristic is used. The pupil is the darkest part of the eye, as seen in \ref{fig:hist1}. It is essential to find a specific thresholding value to only extract the pupil. Considering the best scenario, the pupil is unaffected by too much noise: no eyelashes or reflections. This method can be reliable in finding the pupil region, is less computation expensive and finds the pupil fast. 
 
-The most challenging part is to find a fitting threshold value. The threshold value can be approximated by inspecting the histogram of the frame. The lowest peak in the histogram is the given center value for thresholding. There is also the possibility for adaptive thresholding, for example, otsu thresholding. However, throughout the work with otsu, otsu was found less reliable than the histogram approach itself. 
+The most challenging part is to find a fitting threshold value. The threshold value can be approximated by inspecting the histogram of the frame. The lowest peak in the histogram is the given center value for thresholding. There is also the possibility for adaptive thresholding, for example, otsu thresholding. However, throughout the work with otsu. However, otsu was found less reliable than the histogram approach. 
 
 \begin{figure}[ht]
     \centering
@@ -776,7 +776,7 @@ The most challenging part is to find a fitting threshold value. The threshold va
     \caption{Original and thresholded frame}
     \label{fig:simple_thresh}
 \end{figure}
-In figure\ref{fig:simple_thresh}, it can be seen that the thresholding is extremely volatile to reflections, eyelashes, and other noise, concluding that thresholding only has a good performance in a strictly defined environment with almost no noise. 
+In figure \ref{fig:simple_thresh}, it can be seen that the thresholding is extremely volatile to reflections, eyelashes, and other noise, concluding that thresholding only has a good performance in a strictly defined environment with almost no noise. 
 
 To showcase the volatility and dependency on the threshold value, figure \ref{fig:thresholded_images} shows a series of the same frame with different threshold values (Th). It can be seen that the threshold value has to be chosen very carefully. If the value is chosen too low, the pupil region is not found. If the value is chosen too high, too much information is extracted and the pupil region can not be differentiated from the rest. 
 
@@ -925,7 +925,7 @@ Each algorithm that returns a list of contours needs to be checked with these fo
 \newpage
 \subsection{Random Sample Consensus (RANSAC) }
 \label{sus:ransac}
-The Random Sample Consensus (RANSAC)\cite{derpanis_overview_nodate} algorithm is an iterative method used to estimate the parameters for a known problem. For ellipse fitting, a contour or a set of possible points inside or on the contour $C$ is the input. The algorithm then randomly selects a subset $S_c$ of 5 randomly selected points in $C$. 
+The Random Sample Consensus (RANSAC) \cite{derpanis_overview_nodate} algorithm is an iterative method used to estimate the parameters for a known problem. For ellipse fitting, a contour or a set of possible points inside or on the contour $C$ is the input. The algorithm then randomly selects a subset $S_c$ of 5 randomly selected points in $C$. 
 These 5 points are then used to fit an ellipse as described in the section Ellipse Fitting.
 
 \begin{figure}[h]
@@ -1068,7 +1068,7 @@ In figure \ref{fig:RANSAC_it}, the green ellipse is the ellipse fitted to the fi
 Active contour \cite{vondracek_image_2018} segmentation is a method that is used to find the boundary curve of an object given that the object exists. There are many different approaches in active contouring, but three variants will be discussed in this thesis. The first one is the classic snake's approach (Kass et al., 1988) \cite{kass_snakes_1988} with a simple energy function, and the second variant is the active contouring without edges (ACWE)  based on level sets. The third variant is active contouring with ellipse parameters. In all cases, an initial contour is set and, through iterative changes, tries to find the boundary curve of an object. Each iteration the contour is changed by a small amount and then evaluated with an energy function. The energy function is a measurement of how well the contour fits the contour of the object, and in both cases, the energy function is minimized.
 
 Let $C(q): [0, 1] \rightarrow \mathbb{R}^2$ be a parametrized planar curve and let $I : [0, a] \times [0, b] \rightarrow \mathbb{R}^+$ be a given image used to detect the object boundaries with active contouring. The classical snake's approach (Kass et al., 1988) \cite{kass_snakes_1988} associates the curve $C$ with an energy given in \refeq{acgd}
-But the most basic description for the energy minimization can be summarized in $E_{int}$ and $E_{ext}$ 
+But the most basic description for the energy minimization can be summarized in $E_{int}$ and $E_{ext}$. 
 \begin{equation}
     E = E_{int} + E_{ext}
     \label{energy}
@@ -1152,7 +1152,7 @@ In ACWE \cite{vondracek_image_2018}, the same principle is used to find the best
     \caption{The four morphological structuring elements used in ACWE.}
     \label{fig:neighborsmorph}
 \end{figure}
-ACWE is based on Geodesic Active Contours (GAC)\cite{}. GAC can already solve key problems from classical active contouring. Based on thresholds, the contour is evaluated and decided if it flows and expands the contour to a new pixel. GAC is based on classic active contours and geodesic curves in a Riemannian space. The level sets have the benefit that they can easily be implemented in a discrete grid and open the door to solve the PDEs using morphological operations. The level set approach brings more stability and is less sensitive to the initial contour than the classical active contouring method. It is also possible to detect the interior and exterior boundary. In the classical approach, the internal force is based on the first and second derivatives of the curve and results in stability, computational complexity and performance issues. The internal energy is solved in the GAC by using the evolution of an implicitly defined curve. The GAC algorithm based on a level set function $u$ is defined as:
+ACWE is based on Geodesic Active Contours (GAC) \cite{}. GAC can already solve critical problems from classical active contouring. Based on a threshold, the contour is iteratively evaluated and then compared to the threshold to decide if it flows and expands the contour to a new pixel. GAC is based on classic active contours and geodesic curves in a Riemannian space. The level sets have the benefit that they can easily be implemented in a discrete grid and open the door to solve the PDEs using morphological operations. The level set approach brings more stability and is less sensitive to the initial contour than the classical active contouring method. It is also possible to detect the interior and exterior boundary of an object. In the classical approach, the internal force is based on the first and second derivatives of the curve and results in stability, computational complexity, and performance issues. The internal energy is solved in the GAC by using the evolution of an implicitly defined curve. The GAC algorithm is based on a level set function $u$ and is defined as:
 \begin{equation}
     \frac{\partial u}{\partial t} = 
     \underbrace{g(I) \cdot |\nabla u| \cdot \text{div} \left(\frac{\nabla u}{|\nabla u|}\right)}_{\text{Smoothing force}} 
@@ -1161,8 +1161,8 @@ ACWE is based on Geodesic Active Contours (GAC)\cite{}. GAC can already solve ke
     \label{deform}
     \end{equation}
     
-Where $u$ is the level set function, a binary mask, is 1 inside the object and 0 outside. $I$ is the image, $g(I)$ is the edge indicator function, $\nu$ is a variable that decides in which direction and how strong the curve should move. 
-For chosing $g(I)$, there are different variants but two of the most common are the following: 
+Where $u$ is the level set function described as a binary mask. $u$ is 1 inside the mask and 0 outside. $I$ is the image and $g(I)$ is the edge indicator function. $\nu$ is a variable that decides in which direction and how strong the curve should move. 
+For choosing $g(I)$, there are different variants but two of the most common are the following: 
 
 \begin{equation}
     g(I) = \begin{cases}
@@ -1173,41 +1173,41 @@ For chosing $g(I)$, there are different variants but two of the most common are 
 In (1) $g(1)$ is low when the gradient is high and vice versa. Meaning that $g(I)$ regulates the influence of the forces depending on the gradient. It is around 0 when the gradient is high. In other words, the curve stops moving when the pixel has reached an intensity transition, such as an edge. $\alpha$ is a variable that regulates how strong the influence of the external energy is. In (2) $g(I)$ is negative when the gradient is high. So both definitions of $g(I)$ will stop the curve from moving when it reaches an edge.
 
 \paragraph{Smoothing Force}
-The smoothing force is the same as the curvature term in the classical snakes method. The difference is that in GAC the smoothing force is calculated using the gradient of the level set function $u$ instead of the curve. 
+The smoothing force is the approximation of the curvature term of the classical snake's method. The difference is that in GAC, the smoothing force is calculated using the gradient of the level set function $u$ instead of the curve. 
 \begin{equation}
     g(I) \cdot |\nabla u| \cdot \text{div} \left(\frac{\nabla u}{|\nabla u|}\right)
 \end{equation}
-Now the smoothing force is calculated with using an recursive call of SI and IS of operator F that approximates the curvature flow that is based on PDE. 
+The smoothing force is calculated using a recursive call of $SI$ and $IS$. Together they build operator $F(u)$, which approximates the curvature flow based on PDEs. 
 \begin{equation}
     \text{F}(u) = SI(u)\circ IS (u)
     \label{eq:smoothingforce}
 \end{equation}
-Where SI means supremum of infimum and IS means infimum of supremum. In other words, SI stands for erode and IS stands for dilate. One step of smoothing looks like following: 
+Where SI means supremum of infimum and IS means infimum of supremum. In other words, SI stands for eroding the current level set $u$ four times separately with each of the structuring elements once and taking for each pixel its highest result, and IS stands for dilating the current level set $u$ four times separately with each of the structuring elements once and taking for each pixel its lowest result. One step of smoothing looks like the following: 
 \begin{align*}
     1) u_{SI\circ IS}=\text{erode}(u) \circ \text{dilate}(u) \\
     2) u_{IS\circ SI}=\text{dilate}(u) \circ \text{erode}(u)
 \end{align*}
-by repeating step 1 to 2 the smoothing force can be stronger or weaker. But it is important so always use step 1 and step 2 in the same order. 
+by repeating step 1 and step 2 the smoothing force can be stronger or weaker. But it is crucial to always use step 1 and step 2 in the same order. 
 
 
 \paragraph{Balloon Force}
-The balloon force is important in regions where the gradient is low and hinders the curve flow to get stuck at a local minimum. Especially when looking at the external force, where the velocity of the curve is determined by the gradient of $g(I)$ and the gradient of $u$. Ifh $g(I)$ goes to zero the curve will have no external velocity, therefore the balloon force is important to make the algorithm more robust.
+The balloon force is essential in regions where the gradient is low and hinders the curve flow from getting stuck at a local minimum. Especially when looking at the external force, where the velocity of the curve is determined by the gradient of $g(I)$ and the gradient of $u$. If $g(I)$ goes to zero, the curve will have no external velocity. Therefore the balloon force is vital to make the algorithm more robust.
 \begin{equation}
     g(I) \cdot \nu \cdot |\nabla u|
 \end{equation}
-To make GAC more computational efficient the ballon force and also the smoothing force are computed differently. 
-The Balloon force is $g(I)*|\nabla u| *v$ with parameter $v \in  {-1,1}$ can be substituted with dilation over the four different neighborhood structuring elements. Because dilation is a morphological operation it is computed very efficient and also gets rid of the PDEs that need to be solved in the classical snakes method. By using dialate the balloon force leads to the wanted result by making the curve grow. 
+In GAC, the ballon is also calculated differently than in the classical snake's method. 
+The Balloon force $g(I)*|\nabla u| *v$ with parameter $v \in  {-1,1}$ can be substituted with dilation using the four different neighborhood structuring elements and then taking for every pixel the minimum value received from the four dilations. Dilation is a morphological operation and is computed very efficiently and also gets rid of the PDEs that are solved in the classical snake's method. By using dilate, the balloon force leads to the desired result of making the curve grow. 
 \begin{equation}
     \text{dialate}(u)  =  u \bigoplus Element_i \quad \text{for} \quad i \in \{1,2,3,4\}
     \label{dialate}
 \end{equation}
 
 \paragraph{External force}
-The external force is the same as in the classical snakes method but in GAC it is weighted by $g(I)$ to stop the curve from moving when it reaches an edge.
+The external force is the same as in the classical snake's method, but in GAC, it is weighted by $g(I)$ to stop the curve from moving when it reaches an edge.
 \begin{equation}
     \nabla g(I) \cdot \nabla u
 \end{equation}
-The change in the level set function $u$ is only applied to the points where $g(I) > T$ where $T$ is a defined threshold to control the velocity and the characteristic that the curve moves faster in areas where the gradient is low. This leads to an algorithm that moves faster in a region with the same intensity and slower in regions with a high gradient. 
+The change in the level set function $u$ is only applied to the points where $g(I) > T$, where $T$ is a defined threshold to control the velocity and leads to the characteristic that the curve moves faster in areas where the gradient is low. In other words, it leads to an algorithm that moves faster in a region with the same intensity and slower in regions with a high gradient. 
 
 The external force or the attracting force is calculated for each point $p$ in the binary mask from the before modified level set function $u$ and evaluated with the following equation:
 \begin{equation}
@@ -1222,8 +1222,8 @@ To conclude, the equation \refeq{eq:externalforce} describes the deformation of 
 
 \subsubsection{Convert GAC to ACWE}
 \label{sus:acwe_ransac}
-The GAC only inspects places where the curve could move iteratively and this is the main difference to ACWE. ACWE also known as Chan-Vese algorithm takes the complete image into consideration to evaluate the boundary or the curvature flow of the level set. 
-Let $c_i$ the the mean intensity of an subset $Oomega$ of the image $I$ and let $c_1$ be the mean intensity inside the curve or level set $u$ defined as $\Omega_1$ and $c_2$ the mean intensity outside level set $u$ defined as $\Omega_2$. 
+The GAC only iteratively inspects places where the curve could move, and there lies the main difference to the ACWE. ACWE, also known as the Chan-Vese algorithm, considers the complete image to evaluate the boundary or curvature flow of the level set. 
+Let $c_i$ be the mean intensity of a subset $\Omega$ of the image $I(x,y)$. Let $c_1$ be the mean intensity inside the curve or level set $u$ defined as $\Omega_1$ and $c_2$ the mean intensity outside the level set $u$ defined as $\Omega_2$. 
 \begin{equation}
     c_{i}= \frac{ \int_{\Omega_{i}} I(x) \,dx}{\int_{\Omega_{i}} \, dx }
     \label{eq:meanintensity}
@@ -1238,15 +1238,15 @@ Then the external force function $F(c_1,c_2,C)$ is defined as
     \label{eq:curvatureflow}
     \end{equation}
 
-where the first two terms $\mu \cdot \text{length}(u) + \nu \cdot |\text{inside}(u)|$ are the same as in the GAC The third and fourth terms sort of calculate the unscaled intensity variance in the different subsets $\Omega_1$ and $\Omega_2$. 
+where the first two terms $\mu \cdot \text{length}(u) + \nu \cdot |\text{inside}(u)|$ are the same as in the GAC. The third and fourth terms calculate the unscaled intensity variance in the different subsets $\Omega_1$ and $\Omega_2$. 
 
-The only difference now between GAC and the ACWE is that the external forceis is calculated differently. In GAC the external force is calculated with $\nabla g(I) \cdot \nabla u$ and based on a threshold decides if a point is inside or outside the curve, as seen in equation \refeq{eq:externalforce}. 
+The only difference between GAC and ACWE is that the external force is calculated differently. In GAC, the external force is evaluated with $\nabla g(I) \cdot \nabla u$ and then, based on a threshold, decides if a point is inside or outside the curve, as seen in equation \refeq{eq:externalforce}. 
 
-In ACWE the external force is calculated with the mean intensity of the subsets $\Omega_1$ and $\Omega_2$ and the intensity of the image $I(x)$ as seen in equation \refeq{eq:curvatureflow}. Converting the equation onto an discrete grid it can be written as: 
+In ACWE, the external force is calculated with the mean intensity of the subsets $\Omega_1$ and $\Omega_2$ and the intensity of the image $I(x)$ as seen in equation \refeq{eq:curvatureflow}. Converting the equation onto a discrete grid it can be written as: 
 \begin{equation}
    \xi  = \underbrace{\lambda_{1} \cdot | \nabla u_{mask}| \cdot (I(x)-c_{1})^{2}}_{Inside}-\underbrace{\lambda_{2} \cdot|\nabla u_{mask}| \cdot (I(x)-c_{2})^{2}}_{outside}
 \end{equation} 
-$\xi$ is then used to calculate the new level set function $u$ with the following equation:
+$\xi$ is then used to evaluate the new points in the level set function $u$ with the following condiction:
 \begin{equation}
     u(x,y) = \begin{cases}
         1 \text{ if } \xi<0 \\
@@ -1254,11 +1254,11 @@ $\xi$ is then used to calculate the new level set function $u$ with the followin
         \text{do nothing otherwise}
         \end{cases}
 \end{equation}
-The Gradient of the mask will only be nonzero at the contour of the mask. 
-Now $I(x)$ is subtracted by the mean and each point on the contour will have two values, their inside and outside weighted intensities. By subtracting the mean intensity from the pixel intensities on the boundary of u, multiplying it with $\lambda_i$ and subtracting the outside term from the inside term an relationship between the inside and outside intensities is created and can be tuned with the sensitivity parameters $\lambda_i$ . 
+The gradient of the mask will only be nonzero at the contour of the mask. 
+Now the mean is subtracted from $I(x)$, and each point on the contour will have two values, their inside and outside weighted intensities. By subtracting the mean intensity from the pixel intensities on the boundary of u, multiplying it with $\lambda_i$ and subtracting the outside term from the inside term, a relationship between the inside and outside intensities is created and can be tuned with the sensitivity parameters $\lambda_i$ . 
 
-This relationship is then used to calculate the new level set function $u$ and the process is repeated until the level set function converges. In a case where the function reaches the object boundary the inside and outside intensities will be the same and the curve will not move anymore and the equation goes to zero. 
-Here is an example of the evolution the the level set u when the ACWE algorithm is used with a given starting point inside the pupil. 
+This relationship is then used to calculate the new points in the level set function $u$ and the process is repeated until the level set function converges. When the level set reaches the object boundary, the inside and outside intensities will be the same, the curve will not move anymore, and the equation will go to zero. 
+Here is an example of the evolution the level set $u$ when the ACWE algorithm is used with a given starting point inside the pupil. 
 \begin{figure}[h]
     \centering
     \begin{subfigure}{0.3\textwidth}
@@ -1302,11 +1302,11 @@ Here is an example of the evolution the the level set u when the ACWE algorithm 
 
 \newpage
 \subsubsection{Active contouring with ellipse parameters}
-A different approach is to let an ellipse grow and modify its parameters based on the gradient information. By sampling an amount of equally spaced points on the ellipse and evaluate an energy function based on the image intensity gradient and the normal vector of the ellipse at those points. The energy function can be described as the scalar product of the gradient and the normal vector of the ellipse curve. 
+A different approach is to let an ellipse grow and modify its parameters based on the gradient information. By sampling an amount of equally spaced points on the ellipse and evaluating an energy function based on the scalar product of the image intensity gradient vector  and the normal vector of the ellipse at those points. 
 \begin{equation}
     E = -\sum_{i=0}^{N-1} \nabla I(p_i) \cdot \vec{n(p_i)}
 \end{equation} 
-Where $p_i$ is a point on the ellipse and $\vec{n(p_i)}$ is the normal vector of the ellipse at that point. $\nabla I(p_i)$ is the gradient of the image at that point. The energy function is minimized by changing the ellipse parameters
+Where $p_i$ is a point on the ellipse and $\vec{n(p_i)}$ is the normal vector of the ellipse at that point. $\nabla I(p_i)$ is the gradient of the image at point $p_i$. The energy function is iteratively minimized by changing the ellipse parameters.
 \begin{figure}[h]
     \centering
     \begin{tikzpicture}[scale=0.6, transform shape]
@@ -1336,15 +1336,15 @@ Where $p_i$ is a point on the ellipse and $\vec{n(p_i)}$ is the normal vector of
     \caption{Ellipse with normal vector (blue) and gradient vectors (red)}
     
     \end{figure}
-This converts the problem into a minimization problem. The energy function still needs a term to make sure that the curve grows and does not get stuck at a local minimum. Here it is not possible to use the morphological operators because the shape of the ellipse is not given as a level set. Instead the ellipse is based on only the five ellipse parameter: center$(x,y)$, axis: $(a,b)$ , angle $\theta$. 
+Finding the best fit turns into a minimization problem. The energy function still needs a term to ensure the curve grows and does not get stuck at a local minimum. Here it is not possible to use the morphological operators because the shape of the ellipse is not given as a level set. Instead the ellipse is based on only the five ellipse parameters: center$(x,y)$, axis: $(a,b)$, angle $\theta$. 
 
-The energy function is the lowest when at each point the gradient vector and normal vector  point in the same direction. The gradient vector consists of the magnitude of the gradient and the orientation. Whereas the normal vector is normalized and points in the direction of the normal of the ellipse at that point. 
+The energy function is the lowest when at each point, the gradient vector and normal vector have the same direction, and the magnitude of the gradient is maximal. The gradient vector consists of the magnitude of the gradient and the orientation. Whereas the normal vector is normalized and points outwards in the direction of the normal of the ellipse curve at that point. 
 
-The problem with this approach is overlapping with the classical active contouring. The initial contour needs to be close to the optimal solution. Otherwise the algorithm stops at an local minimum and convergence to the optimal solution is not guaranteed. Because it is an minimization with five parameters it is a very complex problem and the algorithm needs to be run multiple times to find the best local solution. 
+The problem with this approach is overlapping with classical active contouring. The initial contour needs to be close to the optimal solution; otherwise, the algorithm stops at a local minimum, and convergence to the optimal solution is not guaranteed. Because it is a minimization with five parameters, it is a very complex problem, and the algorithm needs multiple iterations to find the best local solution. 
 
-For this approach, the image needs preprocessing and the algorithm is very sensitive to noise. Therefore it is a must to first apply a low pass filter onto the image. But because of blurring the image gradients and directions aren't as accurate as the could be and struggles with reflections and other noise.
+For this approach, the image needs preprocessing and the algorithm is very sensitive to noise. Therefore, first applying a low pass filter onto the image is a must. But because of blurring, the image gradients and directions are not as accurate as they could be and the scalar product struggles with reflections and other noise.
 
-Here is an example with the convergence to an local minimum. The initial ellipse is nowhere near to the optimal solution and the algorithm converges to an local minimum. 
+Here is an example with the convergence to a local minimum. The initial ellipse was initialized far from the optimal solution and the algorithm converges to a local minimum. 
 
 \begin{figure}[h]
     \centering
@@ -1376,5 +1376,5 @@ Here is an example with the convergence to an local minimum. The initial ellipse
     \label{fig:ac_ellipse_gradient}
     \end{figure}
 
-The problem with expanding the energy function with more terms is, that the algorithm gets more complex. For example when the size is used as a reward for the energy function (the bigger the better), it is not given anymore to stop at the boundary of the object. The parameters have to be chosen smart and carefully to make sure that the algorithm still converges to the optimal solution. 
+The problem with expanding the energy function with more terms is that the algorithm gets more complex. For example, when the size of the ellipse is used as a reward for the energy function (the bigger, the better), it is not given anymore that the minimization stops at the object's boundary. The parameters must be chosen carefully to ensure the algorithm converges to the optimal solution. 
 

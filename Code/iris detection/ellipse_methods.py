@@ -108,7 +108,7 @@ def main_detection(path, scaling = 1):
         gray_eye_image = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         pupil_obj.set_gray(gray_eye_image.copy())
         
-        clahe = cv2.createCLAHE(clipLimit=1.0, tileGridSize=(11,11))
+        clahe = cv2.createCLAHE(clipLimit=5.0, tileGridSize=(11,11))
         gray_eye_image = clahe.apply(gray_eye_image)
         pupil_obj.set_processing(gray_eye_image.copy())
         
@@ -125,7 +125,7 @@ def main_detection(path, scaling = 1):
         center = (coords[1]-roi_coords[0][1], coords[0]-roi_coords[0][0])
         radius = 10
         acwe = ACWE()
-        acwe.start(center, radius, roi, 3, 1000, 1.2, 0.1, 0.003)
+        acwe.start(center, radius, roi, 3, 1000, 5, 0.5, 0.003)
         BOOL_PUPIL = acwe.result()
         ellipse = acwe.get_result_ellipse()
         #acwe.plot_ellipse()
@@ -170,6 +170,6 @@ def main_Haar_image():
     cv2.waitKey(0)
     
 if __name__ == '__main__':
-    main_detection('D:/data_set/LPW/1/1.avi,D:/data_set/LPW/1/1.txt', scaling = 1)
+    main_detection('D:/data_set/LPW/2/13.avi,D:/data_set/LPW/2/13.txt', scaling = 1)
 
     cv2.waitKey(0)

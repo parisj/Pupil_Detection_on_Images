@@ -257,7 +257,7 @@ class ACWE:
         #cv2.waitKey(0)
         # Fit an ellipse to the largest contour
         #a = cv2.fitEllipse(largest_contour)
-        rans = ransac(largest_contour, 300, 0.02)
+        rans = ransac(largest_contour, 500, 0.01)
         a,b,c,d,stat = rans.ransac_start()
         ##print(f'best_ellipse: {a} best_inliers: {b} best_area: {c} best_border: {d}')
         #print(f'leng points_contour: {len(rans.get_points_contour())}')
@@ -274,7 +274,7 @@ if __name__ == '__main__':
     center = (90, 370)
     radius = 10
     acwe = ACWE()
-    acwe.start(center, radius, image, 3, 10000, 1.2, 0.1, 0.00005)
+    acwe.start(center, radius, image, 3, 10000, 1.2, 0.3, 0.00005)
     acwe.result()
     acwe.plot_ellipse()
     cv2.destroyAllWindows()

@@ -215,7 +215,7 @@ def evaluate(points, params, threshold, area, best_area, best_inliers,best_borde
     n_border = border.shape[0]/points.shape[0]
     area = area
     #print(f'area: {area/points.shape[0]}')
-    stat = 170* n_inliers + 200 * n_border - area/points.shape[0]*np.pi
+    stat = 150* n_inliers + 200 * n_border - area/points.shape[0]*np.pi
     #print(f'stat: {stat}')
     if stat > best_stat :
 

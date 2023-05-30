@@ -158,5 +158,5 @@ def analyse(path):
     analyze_dataframe(path, name,'euclidean distance label - measured', 'x_error', 'y_error')
 
 if __name__ == '__main__':
-    path= 'Code/iris detection/results/LPW_1_1_s_100.xlsx'
+    path= 'Code/iris detection/results/LPW_2_13_s_100.xlsx'
     analyse(path)

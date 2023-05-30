@@ -660,11 +660,11 @@ In a frame where the pupil region is clearly distinguishable from the rest, the 
 \subsection{Haar like feature detection }
 \label{subsec:haar}
 \subsubsection{Concept }
-Haar-like features \cite{viola_rapid_nodate} is based on the observation that object have a certain local intensity variation in an image and this fact can be useful to identify objects. Haar like features makes use of this and divides the image into rectangular regions and then calculates the difference between the sum of the pixels in the white and gray regions, show in figure \ref{fig:haar_features}. This is done for all possible rectangular positions in the image. The result is a response matrix that is used to classify the image and give insight about the position of the object. In theory the feature is convolved with the image to calculate the response matrix but to make the detection faster, the integral image is calculated once and then used to calculate the response matrix at each possible position in the image.
- This leads to an easy calculation of the response matrix than now only needs four values to be calculated. 
-The properties of the different features bring different abilities to detect specific local intensity patterns that are an indicator for a certain object or image region property. 
+Haar-like features \cite{viola_rapid_nodate} are based on the observation that objects have a particular local intensity variation in an image which can be useful for identifying objects. Haar-like features use the intensity variation and divide the image into rectangular regions and then calculate the difference between the sum of the pixel's intensity in the white and gray regions. An overview of the structure of features is given in \ref{fig:haar_features}. The calculation is done for all possible rectangular positions in the image. The result is a response matrix that classifies each pixel in the image and gives insight into the object's position. In theory, the feature is convolved with the image to calculate the response matrix, but the integral image is used to make the detection faster. The integral image is calculated once and used to calculate the response matrix at each possible position in the image.
+The result is an easy and fast calculation of the response matrix. 
+The structure of the feature bring different abilities to detect specific local intensity patterns that are an indicator for a particular object or image region property. 
 \subsubsection{Features characteristics}
-To get a better understanding of the different features and their characteristics of the resulting response matrix the four features are explained a little more in detail. 
+To better understand the different features and their characteristics of the resulting response matrix four features are explained a little more in detail. 
 \paragraph{}
 \begin{figure}[h]
     \centering
@@ -722,10 +722,10 @@ To get a better understanding of the different features and their characteristic
     \label{fig:haar_features}
 \end{figure}
 
-The key concept to keep in mind is, that the features generate a response based on the difference of the sum of the pixels in the white and gray regions and therefore are able to detect local intensity patterns. The response of each feature also depends on the size of the feature and stands in relation to the size of the object that is to be detected. The result of the Haar-like features provides information about the presence or absence of a certain pattern that is reflected in the structure of the feature used. Because an object can have more than one fitting feature, the features are often used in a cascade of classifiers. The first classifier is a very simple classifier that is able to detect a lot of features. The following classifiers are more complex and are only used if the previous classifier was able to detect a certain feature. This leads to a very fast detection of the object. This safes computational resources and time. Often Machine learning is involved to classify if an object is present or not, based on the response matrix. 
+The key concept to remember is that the features generate a response based on the difference of the sum of the pixels in the white and gray regions and therefore are able to detect local intensity patterns. The response of each feature also depends on the size of the feature and stands in relation to the size of the object to be detected. The result of the Haar-like features provides information about the presence or absence of a certain pattern reflected in the structure of the feature used. Because an object can have more than one fitting feature, the features are often used in a cascade of classifiers. The first classifier is a very simple classifier that can detect general patterns. The following classifiers are more complex and are only used in a region where the previous classifier could detect a certain pattern. Using a cascade approach leads to speeding up the detection of the object, which saves computational resources and time. Often Machine learning is involved in classifying whether an object is present based on the response matrix. 
 
 \subsubsection{Haar-Like Feature for pupil detection }
-One very useful feature for finding a point in the pupil is given by a feature described in the paper \cite{swirski_robust_2012} . This feature is constructed differently but is used the same way as the other features to calculate a response matrix. The feature is constructed as following: 
+One handy feature structure \cite{swirski_robust_2012} for finding a point in the pupil is given by a feature constructed differently but is used the same way as the other features to calculate a response matrix. The feature is constructed as follows: 
 \begin{figure}
     \centering
     \begin{tikzpicture}[scale=0.5]
@@ -739,8 +739,7 @@ One very useful feature for finding a point in the pupil is given by a feature d
     
         % Center 2x2 area
         \draw[fill=black!75] (2,2) rectangle ++(2,2);
-        
-
+    
 
        % Measurement on top
     \draw[<->, ultra thick] (0,0) -- (3,0) node[midway, below, font=\bfseries] {3r};
@@ -750,15 +749,15 @@ One very useful feature for finding a point in the pupil is given by a feature d
     
     \end{tikzpicture}
 \label{haar_pupil}
-\caption{Haar-like feature for pupil detection}
+\caption{Haar-like feature for Pupil Detection}
 \end{figure}
-The total size of the feature is $6rx6r$ where the center is of the size $2rx2r$. The feature mimics the shape of an pupil with a larger boundary around it that mimics a lighter iris. The radius is variable and makes it possible to detect the best response to different pupil sizes. The feature is then used to calculate the response matrix and over all different radii and the position with the best response can be considered to be inside the pupil.
+The total size of the feature is $6rx6r$ whereas the center is of the size $2rx2r$. The feature mimics the shape of a pupil with a larger boundary around it that mimics a lighter iris. The variable radius makes detecting the strongest response of different pupil sizes possible. The feature is then used to calculate the response matrix repeatedly, using different radii and each radius generates a different response matrix. All response matrixes are compared and the position $(x,y)$ with the strongest response can be considered inside the pupil.
 
-\subsection{Thresholding and Ellipse fitting}
+\subsection{Thresholding and Ellipse Fitting}
 \subsubsection{Thresholding}
-In Thresholding the characteristic of the pupil is used, that it is the darkest part of the eye as seen in \ref{fig:hist1} . Here it is important to find a certain thresholding value to only extract the pupil. Considering the best scenario that the pupil is not affected by too much noise: no eyelash, no reflection. This method can be reliable to find the pupil region. This process shows to be less computation expensive and finds the pupil fast. 
+In thresholding pupil's characteristic is used. The pupil is the darkest part of the eye, as seen in \ref{fig:hist1}. It is essential to find a specific thresholding value to only extract the pupil. Considering the best scenario, the pupil is unaffected by too much noise: no eyelashes or reflections. This method can be reliable in finding the pupil region, is less computation expensive and finds the pupil fast. 
 
-The most difficult part is to find a fitting threshold value. This could be done by using the histogram of the frame. When inspecting the histogram, one could consider the lowest peak in the histogram as the given center value for thresholding. But this is not always the case. There is also the possibility for adaptive thresholding for example otsu thresholding. but throughout the work with thresholding otsu was also tested but was found to be less reliable than the histogram approach itself. 
+The most challenging part is to find a fitting threshold value. The threshold value can be approximated by inspecting the histogram of the frame. The lowest peak in the histogram is the given center value for thresholding. There is also the possibility for adaptive thresholding, for example, otsu thresholding. However, throughout the work with otsu, otsu was found less reliable than the histogram approach itself. 
 
 \begin{figure}[ht]
     \centering
@@ -777,9 +776,9 @@ The most difficult part is to find a fitting threshold value. This could be done
     \caption{Original and thresholded frame}
     \label{fig:simple_thresh}
 \end{figure}
-in \ref{fig:simple_thresh} it can be seen that the thresholding is extremely volatile to reflections, eyelashes and other noise. This is why thresholding only has a good performance in a strictly defined environment with almost no noise. 
+In figure\ref{fig:simple_thresh}, it can be seen that the thresholding is extremely volatile to reflections, eyelashes, and other noise, concluding that thresholding only has a good performance in a strictly defined environment with almost no noise. 
 
-To showcase the volatility and the dependency on the threshold value, in figure \ref{fig:thresholded_images} a series of the same frame is shown with different threshold values (Th). It can be seen that the threshold value has to be chosen very carefully. If the value is chosen to low, the pupil region is not found. If the value is chosen to high, too much information is extracted and the pupil region can not be differentiated from the rest. 
+To showcase the volatility and dependency on the threshold value, figure \ref{fig:thresholded_images} shows a series of the same frame with different threshold values (Th). It can be seen that the threshold value has to be chosen very carefully. If the value is chosen too low, the pupil region is not found. If the value is chosen too high, too much information is extracted and the pupil region can not be differentiated from the rest. 
 
 
 \begin{figure}[htbp]
@@ -872,12 +871,12 @@ To showcase the volatility and the dependency on the threshold value, in figure 
 
     \subsubsection{Ellipse fitting}
     \label{subsubsec:ellipsefitting}
-    Ellipse fitting \cite{fitzgibbon_direct_2000} based on minimizing the algebraic distance by using least squares fitting is a very common method to fit an ellipse to a set of points. Given a set of $n$ 2D points $p_i = (x_i, y_i)$ where $i = 1,2,...,n$ and the equation of an ellipse in standard form is: 
+    Ellipse fitting \cite{fitzgibbon_direct_2000} based on minimizing the algebraic distance using least squares fitting is a common method to fit an ellipse to a set of points. Given a set of $n$ 2D points $p_i = (x_i, y_i)$ where $i = 1,2,...,n$ and the equation of an ellipse in standard form is: 
     \begin{equation}
         F(x,y)=Ax2+Bxy+Cy2+Dx+Ey+F=0
         \label{eq:ellipse_standard}
     \end{equation}
-    Where $a=[A, B, C, D, E, F]^T$ are the parameters to be determined. To exclude the trivial solution $a=0$ the constraint $||a||^2=1$ is added. Another important constrain is that the ellipse is actually an ellipse and not a hyperbola or parabola. This is done by adding the constraint $B^2-4AC<0$.
+    Where $a=[A, B, C, D, E, F]^T$ are the parameters to be determined. To exclude the trivial solution $a=0$, the constraint $||a||^2=1$ is added. Another important constraint is that the ellipse is not a hyperbola or a parabola. Therefore adding the constraint $B^2-4AC<0$ ensures ellipses as a result.
     Let's define the design Matrix $D$ as: 
     \begin{equation}
         D = \begin{pmatrix}
@@ -888,7 +887,7 @@ To showcase the volatility and the dependency on the threshold value, in figure 
         \end{pmatrix}
         \label{DesignMatrix}
         \end{equation}
-    And let's define $C$ as the constrain matrix so that the constraint can be ex pressed as $a^TCa=1$
+    And let's define $C$ as the constraint matrix so that the constraint can be expressed as $a^TCa=1$
 
         \begin{equation}
             C = \begin{pmatrix}
@@ -900,36 +899,33 @@ To showcase the volatility and the dependency on the threshold value, in figure 
             0 & 0 & 0 & 0 & 0 & 0 \\
             \end{pmatrix} \label{eq:C}
         \end{equation}
-Now the method of Lagrange multipliers \cite{gander_least_1980} gives the conditions for solving the least squate fit with the scatter matrix being $S=D^TD$: 
+Now the method of Lagrange multipliers \cite{gander_least_1980} gives the conditions for solving the least square fit with the scatter matrix being $S=D^TD$: 
 \begin{gather}
     Sa = \lambda Ca \\
     a^TCa=1
 \end{gather}
-This return at most six solutions for $a_j$ and $\lambda_j$. The solution with the smallest $\lambda_k$ and the corresponding eigenvector $a_k$ is the best fit for the ellipse based on the least square fit. 
-
+This return at most six solutions for $a_j$ and $\lambda_j$. The solution with the smallest $\lambda_k$ and the corresponding eigenvector $a_k$ best fits the ellipse based on the least square fit. 
 \subsubsection{Contours}
-    When working with thresholds the contour is of interests. The contour is defined as the outer boundary of the threshold binary matrix and is the foundation for the ellipse fit method. 
-    Here it is not given to extract one single contour and therefore the contours need to be filtered based on which contour represents the pupil the best. 
-    Mainly three criteria are used. 
-    
-    \paragraph{Circularity / Compactness}
-    \begin{equation}
-        \frac{4\pi\mathsf{A} }{(\oint_{\partial S} dS)^2}
-    \end{equation}
-    Where $\mathsf{A} $ is the Area of the contour, and it is divided by the integral over the outer boundary of the contour also known as the permitter of the contour.
+When working with thresholds, the contour is of interest. The contour is defined as the outer boundary of the threshold binary matrix and is the foundation for the ellipse fit method. 
+Here it is not given to extract only one contour from the binary mask; therefore, the contours need to be filtered based on which contour represents the pupil the best. 
+Mainly three criteria are used. 
 
-    \paragraph{Similarity }
-    The for the similarity the OpenCV library is used. This methods compares a given shape with another. As base for the comparison a simple ellipse is taken and then compared.
+\paragraph{Circularity / Compactness}
+\begin{equation}
+    \frac{4\pi\mathsf{A} }{(\oint_{\partial S} dS)^2}
+\end{equation}
+Circularity is described $\mathsf{A} $ as the contour area divided by the integral over the outer boundary of the contour, also known as the permitter of the contour.
 
-    \paragraph{Area}
-    The Area of the contour should be maximal to find the greatest pupil area and filter out smaller area contours. 
+\paragraph{Similarity }
+For calculating similarity, the OpenCV library is used. This method compares a given shape with another. As the base for the comparison, a simple ellipse is taken and then compared with all possible contours.
 
-   Each algorithm that returns a list of contours needs them to be checked with these four conditions and in the best case scenario only the contour of the pupil survives. This is then the contour on which a ellipse will be fitted. 
-
+\paragraph{Area}
+The Area of the contour should be maximal to find the largest pupil area and filter out smaller area contours. 
+Each algorithm that returns a list of contours needs to be checked with these four conditions, and in the best-case scenario, only the pupil's contour survives. The result is then the contour on which an ellipse can be fitted. 
 \newpage
 \subsection{Random Sample Consensus (RANSAC) }
 \label{sus:ransac}
-The Random Sample Consensus (RANSAC)\cite{derpanis_overview_nodate} algorithm is an iterative method that is used to estimate the parameters for a known problem. For ellipse fitting a contour or a set of possible points inside or on the contour $C$ is the input. The algorithm then randomly selects a subset $S_c$ of 5 random selected points in $C$. 
+The Random Sample Consensus (RANSAC)\cite{derpanis_overview_nodate} algorithm is an iterative method used to estimate the parameters for a known problem. For ellipse fitting, a contour or a set of possible points inside or on the contour $C$ is the input. The algorithm then randomly selects a subset $S_c$ of 5 randomly selected points in $C$. 
 These 5 points are then used to fit an ellipse as described in the section Ellipse Fitting.
 
 \begin{figure}[h]
@@ -957,22 +953,23 @@ These 5 points are then used to fit an ellipse as described in the section Ellip
 
 \begin{equation}
     \frac{((x-h)\cos(\theta) + (y-k)\sin(\theta))^2}{a^2} + \frac{((x-h)\sin(\theta) - (y-k)\cos(\theta))^2}{b^2} = 1
-    \label{ellipsequation}
+    \label{eq:ellipsequation}
 \end{equation}
 
-The equation \ref{ellipsequation} represents an ellipse with major axis $a$, minor axis $b$ and the center of the ellipse at $(h,k)$. The angle $\theta$ is the rotation of the ellipse in the coordinate system. When comparing it with the general ellipse equation and compare coefficients the covariance matrix can be derived:
+The equation \ref{ellipsequation} represents an ellipse with major axis $a$, minor axis $b$, and the ellipse's center at $(h,k)$. The angle $\theta$ is the ellipse rotation in the coordinate system. When comparing the ellipse equation \ref{eq:ellipseequation} with the general covariance ellipse equation \ref{ellipseco}
 \begin{equation}
     \mathbf{A}x^2 + \mathbf{B}xy + \mathbf{C}y^2 = 1
     \label{ellipseco}
 \end{equation} 
+and compare coefficients, a relation between the ellipse parameters and the covariance matrix can be found
 \begin{align}
     \mathbf{A}&=a^2 * \sin (\theta)^2 + b^2*\cos (\theta)^2 \\
     \mathbf{B}&= 2(a^2-b^2)*\sin (\theta)*\cos (\theta) \\
     \mathbf{C}&= a^2*\cos (\theta)^2 + b^2*\sin (\theta)^2
     \label{coefficients}
 \end{align}
-The covariance matrix is then defined as:
 
+The covariance matrix is :
 \begin{equation}
     \mathbf{V} = \begin{bmatrix}
         \mathbf{A} & \mathbf{B} \\
@@ -980,7 +977,8 @@ The covariance matrix is then defined as:
     \label{covariance}
     \end{bmatrix}
 \end{equation}
-The benefit of using the covariance matrix is, that the eigenvalues and eigenvectors have a direct relation to the major and minor axis and the rotation of the ellipse. The eigenvalues represent the major and minor of the axis and the eigenvectors represent the rotation matrix $R$ to rotate the ellipse in the coordinate system. Important to note is, that the eigenvectors need to be ordered to the size of the eigenvalues. The eigenvector calculated with the bigest eigenvalue comes first. This has the benefit that all parameters are known to transform all points into a new coordinate system where the calculated ellipse equation is represented in an unit circle.
+The benefit of using the covariance matrix is that the eigenvalues and eigenvectors directly relate to the major and minor axis and the rotation of the ellipse. The eigenvalues represent the axis's major and minor, and the eigenvectors represent the rotation matrix $R$ that rotates the ellipse in the coordinate system. Important to note is that the eigenvectors need to be ordered to the size of the eigenvalues, and the eigenvector calculated with the largest eigenvalue comes first. This has the benefit that all parameters are known to transform all points into a new coordinate system where the calculated ellipse equation is represented in a unit circle.
+
 
 \begin{figure}[h]
     \centering
@@ -1010,18 +1008,18 @@ The benefit of using the covariance matrix is, that the eigenvalues and eigenvec
     \label{fig:unit_circle}
 \end{figure}
 
-This allows for a simple distance calculation. Because $\lambda_{1,2}$ are known, the new coordsystem can be transformed to the unit circle by dividing the x and y values by the eigenvalues. The points form $C$ are then multiplied by the transposed eigenvectors to rotate the points into the new system and then divide by the eigenvalues. Let $p$ be a point in $C$ and $p'$ the transformed point in the new coordinate system. 
+Using the unit circle allows for a simple distance calculation. Because $\lambda_{1,2}$ are known, then all points in $\in C$ of the old coordination system can be transformed onto the unit circle by subtracting $x-h$ and $y-k$, are then multiplied by the transposed eigenvectors to rotate the points into the new system and then divide by the eigenvalues. Let $p$ be a point in $C$ and $p'$ the transformed point in the new coordinate system. 
 \begin{align}
     p' = R^T \begin{bmatrix} p_x - h \\ p_y - k \end{bmatrix} \odot \begin{bmatrix} \frac{1}{\lambda_1} \\ \frac{1}{\lambda_2} \end{bmatrix}\\
     r = \sqrt{p_x'^2 + p_y'^2}
     \label{distance calculation}
 \end{align}
-So the distance calculation of a point $p$ to the ellipse curve simplifies to the distance of the transformed point $p'$ to the unit circle.
+So the distance calculation of a point $p$ to the ellipse curve simplifies the distance of the transformed point $p'$ to the unit circle.
 \begin{equation}
     d = \sqrt{p_x'^2 + p_y'^2} -1
 \end{equation}
 
-By using this knowledge, the RANSAC algorithm iterates $n$ times to find the best ellipse with the most inliers. The inliers are calculated like following: 
+The RANSAC algorithm iterates $n$ times to find the best ellipse with the most inliers. The points are classified into three groups: 
 \begin{equation}
     p =\begin{cases}
     \text{inlier} = \{p \in C | d < 0\}\\
@@ -1030,18 +1028,18 @@ By using this knowledge, the RANSAC algorithm iterates $n$ times to find the bes
     \end{cases}
     \label{inliers}
 \end{equation}
-The RANSAC algorithm calculates the ellipse parameters with five random points $S_c$ for $n$ iterations and evaluates each iteration the number of inliers. The ellipse with the most inliers is then used to calculate the final ellipse parameters with the best fit. 
-The differentiation between on border an inlier is important to weight the focus on enclosing ellipses or on the border of the ellipse. Because the calculation of the distance $d$ is not an integer, it is possible that the distance is not exactly zero but still on the border. So it is important to keep in mind that comparing floats with each other, to alway use a small epsilon value that d can differ from 0 to set the threshold. 
-In python functions like \textit{isclose} from the math module can be used to compare floats with each other. The number of iterations to find a 99\% chance of finding the best ellipse with the most inliers can be calculated with the following formula: 
+The RANSAC algorithm calculates the ellipse parameters with five random points $S_c$ for $n$ iterations and evaluates the number of inliers for each iteration. The ellipse with the most inliers is considered the best fit. 
+The differentiation between on-border and inlier is essential to weigh the focus on enclosing ellipses or on the border of the ellipse. Because the distance $d$ calculation does not return an integer, it is possible that the distance is not exactly zero, but the point $p$ is on the border. So it is crucial to keep in mind when comparing floats with each other, always use a small epsilon value that $d$ can differ from 0 to set the threshold. 
+In Python, functions like \textit{isclose} can be used to compare floats with each other. The number of iterations to get a 99\% chance of finding the best ellipse with the most inliers can be calculated with the following formula: 
 \begin{equation}
-    n = \frac{\log(1-p)}{\log(1-w^s)}
+    n = \frac{\log(1-P)}{\log(1-w^s)}
     \label{iterations}
 \end{equation}
-Where p = is the probability of finding the best ellipse and w is the ratio of inliers to outliers (Probability that a point is an inlier). This formula can then be used to estimate the number of iterations $n$ for the RANSAC algorithm to be 99\% sure to find the best ellipse with size $s$ as sample. In our case we use $s=5$, $p=0.99$ and for $w$ an approximation needs to be made. Because the number of inliers is unknown the ratio of inliers to outliers can not be calculated and needs to be estimated. In this case we assume that the ratio of inliers to outliers is $w=0.90$ which can be adapted later on. 
+Where $P$ = is the probability of finding the best ellipse and w is the ratio of inliers to outliers (Probability that a point is an inlier). This formula estimates the number of iterations $n$ for the RANSAC algorithm to be 99\% sure to find the best ellipse with  $s$ sample taken each iteration. In ellipse fitting $s=5$, $p=0.99$, and for $w$, an approximation must be made. Because the number of inliers is unknown, the ratio of inliers to outliers can not be calculated and needs to be estimated. In this case, we assume that the ratio of inliers to outliers is $w=0.90$ which can be adapted later on. 
 \begin{equation}
     n = \frac{\log(1-0.99)}{\log(1-0.90^5)} =  5.158
 \end{equation}
-So the number of iterations to find the best ellipse with the most inliers is 6. But it is important to keep in mind that this is only true if inliers are the sum of border and inliers. Otherwise the number of iterations needs to increase because the ratio inliers to outliers changes drastically. Also an important fact is, that the number of iterations needs to be chosen high enough because throughout the video the number of border points changes drastically and $n$ can not be estimated perfectly. Therefore $n$ is set to $300$ but can still be optimized. If only the border point are considered inliers and only $\frac{1}{5}$ of the border is visible, the number of iterations would jump to $4713$. But not only border points are considered. The calculation of the inliers is discussed in detail in section: \ref{sus:acwe_ransac}
+So the number of iterations to find the best ellipse with the most inliers is 6. But it is important to keep in mind that this is only true if 90\% of the points are located on the ellipse contour. Otherwise, the number of iterations needs to increase because the ratio of inliers to outliers changes drastically. Also an important fact is that the number of iterations needs to be chosen high enough because throughout the video, the number of border points changes drastically, and $n$ can not be estimated perfectly. Therefore $n$ is set to $500$ but can still be optimized. If only the border points are considered inliers and only $\frac{1}{5}$ of the border is visible, the number of iterations would jump to $4'713$. The calculation of the inliers is discussed in detail in section: \ref{sus:acwe_ransac}. Visualizing RANSAC looks like this:
 \begin{figure}[h]
     \centering
     \begin{subfigure}{0.3\textwidth}
@@ -1064,13 +1062,12 @@ So the number of iterations to find the best ellipse with the most inliers is 6.
     \caption{Example of RANSAC ellipse fit iterations}
     \label{fig:RANSAC_it}
 \end{figure}
-
-In figure \ref{fig:RANSAC_it} the green ellipse is the ellipse fitted to the five random chosen points. The red points are the inliers of the ellipse and the blue points are the points that lay on the boundary within a given threshold. The white point are the outliers of the ellipse. The number of inliers are the sum of the red points and the number of boundary points are the sum of blue points. The goal is to find the ellipse with the most inliers, boundary points and smalles area. This leads to an enclosing ellipse with minimal area. All points together are the contour of the binary mask recieved from the ACWE algorithm explained in section \ref{sus:acwe}.
+In figure \ref{fig:RANSAC_it}, the green ellipse is the ellipse fitted to the five randomly chosen points. The red points are the inliers of the ellipse, and the blue points are the points that lay on the boundary within a given threshold. The white points are the outliers of the ellipse. The number of inliers is the sum of the red points and the number of boundary points is the sum of blue points. The goal is to find the ellipse with the most inliers, boundary points, and smallest area. These conditions lead to an enclosing ellipse with minimal area. All points together are the contour of the binary mask received from the ACWE algorithm explained in section \ref{sus:acwe}.
 \newpage
 \subsection{Active Contouring }
-Active contour \cite{vondracek_image_2018} segmentation is a method that is used to find the boundary curve of an object given that the object exists. There a many different approaches in active contouring but in this thesis two variants will be discussed. The first one being the classic snakes approach (Kass et al., 1988) \cite{kass_snakes_1988} with a simple energy function and the other variant being the active contouring without edges (ACWE)  based on level sets. In both cases a initial contour is set and through iterative changes tries to find the boundary curve of an object. Each iteration the contour is changed by a small amount and then evaluated with an energy function. The energy function is a measurement of how well the contour is fitting to the edge of the object and in both cases the energy function is minimized.
+Active contour \cite{vondracek_image_2018} segmentation is a method that is used to find the boundary curve of an object given that the object exists. There are many different approaches in active contouring, but three variants will be discussed in this thesis. The first one is the classic snake's approach (Kass et al., 1988) \cite{kass_snakes_1988} with a simple energy function, and the second variant is the active contouring without edges (ACWE)  based on level sets. The third variant is active contouring with ellipse parameters. In all cases, an initial contour is set and, through iterative changes, tries to find the boundary curve of an object. Each iteration the contour is changed by a small amount and then evaluated with an energy function. The energy function is a measurement of how well the contour fits the contour of the object, and in both cases, the energy function is minimized.
 
-Let $C(q): [0, 1] \rightarrow \mathbb{R}^2$ be a parametrized planar curve and let $I : [0, a] \times [0, b] \rightarrow \mathbb{R}^+$ be a given image used to detect the object boundaries with active contouring. The classical snakes approach (Kass et al., 1988) \cite{kass_snakes_1988} associates the curve $C$ with an energy given in \refeq{acgd}
+Let $C(q): [0, 1] \rightarrow \mathbb{R}^2$ be a parametrized planar curve and let $I : [0, a] \times [0, b] \rightarrow \mathbb{R}^+$ be a given image used to detect the object boundaries with active contouring. The classical snake's approach (Kass et al., 1988) \cite{kass_snakes_1988} associates the curve $C$ with an energy given in \refeq{acgd}
 But the most basic description for the energy minimization can be summarized in $E_{int}$ and $E_{ext}$ 
 \begin{equation}
     E = E_{int} + E_{ext}
@@ -1080,16 +1077,16 @@ But the most basic description for the energy minimization can be summarized in 
         E(C) = \underbrace{\alpha \int_0^1 |C'(q)|^2 \, dq + \beta \int_0^1 |C''(q)|^2 \, dq}_{\text{E}_{int}} - \underbrace{\lambda \int_0^1 |\nabla I (C(q))| \, dq}_{\text{E}_{\text{ext}}}
 \label{acgd}
 \end{equation}
-The goal is to minimize the energy function and by doing so the contour $C$ will find local minimals and depending on the sign of $lambda$ be attracted to light or dark edges. The first two terms of the energy describe the intern energy of the contour and the last term describes the external energy. In other words, the intern energy describes the curve smoothness and the external energy describes the relation of the curve to the edge at the curves boundary. In the following the three terms will be discussed in more detail.
+The goal is to minimize the energy function, and by doing so, the contour $C$ will find local minima and depending on the sign of $\lambda$ be attracted to light or dark edges. The first two terms of the energy describe the intern energy of the contour and the last term represents the external energy. In other words, the intern energy describes the curve's smoothness and the external energy describes the relation of the curve to the edge at the curve's boundary. In the following, the these terms will be discussed in more detail.
 
-To use these Equations, they have to be applied on a discrete grid. The curve $C$ is discretized into $N$ points  $c_i(x_i,y_i)$ with $i \in [0, N-1]$. The energy function is then calculated for each point $C_i$ and summed up to get the total energy of the curve. The energy function is then minimized by changing the position of the points $c_i(x_i,y_i)$ and the process is repeated until the energy function converges. The energy function is minimized by using the gradient descent method. The gradient of the energy function is calculated and the points $c_i(x_i,y_i)$ are changed by a small amount in the direction of the gradient. The gradient descent method is repeated until the energy function converge to a local minimal. 
+To use these Equations, they have to be applied on a discrete grid. The curve $C$ is discretized into $N$ points  $c_i(x_i,y_i)$ with $i \in [0, N-1]$. The energy function is then calculated for each point $c_i$ and summed up to get the total energy of the curve. The energy function is minimized by using the gradient descent method. The gradient of the energy function is calculated and the points $c_i(x_i,y_i)$ are changed by a small amount in the direction of the gradient. The gradient descent method is repeated until the energy function converges to a local minima or the optimal solution. 
 
-The formula can be discretized by sampling the initial curve position evenly and then the formula can be expressed as following: 
+The formula can be discretized by sampling the initial curve position evenly, then the formula can be expressed as: 
 
 \begin{equation}
     E = \sum_{i=0}^{N-1} \alpha (c_{i+1} - c_i)^2 + \beta (c_{i+2} - 2c_{i+1} + c_i)^2 - \lambda |\nabla I (c_i)|
 \end{equation}
-Here it is important to note, that the points are circular, when $i$ is equal to $N-1$ the next point is $c_0$. Therefore the indices can also be interpreted as $c_{(i+1 \bmod N)}$ and $c_{(i+2 \bmod N)}$
+Here it is important to note that the points are circular, when $i$ equals $N-1$, the next point is $c_0$. Therefore the indices can also be interpreted as $c_{(i+1 \bmod N)}$ and $c_{(i+2 \bmod N)}$
 \begin{align*}
     \text {substitute:} \begin{cases}
     \sum_{i=0}^{N-1}(c_{i+1} - c_i) = C'(q) \\
@@ -1097,13 +1094,13 @@ Here it is important to note, that the points are circular, when $i$ is equal to
     \end{cases}
 \end{align*}
 
-Where $C'(q)$ calculate the length of the curve and $C''(q)$ calculates the curvature of the curve.  
+Where $C'(q)$ calculates the length of the curve and $C''(q)$ calculates the curve's curvature.  
 
-Because the classic snakes implementation searches for the best boundary curve that localy minimizes the energy function, the initial contour need to be initialized close to the best solution. Otherwise the algorithm will converge to a local minimum and not the global minimum. The classic snakes approach searches for the minimal with PDEs that is solved using the steepest descent method which brings performance issues and is prone to terminate early if a local minimum is found. 
+Because the classic snake's implementation searches for the best boundary curve that locally minimizes the energy function, the contour must be initialized close to the best solution. Otherwise, the algorithm will converge to a local minima and not the global minima. The classic snakes approach searches for the minima with PDEs that are solved using the steepest descent method, which brings performance issues and is prone to terminate early if a local minimum is found. 
 
 \subsubsection{Active Contouring without Edges (ACWE) }
 \label{sus:acwe}
-In ACWE \cite{vondracek_image_2018} the same principle is used to find the best object boundary. But in this case the energy function is minimized using level sets and morphological operations to solve the PDEs. \ref{muniz} The morphological operation use four different structuring elements. 
+In ACWE \cite{vondracek_image_2018}, the same principle is used to find the best object boundary. But in this case, the energy function is minimized using level sets and morphological operations to solve the PDEs. \ref{Hello} The morphological operations use four different structuring elements. 
 
 \begin{figure}[ht]
     \centering
@@ -1155,7 +1152,7 @@ In ACWE \cite{vondracek_image_2018} the same principle is used to find the best 
     \caption{The four morphological structuring elements used in ACWE.}
     \label{fig:neighborsmorph}
 \end{figure}
-ACWE is based on Geodesic Active Contours (GAC). GAC has the benefit that it already solves key problems from the classical active contouring. Based on thresholds the contour is evaluated and decided if it flows expands the contour to a new pixel or not. GAC is based on classic active contours and geodesic curves in a Riemannian space. The level sets have the benefit that they can easily be implemented in a discrete grid and open the door to solve the PDEs using morphological operations. The level set approach brings more stability and is less sensitive to the initial contour compared to the classical active contouring method. It is also possible to detect the interior and exterior boundary. In the classical approach the interior force is based on first and second derivatives of the curve. This leads to stability, computational complexity and performance issues. This is solved in the GAC by using the evolution of an implicitly defined curve. The GAC algorithm based on a level set function $u$ is defined as following:
+ACWE is based on Geodesic Active Contours (GAC)\cite{}. GAC can already solve key problems from classical active contouring. Based on thresholds, the contour is evaluated and decided if it flows and expands the contour to a new pixel. GAC is based on classic active contours and geodesic curves in a Riemannian space. The level sets have the benefit that they can easily be implemented in a discrete grid and open the door to solve the PDEs using morphological operations. The level set approach brings more stability and is less sensitive to the initial contour than the classical active contouring method. It is also possible to detect the interior and exterior boundary. In the classical approach, the internal force is based on the first and second derivatives of the curve and results in stability, computational complexity and performance issues. The internal energy is solved in the GAC by using the evolution of an implicitly defined curve. The GAC algorithm based on a level set function $u$ is defined as:
 \begin{equation}
     \frac{\partial u}{\partial t} = 
     \underbrace{g(I) \cdot |\nabla u| \cdot \text{div} \left(\frac{\nabla u}{|\nabla u|}\right)}_{\text{Smoothing force}} 
@@ -1164,19 +1161,18 @@ ACWE is based on Geodesic Active Contours (GAC). GAC has the benefit that it alr
     \label{deform}
     \end{equation}
     
-Where $u$ is the level set function, a binary mask that is 1 inside the object and 0 outside. $I$ is the image, $g(I)$ is the edge indicator function, $\nu$ is a variable that decides in which direction and how strong the curve should move. 
-For chosing $g(I)$ there are different variants but two of the most common are the following: 
+Where $u$ is the level set function, a binary mask, is 1 inside the object and 0 outside. $I$ is the image, $g(I)$ is the edge indicator function, $\nu$ is a variable that decides in which direction and how strong the curve should move. 
+For chosing $g(I)$, there are different variants but two of the most common are the following: 
 
-\begin{align}
+\begin{equation}
     g(I) = \begin{cases}
-     \frac{1}{1 + |\nabla I|*\alpha} &(1)\\
-     \\
+     1/(1 + |\nabla I|*\alpha) &(1)\\
      -|\nabla I| &(2)
     \end{cases}
-\end{align}
-In (1) $g(1)$ is low when the gradient is high and vice versa. Meaning that $g(I)$ regulates the influence of the forces depending on the gradient. It is around 0 when the gradient is high, in other words it stops the curve from moving when the the pixel has reached an edge. $\alpha$ is a variable that regulates how strong the influence of the external energy is.  In (2) $g(I)$ is negative when the gradient is high. So both definition of $g(I)$ will stop the curve from moving when it reaches an edge.
+\end{equation}
+In (1) $g(1)$ is low when the gradient is high and vice versa. Meaning that $g(I)$ regulates the influence of the forces depending on the gradient. It is around 0 when the gradient is high. In other words, the curve stops moving when the pixel has reached an intensity transition, such as an edge. $\alpha$ is a variable that regulates how strong the influence of the external energy is. In (2) $g(I)$ is negative when the gradient is high. So both definitions of $g(I)$ will stop the curve from moving when it reaches an edge.
 
-\paragraph{Smoothing force}
+\paragraph{Smoothing Force}
 The smoothing force is the same as the curvature term in the classical snakes method. The difference is that in GAC the smoothing force is calculated using the gradient of the level set function $u$ instead of the curve. 
 \begin{equation}
     g(I) \cdot |\nabla u| \cdot \text{div} \left(\frac{\nabla u}{|\nabla u|}\right)
@@ -1194,8 +1190,8 @@ Where SI means supremum of infimum and IS means infimum of supremum. In other wo
 by repeating step 1 to 2 the smoothing force can be stronger or weaker. But it is important so always use step 1 and step 2 in the same order. 
 
 
-\paragraph{Balloon force}
-The balloon force is important in regions where the gradient is low and hinders the curve flow to get stuck at a local minimum. Expecially when looking at the external force, where the velocity of the curve is determined by the gradient of $g(I)$ and the gradient of $u$. Ifh $g(I)$ goes to zero the curve will have no external velocity, therefore the balloon force is important to make the algorithm more robust.
+\paragraph{Balloon Force}
+The balloon force is important in regions where the gradient is low and hinders the curve flow to get stuck at a local minimum. Especially when looking at the external force, where the velocity of the curve is determined by the gradient of $g(I)$ and the gradient of $u$. Ifh $g(I)$ goes to zero the curve will have no external velocity, therefore the balloon force is important to make the algorithm more robust.
 \begin{equation}
     g(I) \cdot \nu \cdot |\nabla u|
 \end{equation}

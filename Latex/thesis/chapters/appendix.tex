@@ -1,11 +1,11 @@
 \chapter{Appendix}
 \label{appendix}
 \section{Choosing the right model}
-Depending on the level of noise different algorithms can be considered. Here only algorithms that are implemented in the thesis are considered. There are even more algorithms that could be used for object sedimentation for example MSER or Machine Learning. 
+Depending on the level of noise, different algorithms can be considered. Here only algorithms that are implemented in the thesis are considered. Even more algorithms could be used for object sedimentation, for example, MSER or Machine Learning. 
 \subparagraph{Low noise}
-If there is almost no noise in the image, meaning the pupil is all the time clearly visible and no reflections in the pupil area, it is possible to use the Haar-like feature to localize the pupil. Create a ROI and then use the intensity Value of the pixel with the best response from the Haar-Like Feature to get a threshold value. Then create a binary mask and inspect all contours in the ROI and choose the contour with the best circularity and similarity to an ellipse. Use OpenCV ellipse fit to retrieve the ellipse parameters. This approach is very fast and accurate in low noise conditions and can almost run in realtime. 
+If there is almost no noise in the image, meaning the pupil is visible all the time and there are no reflections in the pupil area, it is possible to use the Haar-like feature to localize the pupil. Create a ROI and then use the pixel's intensity value with the best response from the Haar-Like Feature to get a threshold value. Then create a binary mask, inspect all contours in the ROI, and choose the contour with the best circularity and similarity to an ellipse. Use OpenCV ellipse fit to retrieve the ellipse parameters. This approach is fast and accurate in low-noise conditions and can run almost in real-time. 
 \subparagraph{Medium noise / High noise}
-Here it becomes more tricky to choose the right mode. In general the more noise is introduced the more robust the algorithm has to be. This comes with the cost of speed. Here the proposed algorithm should be used to extract the pupil parameters. 
+Here it becomes more tricky to choose the right mode. In general, the more noise is introduced, the more robust the algorithm has to be. This comes with the cost of speed. Here the proposed algorithm should be used to extract the pupil parameters. 
 
 \section{Code}
-All the code can be found on github under: \url{https://github.com/parisj/Algorithms_Eye_Detection}. The code is implemented in python and for the packages used, take a look a the requirement.txt file
+All the code can be found on GitHub under: \url{https://github.com/parisj/Algorithms_Eye_Detection}. The code is implemented in Python and for the packages used, take a look a the requirement.txt file.

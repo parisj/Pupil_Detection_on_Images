@@ -1,7 +1,7 @@
 \chapter{Results}
 In this chapter, the proposed algorithm is evaluated on the LPW data set, and numerical results are presented, followed by a discussion of the results and possible improvements.
 \section{Evaluation}
-The evaluation of the proposed algorithm is done by calculating the error of the pupil center. The data set labels the center of the ellipse, not the actual ellipse parameter. Therefore, the evaluation of the actual fit of the ellipse was conducted manually, and no numerical results for the fit are presented. For the evaluation of the pupil center, the ground truth notation explained in subsection \ref{subsec:ground_truth} is used. The error is calculated in the x and y direction separately, and a KDE Plot is used to display the error density of the estimation. The error is calculated for each frame, totaling 2000 frames per video. The standard deviation is calculated and drawn into the KDE plot as an ellipse, giving insight into the algorithm's accuracy. The noise changes throughout the video because of eye movement and blinking. As mentioned in the introduction, the algorithm cannot detect if the eye is open or closed. Therefore, a significant error deviation is possible and filtered out if it is more significant than three times the standard deviation of the complete video. To filter the error, the z score is introduced. The z score is a statistical measure that tells how far a point is from the mean of a data set in terms of standard deviations. All errors with a z score greater than three are declared outliers for the evaluation. 
+The evaluation of the proposed algorithm is done by calculating the error of the pupil center. The data set labels the center of the ellipse, not the actual ellipse parameter. Therefore, the evaluation of the actual fit of the ellipse was conducted manually, and no numerical results for the fit are presented. For the evaluation of the pupil center, the ground truth notation explained in subsection \ref{subsec:ground_truth} is used. The error is calculated in the x and y direction separately, and a kernel density estimate (KDE) plot is used to display the error density of the estimation. The error is calculated for each frame, totaling 2000 frames per video. The standard deviation is calculated and drawn into the KDE plot as an ellipse, giving insight into the algorithm's accuracy. The noise changes throughout the video because of eye movement and blinking. As mentioned in the introduction, the algorithm cannot detect if the eye is open or closed. Therefore, a significant error deviation is possible and filtered out if it is more significant than three times the standard deviation of the complete video. To filter the error, the z score is introduced. The z score is a statistical measure that tells how far a point is from the mean of a data set in terms of standard deviations. All errors with a z score greater than three are declared outliers for the evaluation. 
 
 \section{Discussion}
 The algorithm's performance can be split up into Accuracy, Speed, Robustness and Noise. The error of the pupil center measures the accuracy. The algorithm's speed is given in frames per second and is calculated with the mean of the total time taken for processing 2000 frames. The robustness is measured by the number of outliers the algorithm produces. The noise is hard to evaluate because the data set is very diverse and eye movement during the video changes the amount of noise present.
@@ -10,7 +10,7 @@ The algorithm's accuracy can be seen in the KDE plot of an example video. The KD
 
 \begin{figure}[h]
         \centering
-        \includegraphics[width=\textwidth]{plots/LPW_1_1pre.png}
+        \includegraphics[width=0.7\textwidth]{plots/LPW_1_1pre.png}
     \caption{Error KDE plot of the pupil center estimation}
     \label{fig:kde}
 \end{figure}
@@ -33,13 +33,76 @@ Here, the standard deviation in the y direction is bigger than in the x directio
     \label{fig:comp_e_size}
 \end{figure}
 Even though the mean error in figure \ref{fig:halfscale} seems to be lower, it needs to be considered that the number of outliers almost doubled when scaling the frames with a factor of 0.5 and the standard deviation also increases in the y direction but the mean error decreased. Nevertheless,  notable is that the Haar-like feature detected the pupil in every frame, no matter the scaling. This statement is not valid for all the LPW data set videos. By scaling the image, information is lost, including information about the pupil boundary. Important to note is that the parameters for the Haar-like feature and ACWE must be adapted to the scaling of the images. 
+
+In the following evaluation, a video was used where the pupil was not in focus and the pupil border was blurred was utilized. The example frame can be viewed in figure \ref{fig:blurred_vid}.
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{0.4\textwidth}
+        \centering
+        \includegraphics[width=0.8\linewidth]{plots/blurred_pupil.png} 
+    \end{subfigure}
+    \begin{subfigure}{0.4\textwidth}
+        \centering
+        \includegraphics[width=0.8\linewidth]{plots/blurred_pupil2.png} 
+    \end{subfigure}
+    \centering
+    \begin{subfigure}{0.4\textwidth}
+        \centering
+        \includegraphics[width=0.8\linewidth]{plots/acwe/resultblurred1.png} 
+    \end{subfigure}
+    \begin{subfigure}{0.4\textwidth}
+        \centering
+        \includegraphics[width=0.8\linewidth]{plots/acwe/resultblurred2.png} 
+    \end{subfigure}
+\caption{Pupil out of focus and approximated pupil boundary}
+\label{fig:blurred_vid}
+\end{figure}
+The proposed algorithm identified the center of the pupil with a mean error of 2.5 pixels and 32 outliers. Upon analysis of figure \ref{fig:blurred_eval}, it can be noted that the error in the x and y axis deviate differently from the ground truth position. One significant issue for this video was the inability of the ACWE to completely fill out the pupil area. Despite this, the Haar-like feature detection functioned effectively for every frame. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{plots/LPW_2_13_s_100.png} 
+\caption{Evaluation on a video with the pupil out of focus}
+\label{fig:blurred_eval}
+\end{figure}
+
+In another example, the participant has dark, thick eyelashes, as can be seen in figure \ref{fig:dark_eyelashes_approx}. This characteristic increases the count of pixels in the lower intensity range, presenting a challenge for all previously discussed approaches except for the proposed algorithm. As shown in figure \ref{fig:dark_eyelashes_eval}, the results demonstrate the exceptional performance of the algorithm, with a mean error of 1.08 pixels. However, it should be noted that the algorithm produced 38 outliers. 
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{0.4\textwidth}
+        \centering
+        \includegraphics[width=0.8\linewidth]{plots/makeup.png} 
+    \end{subfigure}
+    \begin{subfigure}{0.4\textwidth}
+        \centering
+        \includegraphics[width=0.8\linewidth]{plots/makeup2.png} 
+    \end{subfigure}
+\label{fig:dark_eyelashes_vid}
+    \centering
+    \begin{subfigure}{0.4\textwidth}
+        \centering
+        \includegraphics[width=0.8\linewidth]{plots/acwe/resultmakeup.png} 
+    \end{subfigure}
+    \begin{subfigure}{0.4\textwidth}
+        \centering
+        \includegraphics[width=0.8\linewidth]{plots/acwe/resultmakeup2.png} 
+    \end{subfigure}
+\caption{Dark eyelashes and approximated pupil boundary}
+\label{fig:dark_eyelashes_approx}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{plots/LPW_1_4_s_100.png} 
+\caption{Evaluation on a video with dark eyelashes}
+\label{fig:dark_eyelashes_eval}
+\end{figure}
+\clearpage
 It is possible to get more accurate results by increasing the number of iterations of the RANSAC algorithm as well as $\lambda_1$ and $\lambda_2$ of the ACWE algorithm. This comes with the cost of speed, discussed in the next section. 
 Another aspect of the accuracy is the fit of the ellipse itself. Even though the center has a considerably low error, the fit of the ellipse contour also tends to jump in a range of one or two pixels. This effect can also be seen when using scaled frames but does not necessarily increase with the scaling. The reason for this is the RANSAC algorithm that is used to fit the ellipse to the binary mask. This can be solved by using a higher number for iterations. The ACWE algorithm can also be a limiting factor because it stops at the pupil's outer boundary, which is not necessarily the same boundary as visually perceived.
+
 \subsection{Speed}
 The algorithm's speed is measured by the time it takes to process 2000 frames. The mean of the total time per frame is considered the speed of the algorithm. Currently, the algorithm runs at 1.2 fps, which equals 0.83  seconds per frame. This time was measured on full-scale images of the size 640x480. Decreasing the size significantly improves the speed and increases the ACWE algorithm's error, which is reflected in the ellipse fit. The parameters for the Haar-like feature and ACWE must be recalibrated for the new scaling. There is no general rule of thumb to scale the parameters. Also,  the algorithm's speed does not scale linearly with the size of the image.
 \subsection{Robustness}
 The algorithm's robustness is measured by the amount of outliers the algorithm produces. Calculating the z-score and setting the threshold to three times the standard deviation of the complete video makes it possible to filter outliers out and get a numerical value for robustness. In a full-scale video with reasonable noise, the haar-like feature can find a point in the pupil in every frame. The smaller the image gets, the less reliable the haar-like feature method becomes. However, even at a scaling of 0.5, the Haar-like feature detection performs at a success rate of 100 percent. The ACWE algorithm is the limiting factor for robustness. Because the RANSAC algorithm expects a certain amount of boundary points to fit the ellipse, the error will also be visible in the boundary approximation if the ACWE algorithm cannot extract the pupil boundary. The fewer border points are detected, the more iteration $N$ RANSAC needs to find the best fit. 
-\subsection{Noise}
 
 \section{Possible Improvements}
 The algorithm has many parameters that can be tuned to improve the performance. The parameters that can greatly impact the performance are the parameters of ACWE introduced in section \ref{sus:acwe_ransac} and RANSAC parameters introduced in section\ref{sus:ransac}. The parameters are:

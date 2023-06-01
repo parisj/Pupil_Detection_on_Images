@@ -68,13 +68,16 @@ def analyze_dataframe(path,name_file, column, x_error_column, y_error_column):
     #print(df)
     name = 'File: ' + name_file
     # Calculate the average mean of the chosen column
+    missed = (df[column] == 'None').sum()
+    df[column] = pd.to_numeric(df[column], errors='coerce')
+
     mean = df[column].mean()
     
     # Identify outliers and calculate the z-score for each
     z_scores = zscore(df[column])
     threshold = 3
     outliers = np.where(np.abs(z_scores) > threshold)[0]
-    num_outliers = len(outliers)
+    num_outliers = len(outliers)+ missed
     
     # Create a new dataframe to store the results
     result_df = pd.DataFrame({
@@ -158,5 +161,5 @@ def analyse(path):
     analyze_dataframe(path, name,'euclidean distance label - measured', 'x_error', 'y_error')
 
 if __name__ == '__main__':
-    path= 'Code/iris detection/results/LPW_2_13_s_100.xlsx'
+    path= 'Code/iris detection/results/LPW_1_1_s_12.xlsx'
     analyse(path)

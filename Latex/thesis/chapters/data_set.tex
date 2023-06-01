@@ -4,7 +4,7 @@
 \section{Labelled Pupils in the Wild (LPW)}
 \subsection{Description}
 
-The data set "Labelled Pupils in the Wild" \cite{zhang_max-planck-institut_nodate}, or short LPW, was created by the Max Plank Institut and contains 66 high-quality, high-speed eye region videos for developing and evaluating pupil detection algorithms. All videos are labeled with the center of the pupil. Twenty-two participants with five different ethnicities and eye colors volunteered to record their eye movements.  
+The data set "Labelled Pupils in the Wild" \cite{zhang_max-planck-institut_2016}, or short LPW, was created by the Max Plank Institut and contains 66 high-quality, high-speed eye region videos for developing and evaluating pupil detection algorithms. All videos are labeled with the center of the pupil. Twenty-two participants with five different ethnicities and eye colors volunteered to record their eye movements.  
 
 The data set's goal was to record eye movement under natural conditions. With strong reflections, wearing glasses and wearing makeup, the data set becomes a difficult challenge for pupil detection algorithms and a good evaluation of algorithms is possible.
 
@@ -34,9 +34,9 @@ The data set's goal was to record eye movement under natural conditions. With st
     \end{figure}
 
     \subsection{Procedure}
-    The participants were asked to look at a moving red ball as it moved around. The recording location was randomly picked around several buildings. Each location was chosen once, creating a diverse range of real-life situations. 
+    The participants were asked to look at a red ball as it moved around. The recording location was randomly picked around several buildings. Each location was chosen once, creating a diverse range of real-life situations. 
 
-    For the recording, a high-speed Pupil Pro head-mounted eye tracker took 95 frames per second with a resolution of 640x480 pixels. With this frame rate, even fast eye movements last through several frames, making it more robust to detect the pupil.
+    For the recording, a high-speed Pupil Pro head-mounted eye tracker took 95 frames per second with a resolution of 640x480 pixels. With this frame rate, even fast eye movements last through several frames, making it more robust to detect the pupil. 
 
 
     \begin{table}[h]
@@ -83,15 +83,15 @@ The data set's goal was to record eye movement under natural conditions. With st
     \newpage
     \section{Eye characteristics}
     \subsection{Anatomy of the eye}
-    The eye is surrounded by the \textbf{eye lid}. Its purpose is to shield the eye from debris and lubricate the eye by spreading tears over its surface with each blink. Four different parts of the eye do matter for pupil detection. As seen in figure \ref{fig:eye_anatomy}.
+    The eye is surrounded by the \textbf{eye lid}. Its purpose is to shield the eye from debris and lubricate the eye by spreading tears fluid over its surface with each blink. Four different parts of the eye matter for pupil detection. As seen in figure \ref{fig:eye_anatomy}.
     \begin{figure}[h]
       \centering
       \includegraphics[width=0.98\textwidth]{plots/eye_dataset/Various-characteristics-of-an-eye-and-its-iris-texture-7.png}
-      \caption{Overview of the different parts of the eye.}
+      \caption{Overview of the different parts of the eye. \cite{noauthor_various_2009}}
       \label{fig:eye_anatomy}
     \end{figure}
     
-    The white part of the eye is the \textbf{sclera} and is separated from the \textbf{iris} by the \textbf{limbus}. The table \ref{tab:eye_char} shows the size difference between the iris and the pupil
+    The white part of the eye is the \textbf{sclera} and is separated from the \textbf{iris} by the \textbf{limbus}. The table \ref{tab:eye_char} shows the size difference between the iris and the pupil \cite{drahansky_recognition_2018}
     \begin{table}[h]
       \centering 
       \begin{minipage}{0.7\textwidth}
@@ -114,7 +114,7 @@ The data set's goal was to record eye movement under natural conditions. With st
 
     The critical fact for pupil detection is that the iris, pupil and sclera have different brightness intensity values. The pupil is the darkest area in the eye, the sclera is the brightest and the iris is something in between. Depending on the color of the iris, the brightness value can vary. Those characteristics are often used in pupil detection algorithms and will be discussed in the next chapter.
 
-    There can also be reflections of the environment be seen in the eye. This reflection is called \textbf{corneal reflection} and can temper with pupil detection algorithms accuracy and therefore is a challenge for pupil detection algorithms.
+    There can also be reflections of the environment that can be seen in the eye. This reflection is called \textbf{corneal reflection} and can temper with pupil detection algorithms accuracy and therefore is a challenge for pupil detection algorithms.
 
 
     \subsection{Image characteristics}
@@ -145,6 +145,6 @@ The data set's goal was to record eye movement under natural conditions. With st
     The conclusion is, that the histogram is a solid tool to gain information about the pupil, but can vary a lot depending on the environment. Therefore adaptive algorithms have to be used. 
     
     \subsubsection{Noise}
-      In the data set are different kinds of noise. The most obvious one is the \textbf{corneal reflection}. The environment reflects on the eye and is seen as a bright spot on the pupil and destroys information of the pupil. Also \textbf{eyelashes} can be problematic as they are very dark and are often between the camera and the pupil. 
+      In the data set there are different kinds of noise. The most obvious one is the \textbf{corneal reflection}. The environment reflects on the eye and is seen as a bright spot on the pupil and destroys information of the pupil. Also \textbf{eyelashes} can be problematic as they are very dark and are often between the camera and the pupil. 
 
       Another Noise term can be that the eye is not constantly open. The \textbf{eyelid} can cover parts of the pupil or even the whole pupil. Glasses or lenses can add noise to the image as well as when the camera's focus is not on the pupil.

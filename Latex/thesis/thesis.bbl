@@ -21,64 +21,107 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
-\bibitem{zhang_max-planck-institut_nodate}
+\bibitem{arar_robust_2017}
 \BIBentryALTinterwordspacing
-X.~Zhang, Y.~Sugano, and A.~Bulling. Max-planck-institut für informatik:
-  Labelled pupils in the wild ({LPW}). [Online]. Available:
-  \url{https://www.mpi-inf.mpg.de/departments/computer-vision-and-machine-learning/research/gaze-based-human-computer-interaction/labelled-pupils-in-the-wild-lpw}
+N.~M. Arar, ``Robust eye tracking based on adaptive fusion of multiple
+  cameras,'' p. 167, 2017, (Accessed: 29.05.2023). [Online]. Available:
+  \url{http://infoscience.epfl.ch/record/231152}
 \BIBentrySTDinterwordspacing
 
-\bibitem{gonzalez_bilinear_nodate}
-R.~C. Gonzalez and R.~E. Woods, ``Bilinear interpolation,'' in \emph{Digital
-  Image Processing}, 4th~ed., p.~77.
+\bibitem{wildes_iris_1997}
+R.~Wildes, ``Iris recognition: an emerging biometric technology,'' vol.~85,
+  no.~9, pp. 1348--1363, 1997.
 
-\bibitem{noauthor_opencv_nodate}
+\bibitem{zheng_multimodal_2014}
+W.-L. Zheng, B.-N. Dong, and B.-L. Lu, ``Multimodal emotion recognition using
+  {EEG} and eye tracking data,'' in \emph{2014 36th Annual International
+  Conference of the {IEEE} Engineering in Medicine and Biology Society}, 2014,
+  pp. 5040--5043, {ISSN}: 1558-4615.
+
+\bibitem{grubisic_natural_2014}
+I.~Grubiśić, I.~Grbeśa, T.~Lipic, K.~Skala, O.~Zrinscak, R.~Ivekovic, and
+  Z.~Vatavuk, ``Natural eye gaze computer interaction for medical oculography
+  diagnosis: Current status and future prospects,'' in \emph{2014 37th
+  International Convention on Information and Communication Technology,
+  Electronics and Microelectronics ({MIPRO})}, 2014, pp. 421--425.
+
+\bibitem{zhang_max-planck-institut_2016}
+X.~Zhang, Y.~Sugano, and A.~Bulling. Max-planck-institut für informatik:
+  Labelled pupils in the wild ({LPW}). (Accessed: 29.04.2023).
+
+\bibitem{noauthor_various_2009}
 \BIBentryALTinterwordspacing
-{OpenCV}: Histograms, histogram equalization. [Online]. Available:
+Various characteristics of an eye and its iris texture. (Accessed: 29.04.2023).
+  [Online]. Available:
+  \url{https://www.researchgate.net/figure/Various-characteristics-of-an-eye-and-its-iris-texture-7_fig1_323145066}
+\BIBentrySTDinterwordspacing
+
+\bibitem{drahansky_recognition_2018}
+\BIBentryALTinterwordspacing
+M.~Drahanský, ``Recognition of eye characteristics,'' in \emph{Machine
+  Learning and Biometrics}, J.~Yang, D.~S. Park, S.~Yoon, Y.~Chen, and
+  C.~Zhang, Eds.\hskip 1em plus 0.5em minus 0.4em\relax {IntechOpen}, 2018,
+  (Accessed: 29.05.2023). [Online]. Available:
+  \url{https://doi.org/10.5772/intechopen.76026}
+\BIBentrySTDinterwordspacing
+
+\bibitem{gonzalez_bilinear_2018}
+R.~C. Gonzalez and R.~E. Woods, ``Bilinear interpolation,'' in \emph{Digital
+  Image Processing}, 4th~ed., 2018, p.~77.
+
+\bibitem{noauthor_opencv_2015}
+\BIBentryALTinterwordspacing
+(2015) {OpenCV}: Histograms, histogram equalization. (Accessed: 24.05.2023).
+  [Online]. Available:
   \url{https://docs.opencv.org/3.1.0/d5/daf/tutorial_py_histogram_equalization.html}
 \BIBentrySTDinterwordspacing
 
-\bibitem{gonzalez_sharpening_nodate}
+\bibitem{gonzalez_sharpening_2018}
 R.~C. Gonzalez and R.~E. Woods, ``Sharpening (highpass) spatial filters,'' in
-  \emph{Digital Image Processing}, 4th~ed., p. 184.
+  \emph{Digital Image Processing}, 4th~ed., 2018, p. 184.
 
-\bibitem{gonzalez_canny_nodate}
+\bibitem{gonzalez_canny_2018}
 ------, ``Canny edge detection,'' in \emph{Digital Image Processing}, 4th~ed.,
-  p. 732.
+  2018, p. 732.
 
-\bibitem{viola_rapid_nodate}
+\bibitem{viola_rapid_2004}
 \BIBentryALTinterwordspacing
 P.~Viola and M.~Jones, ``Rapid object detection using a boosted cascade of
-  simple features.'' [Online]. Available:
+  simple features,'' 2004, (Accessed: 18.05.2023). [Online]. Available:
   \url{https://www.merl.com/publications/docs/TR2004-043.pdf}
 \BIBentrySTDinterwordspacing
 
 \bibitem{swirski_robust_2012}
 L.~Swirski, A.~Bulling, and N.~Dodgson, ``Robust real-time pupil tracking in
-  highly off-axis images,'' pp. 173--176.
+  highly off-axis images,'' pp. 173--176, 2012.
 
 \bibitem{fitzgibbon_direct_2000}
 A.~Fitzgibbon, M.~Pilu, and R.~Fisher, ``Direct least square fitting of
-  ellipses,'' vol.~21.
+  ellipses,'' vol.~21, 2000.
 
 \bibitem{gander_least_1980}
 \BIBentryALTinterwordspacing
 W.~Gander, ``Least squares with a quadratic constraint,'' vol.~36, no.~3, pp.
-  291--307. [Online]. Available: \url{https://doi.org/10.1007/BF01396656}
+  291--307, 1980, (Accessed: 29.05.2023). [Online]. Available:
+  \url{https://doi.org/10.1007/BF01396656}
 \BIBentrySTDinterwordspacing
 
-\bibitem{derpanis_overview_nodate}
-K.~G. Derpanis, ``Overview of the {RANSAC} algorithm.''
+\bibitem{derpanis_overview_2010}
+\BIBentryALTinterwordspacing
+K.~G. Derpanis, ``Overview of the {RANSAC} algorithm,'' 2010, (Accessed:
+  24.05.2023). [Online]. Available:
+  \url{http://www.cse.yorku.ca/~kosta/CompVis_Notes/ransac.pdf}
+\BIBentrySTDinterwordspacing
 
 \bibitem{vondracek_image_2018}
 A.~Vondráček, ``Image segmentation using a morphological operator for
-  curvature-driven motion.''
+  curvature-driven motion,'' 2018.
 
 \bibitem{kass_snakes_1988}
 \BIBentryALTinterwordspacing
 M.~Kass, A.~Witkin, and D.~Terzopoulos, ``Snakes: Active contour models,''
-  vol.~1, no.~4, pp. 321--331. [Online]. Available:
-  \url{http://link.springer.com/10.1007/BF00133570}
+  vol.~1, no.~4, pp. 321--331, 1988, (Accessed: 24.05.2023). [Online].
+  Available: \url{http://link.springer.com/10.1007/BF00133570}
 \BIBentrySTDinterwordspacing
 
 \end{thebibliography}

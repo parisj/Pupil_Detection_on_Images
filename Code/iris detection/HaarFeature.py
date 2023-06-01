@@ -1,16 +1,13 @@
 import numpy as np 
 import cv2
-import matplotlib.pyplot as plt 
 from concurrent.futures import ThreadPoolExecutor
-#from numba import njit
+from numba import njit
 import exceptions
 
 
 
 class HaarFeature: 
-    
-    #TODO: Doc Strings, error handling - empty ROI - move plot to observer
-    
+        
     def __init__ (self, maxRadius, minRadius, image):
 
         # maxRadius that will be considered
@@ -72,9 +69,7 @@ class HaarFeature:
             if min_radius_response < min_response:
                 min_response = min_radius_response
                 position_pupil = min_radius_position
-                
-    #TODO: move to observer class
-        
+                        
         #Ploting
         normalized_response = cv2.normalize(response_image, None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
         if plot:
@@ -132,7 +127,7 @@ boosting performance
 
 '''
 
-#@njit
+@njit
 def process_radius(args):
     r, eye_integral, padding, img_shape, response_img = args
     #Setup for comparing the sums and get the right coordinates

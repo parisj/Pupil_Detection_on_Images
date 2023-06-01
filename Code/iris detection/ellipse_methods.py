@@ -4,11 +4,7 @@ from Pupil import Pupil
 from Iris import Iris
 from ImageObserver import ImageObserver
 from Evaluate import Evaluation
-import matplotlib.pyplot as plt
-import seaborn as sns
 from HaarFeature import HaarFeature
-import ellipse_detection_algo as eda
-import create_plots as cp
 from acwe import ACWE
 
 ''' 
@@ -81,7 +77,7 @@ def split_path(path):
 def haar_roi_extraction( image, plot):
     #print(f'plot: {plot}')
     #print(f'image: {image}')
-    Haar_kernel = HaarFeature(8, 3, image)
+    Haar_kernel = HaarFeature(9, 3, image)
     position_pupil, roi, roi_coords = Haar_kernel.find_pupil_ellipse(plot)
     #print('roi', roi)
     return  position_pupil, roi, roi_coords
@@ -108,30 +104,19 @@ def main_detection(path, scaling = 1):
         gray_eye_image = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         pupil_obj.set_gray(gray_eye_image.copy())
         
-        clahe = cv2.createCLAHE(clipLimit=5.0, tileGridSize=(11,11))
+        clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(11,11))
         gray_eye_image = clahe.apply(gray_eye_image)
         pupil_obj.set_processing(gray_eye_image.copy())
         
         coords, roi, roi_coords = haar_roi_extraction(pupil_obj.get_processing(), plot= True)
 
-        
-        xy_1 = (int(coords[0]- 110), int(coords[1]-110))
-        xy_2 = (int(coords[0]+110), int(coords[1]+110))
-        
-        #cv2.rectangle(frame,xy_1, xy_2, (255,255,50), 1 )
-        #cv2.imshow('result', frame)
-        #cv2.imshow('roi', roi)
- 
         center = (coords[1]-roi_coords[0][1], coords[0]-roi_coords[0][0])
         radius = 10
         acwe = ACWE()
-        acwe.start(center, radius, roi, 3, 1000, 5, 0.5, 0.003)
+        acwe.start(center, radius, roi, 3, 1000, 2, 0.3, 0.0002, 1000, 0.01)
         BOOL_PUPIL = acwe.result()
         ellipse = acwe.get_result_ellipse()
-        #acwe.plot_ellipse()
-  
-        #
-        
+
         
         if BOOL_PUPIL is True:
             pupil_obj.set_ellipse(ellipse, roi_coords, roi.shape)
@@ -145,7 +130,6 @@ def main_detection(path, scaling = 1):
         #print(label_center, pupil_obj.get_center())
         
         evaluation_obj.add_frame(BOOL_PUPIL,label_center ,pupil_obj.get_center(), roi_coords )
-        #cp.plot_ellipse(roi, pupil)
 
         observer.plot_pupil(pupil_obj)
         #observer.plot_imgs('original')
@@ -170,6 +154,6 @@ def main_Haar_image():
     cv2.waitKey(0)
     
 if __name__ == '__main__':
-    main_detection('D:/data_set/LPW/2/13.avi,D:/data_set/LPW/2/13.txt', scaling = 1)
+    main_detection('D:/data_set/LPW/1/1.avi,D:/data_set/LPW/1/1.txt', scaling = 1)
 
     cv2.waitKey(0)

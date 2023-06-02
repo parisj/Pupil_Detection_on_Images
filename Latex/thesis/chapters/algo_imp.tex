@@ -65,7 +65,7 @@ The calculation of the response matrix is done by using the integral image and i
     \label{fig:limit_haar_good}
 \end{figure}
 
-The strongest response lies within the pupil, and the location is used to create a ROI. In this case, a ROI of $(220 x 220)$ was the norm size, but depending on the rescaling of the video, this needs to be adapted. Important to note is that the returned point in the pupil is not given to be in the center, and this in an important fact when choosing the size of the ROI.
+The strongest response lies within the pupil, and the location is used to create a ROI. In this case, a ROI of $(220 x 220)$ was the norm size, but depending on the rescaling of the video, this needs to be adapted. Important to note is that the returned point in the pupil is not given to be in the center, and this is an important fact when choosing the size of the ROI.
 Nevertheless, Haar-like feature detection still needs improvement and even though it can handle noise, there are limits to the amount of noise until the algorithm fails. Furthermore, the algorithm is not able to detect the pupil when the eye is closed.
 
 \begin{figure}[h]
@@ -121,7 +121,7 @@ The OpenCV ellipse fit function is based on the least square method and is robus
 \end{figure}
 
 \subsection{Canny edge detection with OpenCV ellipse fit or RANSAC}
-For this combination, the first step is to find the ROI. This is done with the Haar-like feature. This is from great importance because otherwise, there is no chance of finding the pupil boundary because there will be many edges that are possible pupil edges. The image is blurred with a Gaussian blur. Afterward, the Canny edge detection is used on the ROI (Using the gradient, by calculating the sobel gradient). 
+For this combination, the first step is to find the ROI. This is done with the Haar-like feature. This is of great importance because otherwise, there is no chance of finding the pupil boundary because there will be many edges that are possible pupil edges. The image is blurred with a Gaussian blur. Afterwards, the Canny edge detection is used on the ROI (Using the gradient, by calculating the sobel gradient). 
 
 The edges are evaluated by their circularity. The best matching contour is further processed with the OpenCV ellipse fit or the RANSAC alrogithm. This results in the pupil ellipse approximation. The problem with this approach is that the boundary must be clearly visible and the threshold values must be chosen carefully. Here the already known intensity value from the given point inside the pupil is used to make a decision for the thresholding values needed by the Canny edge detection. The benefit of this algorithm is the speed at which the frames can be processed. However, this combination is not considered to be robust enough to handle the LPW data set and is therefore not further evaluated.
 
@@ -135,9 +135,9 @@ ACWE and OpenCV ellipse fit also only work in low noise environments, just as th
 \label{sus:acwe_ransac}
 The benefit of using ACWE discussed in section \ref{sus:acwe}and the RANSAC method already discussed in section \ref{sus:ransac} is that the ellipse fit is not anymore based on the least square method but instead uses a different approach as already introduced in the RANSAC section. The RANSAC algorithm leads to a better fit but with the tradeoff of computational efficiency. This tradeoff is worth it when the images contain much noise and the pupil boundary is not completely visible. If only a part of the boundary is visible, the accuracy of the ACWE combined with RANSAC is more significant than when just using the OpenCV Ellipse fit.
 
-Haar-like feature detection returns a point inside the pupil. This location is the center position for the initial contour creating the level set $u$. When ACWE converges, the binary mask is dilated and eroded to remove small noise pixels and to make the mask smother. Then the mask is used as input for the RANSAC algorithm to fit an ellipse to the contour of the mask. The parameter of the approximated pupil contour can be retrieved from the ellipse fit.
+Haar-like feature detection returns a point inside the pupil. This location is the center position for the initial contour creating the level set $u$. When ACWE converges, the binary mask is dilated and eroded to remove small noise pixels and to make the mask smoother. Then the mask is used as input for the RANSAC algorithm to fit an ellipse to the contour of the mask. The parameter of the approximated pupil contour can be retrieved from the ellipse fit.
 
-As already foreshadowed, the process contains many steps and ACWE and RANSAC are iterative algorithms, making this approach the slowest but most accurate of all discussed algorithms and their combination. The RANSAC algorithm uses a subset of five points and fits an ellipse to these points. To evaluate the ellipse fit, the distance from all points of the mask's contour to the ellipse curve is calculated and categorized. The fit is then calculated with these equations: 
+As already foreshadowed, the process contains many steps and ACWE and RANSAC are iterative algorithms, making this approach the slowest, but most accurate of all discussed algorithms and their combination. The RANSAC algorithm uses a subset of five points and fits an ellipse to these points. To evaluate the ellipse fit, the distance from all points of the mask's contour to the ellipse curve is calculated and categorized. The fit is then calculated with these equations: 
 \begin{gather}
     \text{InlierRatio} = \frac{n_{\text{inliers}}}{n_{\text{total\_points}}} \\
     \text{BorderRatio} = \frac{n_{\text{border}}}{n_{\text{total\_points}}} \\

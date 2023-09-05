@@ -7,7 +7,7 @@ from numba import njit
 
 
 class ransac:
-    def __init__(self, mask, iterations, threshold):
+    def __init__(self, mask, iterations, threshold, callback_bool = False):
         self.mask = mask
         #print(f'mask: {mask}')
         #print(f'mask.shape: {mask.shape}')
@@ -15,6 +15,7 @@ class ransac:
         self.threshold = threshold
         self.points_contour = None
         self.test_mask = np.zeros((385,640), dtype=np.uint8)
+        self.callback_bool = callback_bool
     
     # Getter and Setter
         
@@ -98,11 +99,23 @@ class ransac:
             area = self.calc_area(params)
             if params[1][0] == math.inf or params[1][1] == math.inf:
                 continue
-            best_ellipse, best_inliers, best_area, best_border, best_distance, best_stat = evaluate(points, params, threshold, area, best_area,
-                                                             best_inliers,best_border,best_ellipse, best_distance, mask_points, best_stat)
-            #cv2.ellipse(mask_points, (round(params[0][0]),round(params[0][1])), (round(params[1][0] / 2),round(params[1][1] / 2)), params[2], 0, 360, (0,255,0), 1)
-            #cv2.imshow('test_mask', mask_points)
-            #cv2.waitKey(1)
+            best_ellipse, best_inliers, best_area, best_border, best_distance, best_stat = evaluate(points,
+                                                                                                    params,
+                                                                                                    threshold,
+                                                                                                    area,
+                                                                                                    best_area,
+                                                                                                    best_inliers,
+                                                                                                    best_border,best_ellipse, 
+                                                                                                    best_distance,
+                                                                                                    mask_points,
+                                                                                                    best_stat, 
+                                                                                                    self.callback_bool
+                                                                                                    )
+            
+            if self.callback_bool:                                                     
+                cv2.ellipse(mask_points, (round(params[0][0]),round(params[0][1])), (round(params[1][0] / 2),round(params[1][1] / 2)), params[2], 0, 360, (0,255,0), 1)
+                cv2.imshow('test_mask', mask_points)
+                cv2.waitKey(1)
         return best_ellipse, best_inliers, best_area, best_border, best_stat
 
     def ransac_start(self):
@@ -166,8 +179,8 @@ def distance_to_ellipse_eigen(x, y, h, k, a, b, theta):
     distance = r - 1  # Subtract 1 because the ellipse in the new coordinate system has a radius of 1
     return distance
 
-@njit
-def evaluate(points, params, threshold, area, best_area, best_inliers,best_border, best_ellipse, best_distance, mask_points, best_stat):
+#@njit
+def evaluate(points, params, threshold, area, best_area, best_inliers,best_border, best_ellipse, best_distance, mask_points, best_stat, callback_bool):
     
     center, axis, angle = params
     xc, yc = center
@@ -197,17 +210,20 @@ def evaluate(points, params, threshold, area, best_area, best_inliers,best_borde
             reshaped_point = np.empty((1, 2), dtype=np.int32)
             reshaped_point[0] = point
             border = np.append(border, reshaped_point, axis=0)
-            # cv2.circle(mask_points, (point[0],point[1]), 2, (255,0,0), -1)
+            if callback_bool:
+                cv2.circle(mask_points, (point[0],point[1]), 2, (255,0,0), -1)
         # if inlier
         elif dist < 0:
             reshaped_point = np.empty((1, 2), dtype=np.int32)
             reshaped_point[0] = point
             inliers = np.append(inliers, reshaped_point, axis=0)
-            # cv2.circle(mask_points, (point[0],point[1]), 1, (0,0,255), -1)
+            if callback_bool:
+                cv2.circle(mask_points, (point[0],point[1]), 1, (0,0,255), -1)
 
         #if outlier    
         else:
-            # cv2.circle(mask_points, (point[0],point[1]), 1, (255,255,255), -1)
+            if callback_bool:
+                cv2.circle(mask_points, (point[0],point[1]), 1, (255,255,255), -1)
             continue   
     
     # fit score calculation and comparison

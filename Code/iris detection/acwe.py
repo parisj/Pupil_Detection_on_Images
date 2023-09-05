@@ -35,6 +35,7 @@ class ACWE:
         self.iterations_safe = 0
         self.ransac_iterations = 0
         self.ransac_threshold = 0
+        self.callback_bool = False
         
     def set_image(self, image):
         self.image = image
@@ -98,6 +99,13 @@ class ACWE:
     
     def get_ransac_threshold(self):
         return self.ransac_threshold
+    
+    def set_callback_bool(self, c_bool):
+        
+        self.callback_bool = c_bool
+
+    def get_callback_bool(self):
+        return self.callback_bool
     
     def _init_mask(self, center, radius):
         image_shape = self.get_intensity().shape
@@ -175,7 +183,7 @@ class ACWE:
         l_1 = self.get_lambda1()
         l_2 = self.get_lambda2()
         intensity = self.get_intensity()
-
+        callback_bool = self.get_callback_bool()
         for _ in range(iterations_ACWE):
             if prev_mask is not None:
                 #convergence check
@@ -203,15 +211,18 @@ class ACWE:
             self.set_mask(mask)
             
             self.smoothing(iterations_smoothing)
-            #self.callback()
-            
-    def start(self, center, radius, image, iterations_smoothing, iterations_ACWE, lambda1, lambda2, convergence_threshold, ransac_iterations, ransac_threshold):
+            if callback_bool:
+                self.callback()
+
+    def start(self, center, radius, image, iterations_smoothing, iterations_ACWE, lambda1, lambda2, convergence_threshold, ransac_iterations, ransac_threshold, callback_bool= False):
         #init parameters and start ACWE
         self._init_Intensity(image)
         self.set_center_start(center)
         self._init_mask(center, radius)
         self.lambda1 = lambda1
         self.lambda2 = lambda2
+        self.set_callback_bool(callback_bool)
+
         self.set_convergence_threshold(convergence_threshold)
         self._ACWE(iterations_smoothing, iterations_ACWE)
         self.set_ransac_iterations(ransac_iterations)
@@ -247,7 +258,7 @@ class ACWE:
         # Draw the ellipse on the image
         cv2.ellipse(image_copy, ellipse, color, 1)
         cv2.imshow('Result', image_copy)
-        cv2.imwrite('Latex/thesis/plots/acwe/robustfitfit2.png', image_copy)
+        #cv2.imwrite('path/to/folder.png', image_copy)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
         
@@ -275,7 +286,7 @@ class ACWE:
         # Use Ransac to fit an ellipse to the contour
         r_threshold = self.get_ransac_threshold()
         r_iterations = self.get_ransac_iterations()
-        rans = ransac(largest_contour, r_iterations, r_threshold)
+        rans = ransac(largest_contour, r_iterations, r_threshold, self.callback_bool)
         a,b,c,d,stat = rans.ransac_start()
         
         #-------------------

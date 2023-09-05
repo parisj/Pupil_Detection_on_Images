@@ -20,7 +20,7 @@ class HaarFeature:
         self.coords = None
 
     def extract_roi(self, coords, size):
-        
+    
         self.coords = coords
         x = coords[0]
         y = coords[1]
@@ -77,7 +77,7 @@ class HaarFeature:
             normalized_response = cv2.GaussianBlur(normalized_response, (3,3),0)
 
             response_image_color = cv2.applyColorMap(normalized_response, colormap)
-            #cv2.imshow('Response Image', response_image_color)
+            cv2.imshow('Response Image', response_image_color)
             #cv2.imwrite('Latex/thesis/plots/results/originalbest.png', self.image)
             #cv2.circle(response_image_color, position_pupil, 4, (255,0,0), -1)
             #cv2.imwrite('Latex/thesis/plots/results/responsehaarbest.png', response_image_color)
